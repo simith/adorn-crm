@@ -23,7 +23,7 @@ export const PageTitle = ({ title, items, centerItem }: IPageTitle) => {
                     <div className="breadcrumbs hidden p-0 text-sm sm:inline">
                         <ul>
                             <li>
-                                <Link href="/dashboards/ecommerce">Nexus</Link>
+                                <Link href="/dashboard">Nexus</Link>
                             </li>
                             {items.map((item, index) => {
                                 return (

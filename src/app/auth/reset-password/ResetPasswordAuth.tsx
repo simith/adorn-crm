@@ -64,7 +64,7 @@ export const ResetPasswordAuth = () => {
                 </label>
             </div>
 
-            <Link href="/dashboards/ecommerce" className="btn btn-primary btn-wide mt-4 max-w-full gap-3 md:mt-6">
+            <Link href="/dashboard" className="btn btn-primary btn-wide mt-4 max-w-full gap-3 md:mt-6">
                 <span className="iconify lucide--check size-4" />
                 Change Password
             </Link>

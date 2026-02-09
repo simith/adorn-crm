@@ -3,16 +3,16 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 import { TopbarLanguageMenu } from "./TopbarLanguageMenu";
 import { TopbarNotificationButton } from "./TopbarNotificationButton";
 import { TopbarProfileMenu } from "./TopbarProfileMenu";
-import { TopbarSearchButton } from "./TopbarSearchButton";
+import { TopbarInlineSearch } from "./TopbarInlineSearch";
 
 export const Topbar = () => {
     return (
         <div
             role="navigation"
             aria-label="Navbar"
-            className="flex items-center justify-between px-3"
+            className="flex items-center justify-between gap-3 px-3"
             id="layout-topbar">
-            <div className="inline-flex items-center gap-3">
+            <div className="inline-flex shrink-0 items-center gap-3">
                 <label
                     className="btn btn-square btn-ghost btn-sm group-has-[[id=layout-sidebar-hover-trigger]:checked]/html:hidden"
                     aria-label="Leftmenu toggle"
@@ -25,9 +25,11 @@ export const Topbar = () => {
                     htmlFor="layout-sidebar-hover-trigger">
                     <span className="iconify lucide--menu size-5" />
                 </label>
-                <TopbarSearchButton />
             </div>
-            <div className="inline-flex items-center gap-0.5">
+            <div className="flex min-w-0 flex-1 justify-center">
+                <TopbarInlineSearch />
+            </div>
+            <div className="inline-flex shrink-0 items-center gap-0.5">
                 <TopbarLanguageMenu />
                 <ThemeToggle className="btn btn-sm btn-circle btn-ghost" />
                 <label htmlFor="layout-rightbar-drawer" className="btn btn-circle btn-ghost btn-sm drawer-button">

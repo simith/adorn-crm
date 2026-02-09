@@ -14,20 +14,23 @@ export const ChatInput = ({ onSendMessage }: IChatInput) => {
     };
 
     return (
-        <form className="bg-base-200 flex items-center gap-3 p-4" onSubmit={onSubmit}>
-            <button className="btn btn-ghost btn-sm btn-circle" aria-label="Attachment" type="button">
-                <span className="iconify lucide--paperclip size-4.5" />
+        <form className="flex items-center gap-2 bg-[#f0f2f5] p-3" onSubmit={onSubmit}>
+            <button className="btn btn-ghost btn-sm btn-circle text-gray-600 hover:bg-gray-300/50" aria-label="Attachment" type="button">
+                <span className="iconify lucide--paperclip size-5" />
             </button>
             <input
-                className="input validator grow"
+                className="input input-sm grow bg-white border border-gray-200 rounded-full focus:outline-none focus:border-[#00a884]"
                 name="message"
                 type="text"
                 aria-label="Message"
                 required
-                placeholder="Type a message..."
+                placeholder="Type a message"
             />
-            <button className="btn btn-primary btn-circle btn-sm" type="submit" aria-label="Send message">
-                <span className="iconify lucide--send-horizonal size-4.5" />
+            <button
+                className="btn btn-circle btn-sm bg-[#00a884] border-0 text-white hover:bg-[#008f72]"
+                type="submit"
+                aria-label="Send message">
+                <span className="iconify lucide--send size-5" />
             </button>
         </form>
     );

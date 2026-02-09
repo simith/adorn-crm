@@ -39,11 +39,15 @@ export const Hero = () => {
                     </div>
 
                     <div className="mt-6 inline-flex items-center gap-2.5 transition-all delay-300 duration-1000 sm:gap-5 xl:mt-10 starting:opacity-0 starting:blur-sm">
-                        <Link href="/dashboards/ecommerce" target="_blank" className="btn btn-primary btn-lg gap-2.5">
+                        <Link href="/auth/register" className="btn btn-primary btn-lg gap-2.5">
+                            <span className="iconify lucide--user-plus size-5 sm:size-5.5" />
+                            Sign up
+                        </Link>
+                        <Link href="/dashboard" target="_blank" className="btn btn-ghost btn-neutral btn-lg gap-2.5 !border-transparent text-base dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-black">
                             <span className="iconify lucide--monitor-dot size-5 sm:size-5.5" />
                             <div className="text-start">
                                 <p className="text-sm/none">Dashboard</p>
-                                <p className="text-primary-content/70 mt-px text-[11px]/none">Preview</p>
+                                <p className="text-base-content/70 mt-px text-[11px]/none">Preview</p>
                             </div>
                         </Link>
                         <Link
@@ -75,29 +79,7 @@ export const Hero = () => {
                                 modules={[Navigation, Pagination, Autoplay]}>
                                 <SwiperSlide>
                                     <div className="mx-2 cursor-pointer">
-                                        <Link className="relative" href="/dashboards/ecommerce">
-                                            <img
-                                                src="/images/landing/dashboard-ecommerce-light.jpg"
-                                                className="h-full w-full rounded-lg dark:hidden"
-                                                alt="hero-landing"
-                                            />
-                                            <img
-                                                src="/images/landing/dashboard-ecommerce-dark.jpg"
-                                                className="hidden h-full w-full rounded-lg dark:block"
-                                                alt="hero-landing"
-                                            />
-                                            <div className="absolute inset-0 flex items-end justify-center rounded-lg bg-linear-to-b from-transparent from-[50%] via-black/20 via-[80%] to-black/80 opacity-0 transition-all duration-300 group-hover:opacity-100">
-                                                <div className="rounded-box mb-8 gap-2.5 bg-white px-4 py-2 text-sm font-medium text-black/80">
-                                                    Ecommerce Dashboard
-                                                </div>
-                                            </div>
-                                        </Link>
-                                    </div>
-                                </SwiperSlide>
-
-                                <SwiperSlide>
-                                    <div className="mx-2 cursor-pointer">
-                                        <Link className="relative" href="/dashboards/crm">
+                                        <Link className="relative" href="/dashboard">
                                             <img
                                                 src="/images/landing/dashboard-crm-light.jpg"
                                                 className="h-full w-full rounded-lg dark:hidden"
@@ -111,28 +93,6 @@ export const Hero = () => {
                                             <div className="absolute inset-0 flex items-end justify-center rounded-lg bg-linear-to-b from-transparent from-[50%] via-black/20 via-[80%] to-black/80 opacity-0 transition-all duration-300 group-hover:opacity-100">
                                                 <div className="rounded-box mb-8 gap-2.5 bg-white px-4 py-2 text-sm font-medium text-black/80">
                                                     CRM Dashboard
-                                                </div>
-                                            </div>
-                                        </Link>
-                                    </div>
-                                </SwiperSlide>
-
-                                <SwiperSlide>
-                                    <div className="mx-2 cursor-pointer">
-                                        <Link className="relative" href="/dashboards/gen-ai">
-                                            <img
-                                                src="/images/landing/dashboard-gen-ai-light.jpg"
-                                                className="h-full w-full rounded-lg dark:hidden"
-                                                alt="hero-landing"
-                                            />
-                                            <img
-                                                src="/images/landing/dashboard-gen-ai-dark.jpg"
-                                                className="hidden h-full w-full rounded-lg dark:block"
-                                                alt="hero-landing"
-                                            />
-                                            <div className="absolute inset-0 flex items-end justify-center rounded-lg bg-linear-to-b from-transparent from-[50%] via-black/20 via-[80%] to-black/80 opacity-0 transition-all duration-300 group-hover:opacity-100">
-                                                <div className="rounded-box mb-8 gap-2.5 bg-white px-4 py-2 text-sm font-medium text-black/80">
-                                                    Gen AI Dashboard
                                                 </div>
                                             </div>
                                         </Link>

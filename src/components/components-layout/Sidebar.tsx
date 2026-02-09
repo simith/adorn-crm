@@ -55,7 +55,7 @@ export const Sidebar = ({ menuItems }: { menuItems: ISidebarMenuItem[] }) => {
             </SimpleBar>
             <div className="mt-2">
                 <Link
-                    href="/dashboards/ecommerce"
+                    href="/dashboard"
                     target="_blank"
                     className="group rounded-box relative mx-2.5 block gap-3">
                     <div className="rounded-box absolute inset-0 bg-gradient-to-r from-transparent to-transparent transition-opacity duration-300 group-hover:opacity-0"></div>

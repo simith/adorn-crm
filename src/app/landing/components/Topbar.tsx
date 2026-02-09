@@ -61,7 +61,10 @@ export const Topbar = () => {
                                         className="drawer-overlay"></label>
                                     <ul className="menu bg-base-100 text-base-content min-h-full w-80 p-4">
                                         <li>
-                                            <Link href="/dashboards/ecommerce">Dashboard</Link>
+                                            <Link href="/dashboard">Dashboard</Link>
+                                        </li>
+                                        <li>
+                                            <Link href="/auth/register">Sign up</Link>
                                         </li>
                                         <li>
                                             <Link href="/components">Components</Link>
@@ -71,13 +74,16 @@ export const Topbar = () => {
                             </div>
                         </div>
 
-                        <Link href="/dashboards/ecommerce">
+                        <Link href="/dashboard">
                             <Logo />
                         </Link>
                     </div>
                     <ul className="menu menu-horizontal hidden gap-2 px-0 lg:inline-flex">
                         <li>
-                            <Link href="/dashboards/ecommerce">Dashboard</Link>
+                            <Link href="/dashboard">Dashboard</Link>
+                        </li>
+                        <li>
+                            <Link href="/auth/register">Sign up</Link>
                         </li>
                         <li>
                             <Link href="/components">Components</Link>
@@ -86,11 +92,10 @@ export const Topbar = () => {
                     <div className="inline-flex items-center gap-3">
                         <ThemeToggle className="btn btn-square btn-ghost btn-sm border-transparent" />
                         <Link
-                            href="https://daisyui.com/store/244268?aff=Db6q2"
-                            target="_blank"
+                            href="/auth/register"
                             className="btn from-primary to-secondary group/purchase text-primary-content btn-sm max-sm:btn-square relative gap-2 border-0 bg-linear-to-r text-sm">
-                            <span className="iconify lucide--shopping-cart size-4" />
-                            <span className="max-sm:hidden">Buy Now</span>
+                            <span className="iconify lucide--user-plus size-4" />
+                            <span className="max-sm:hidden">Sign up</span>
                             <div className="from-primary to-secondary absolute inset-x-0 top-1 -z-1 h-8 bg-linear-to-r opacity-40 blur-md transition-all duration-500 group-hover/purchase:opacity-60 group-hover/purchase:blur-lg"></div>
                         </Link>
                     </div>

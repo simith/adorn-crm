@@ -15,6 +15,7 @@ export const ChatApp = () => {
                 message,
                 sendAt: "05:59 PM",
                 sender: "me",
+                status: "sent",
             });
             setSelectedChat({ ...selectedChat });
         }

@@ -57,7 +57,7 @@ export const LoginAuth = () => {
                 </label>
             </div>
 
-            <Link href="/dashboards/ecommerce" className="btn btn-primary btn-wide mt-4 max-w-full gap-3 md:mt-6">
+            <Link href="/dashboard" className="btn btn-primary btn-wide mt-4 max-w-full gap-3 md:mt-6">
                 <span className="iconify lucide--log-in size-4" />
                 Login
             </Link>

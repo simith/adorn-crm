@@ -14,7 +14,7 @@ export const TopbarSearchButton = () => {
     return (
         <>
             <button
-                className="btn btn-outline btn-sm btn-ghost border-base-300 text-base-content/70 hidden h-9 w-48 justify-start gap-2 !text-sm md:flex"
+                className="btn btn-outline btn-sm btn-ghost border-base-300 text-base-content/70 hidden h-9 w-full max-w-md justify-start gap-2 !text-sm md:flex"
                 onClick={showModal}>
                 <span className="iconify lucide--search size-4" />
                 <span>Search</span>

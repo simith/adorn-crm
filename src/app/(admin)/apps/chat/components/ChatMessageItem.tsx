@@ -1,26 +1,57 @@
 import { IChatItem } from "./ChatItem";
 
+export type MessageStatus = "sent" | "delivered" | "read";
+
 export type IChatMessageItem = {
     message: string;
     sendAt: string;
     sender: "me" | "other";
+    status?: MessageStatus;
+};
+
+const TickIcon = ({ status }: { status?: MessageStatus }) => {
+    if (!status) return null;
+    const isRead = status === "read";
+    const isDelivered = status === "delivered" || isRead;
+    const colorClass = isRead ? "text-[#0088ea]" : "text-[#667781]";
+    return (
+        <span className={`inline-flex shrink-0 size-4 ${colorClass}`} aria-hidden>
+            {isDelivered ? (
+                <span className="iconify lucide--check-check size-4" />
+            ) : (
+                <span className="iconify lucide--check size-4" />
+            )}
+        </span>
+    );
 };
 
 export const ChatMessageItem = ({ chat, message }: { chat: IChatItem; message: IChatMessageItem }) => {
+    const isMe = message.sender === "me";
     return (
         <div>
-            <div className={`chat ${message.sender == "me" ? "chat-end" : "chat-start"}`}>
+            <div className={`chat ${isMe ? "chat-end" : "chat-start"}`}>
                 <div className="chat-image avatar">
                     <div className="w-10">
                         <img
-                            src={message.sender == "me" ? "/images/avatars/1.png" : chat.image}
+                            src={isMe ? "/images/avatars/1.png" : chat.image}
                             className="mask mask-squircle bg-base-200 p-0.5"
-                            alt="Tailwind CSS chat bubble component"
+                            alt=""
                         />
                     </div>
                 </div>
-                <div className="chat-bubble bg-base-200 text-sm">{message.message}</div>
-                <div className="chat-footer text-base-content/60">{message.sendAt}</div>
+                <div
+                    className={`chat-bubble text-sm max-w-[85%] ${
+                        isMe
+                            ? "bg-[#d9fdd3] text-gray-900 border border-[#b8e6b0]"
+                            : "bg-white text-gray-900 border border-gray-200 shadow-sm"
+                    }`}>
+                    <p className="break-words">{message.message}</p>
+                    <div className="mt-0.5 flex flex-nowrap items-center justify-end gap-1.5">
+                        <span className="text-gray-600 text-[11px] shrink-0">{message.sendAt}</span>
+                        {isMe && <TickIcon status={message.status ?? "sent"} />}
+                    </div>
+                </div>
+                {!isMe && <div className="chat-footer text-gray-600 text-xs">{message.sendAt}</div>}
             </div>
         </div>
     );

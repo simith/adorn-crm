@@ -10,7 +10,7 @@ const NotFoundPage = () => {
         <>
             <div className="flex h-screen w-screen flex-col items-center justify-center">
                 <img src="/images/landscape/error-404.svg" alt="error" className="h-100" />
-                <Link href="/landing" className="btn btn-primary mt-5">
+                <Link href="/" className="btn btn-primary mt-5">
                     Go to Home
                 </Link>
             </div>

@@ -72,7 +72,7 @@ export const RegisterAuth = () => {
                     <span className="text-primary ms-1 cursor-pointer hover:underline">terms and conditions</span>
                 </label>
             </div>
-            <Link href="/dashboards/ecommerce" className="btn btn-primary btn-wide mt-4 max-w-full gap-3 md:mt-6">
+            <Link href="/dashboard" className="btn btn-primary btn-wide mt-4 max-w-full gap-3 md:mt-6">
                 <span className="iconify lucide--user-plus size-4" />
                 Register
             </Link>

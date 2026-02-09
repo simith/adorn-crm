@@ -80,7 +80,7 @@ export const Sidebar = ({ menuItems }: { menuItems: ISidebarMenuItem[] }) => {
 
             <div id="layout-sidebar" className="sidebar-menu flex flex-col" data-theme={calculatedSidebarTheme}>
                 <div className="flex h-16 min-h-16 items-center justify-between gap-3 ps-5 pe-4">
-                    <Link href="/dashboards/ecommerce">
+                    <Link href="/dashboard">
                         <Logo />
                     </Link>
                     <label
@@ -108,6 +108,7 @@ export const Sidebar = ({ menuItems }: { menuItems: ISidebarMenuItem[] }) => {
                 </div>
 
                 <div className="mb-2">
+                    {/* Components link hidden
                     <Link href="/components" target="_blank" className="group rounded-box relative mx-2.5 block gap-3">
                         <div className="rounded-box absolute inset-0 bg-gradient-to-r from-transparent to-transparent transition-opacity duration-300 group-hover:opacity-0"></div>
                         <div className="from-primary to-secondary rounded-box absolute inset-0 bg-gradient-to-r opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
@@ -121,6 +122,7 @@ export const Sidebar = ({ menuItems }: { menuItems: ISidebarMenuItem[] }) => {
                         </div>
                     </Link>
                     <hr className="border-base-300 my-2 border-dashed" />
+                    */}
                     <div className="dropdown dropdown-top dropdown-end w-full">
                         <div
                             tabIndex={0}

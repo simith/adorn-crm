@@ -15,7 +15,7 @@ const ResetPasswordPage = () => {
     return (
         <div className="flex flex-col items-stretch p-6 md:p-8 lg:p-16">
             <div className="flex items-center justify-between">
-                <Link href="/dashboards/ecommerce">
+                <Link href="/">
                     <Logo />
                 </Link>
                 <ThemeToggle className="btn btn-circle btn-outline border-base-300" />
