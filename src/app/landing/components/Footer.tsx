@@ -70,12 +70,6 @@ export const Footer = () => {
                     </div>
                 </div>
                 <div className="border-base-300 mt-12 flex flex-wrap justify-between gap-3 border-t py-6">
-                    <p>
-                        Built and designed with care by{" "}
-                        <Link href="https://withden.dev/" target="_blank" className="text-primary">
-                            Denish
-                        </Link>
-                    </p>
                     <span>
                         🌼 Made with
                         <Link className="link-hover link-primary ms-1" href="https://daisyui.com" target="_blank">
