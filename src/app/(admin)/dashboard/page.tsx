@@ -1,14 +1,12 @@
 import { type Metadata } from "next";
 
-import { PageTitle } from "@/components/PageTitle";
-
+import { BranchStatList } from "./components/BranchStatList";
 import { CustomerDealsCard } from "./components/CustomerDealsCard";
 import { GoalStatusCard } from "./components/GoalStatusCard";
 import { PremiumCard } from "./components/PremiumCard";
 import { QuickIntegrationCard } from "./components/QuickIntegrationCard";
 import { SalesMetricCard } from "./components/SalesMetricCard";
 import { SocialAcquisitionCard } from "./components/SocialAcquisitionCard";
-import { StatList } from "./components/StatList";
 
 export const metadata: Metadata = {
     title: "Dashboard",
@@ -16,12 +14,10 @@ export const metadata: Metadata = {
 
 const DashboardPage = () => {
     return (
-        <>
-            <PageTitle title="Dashboard" />
-            <div className="mt-6">
+        <div className="mt-6">
                 <div className="grid grid-cols-12 gap-5">
                     <div className="col-span-12 md:col-span-4 xl:col-span-3 2xl:col-span-2">
-                        <StatList />
+                        <BranchStatList />
                     </div>
                     <div className="col-span-12 md:col-span-8 xl:col-span-6 2xl:col-span-7">
                         <SalesMetricCard />
@@ -49,8 +45,7 @@ const DashboardPage = () => {
                         <QuickIntegrationCard />
                     </div>
                 </div>
-            </div>
-        </>
+        </div>
     );
 };
 

@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import React from "react";
 
-import { PageTitle } from "@/components/PageTitle";
-
 import { OrderCustomerDetails } from "./components/OrderCustomerDetails";
 import { OrderDeliveryAddress } from "./components/OrderDeliveryAddress";
 import { OrderDeliveryPartner } from "./components/OrderDeliveryPartner";
@@ -16,9 +14,7 @@ export const metadata: Metadata = {
 
 const EcommerceOrderPage = () => {
     return (
-        <>
-            <PageTitle title="Order Detail" />
-            <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-12">
+        <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-12">
                 <div className="lg:col-span-8 2xl:col-span-9">
                     <OrderItemsTable />
                     <div className="mt-6 grid grid-cols-1 gap-6 xl:grid-cols-2 2xl:grid-cols-3">
@@ -48,7 +44,6 @@ const EcommerceOrderPage = () => {
                     </div>
                 </div>
             </div>
-        </>
     );
 };
 

@@ -1,8 +1,6 @@
 import { Metadata } from "next";
 import React from "react";
 
-import { PageTitle } from "@/components/PageTitle";
-
 import { CreateSellerForm } from "./CreateSellerForm";
 
 export const metadata: Metadata = {
@@ -11,12 +9,9 @@ export const metadata: Metadata = {
 
 const CreateSellerPage = () => {
     return (
-        <>
-            <PageTitle title="Create Seller" />
-            <div className="mt-6">
-                <CreateSellerForm />
-            </div>
-        </>
+        <div className="mt-6">
+            <CreateSellerForm />
+        </div>
     );
 };
 

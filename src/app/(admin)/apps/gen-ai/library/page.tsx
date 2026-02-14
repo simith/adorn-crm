@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 
-import { PageTitle } from "@/components/PageTitle";
-
 import { AiLibraryTable } from "./LibraryTable";
 
 export const metadata: Metadata = {
@@ -10,12 +8,9 @@ export const metadata: Metadata = {
 
 const AiLibraryPage = () => {
     return (
-        <>
-            <PageTitle title="Library" />
-            <div className="mt-6">
-                <AiLibraryTable />
-            </div>
-        </>
+        <div className="mt-6">
+            <AiLibraryTable />
+        </div>
     );
 };
 

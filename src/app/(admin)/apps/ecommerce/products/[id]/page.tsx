@@ -1,8 +1,6 @@
 import { Metadata } from "next";
 import React from "react";
 
-import { PageTitle } from "@/components/PageTitle";
-
 import { EditProductForm } from "./EditProductForm";
 
 export const metadata: Metadata = {
@@ -11,12 +9,9 @@ export const metadata: Metadata = {
 
 const EditProductPage = () => {
     return (
-        <>
-            <PageTitle title="Edit Product" />
-            <div className="mt-6">
-                <EditProductForm />
-            </div>
-        </>
+        <div className="mt-6">
+            <EditProductForm />
+        </div>
     );
 };
 

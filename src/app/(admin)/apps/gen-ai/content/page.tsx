@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 
-import { PageTitle } from "@/components/PageTitle";
-
 import { ContentCreationForm } from "./ContentCreationForm";
 import { GeneratedContents } from "./GeneratedContents";
 
@@ -11,9 +9,7 @@ export const metadata: Metadata = {
 
 const AiCreatorPage = () => {
     return (
-        <>
-            <PageTitle title="Content Creator" />
-            <div className="mt-6 grid grid-cols-1 gap-6 xl:grid-cols-5 2xl:grid-cols-10">
+        <div className="mt-6 grid grid-cols-1 gap-6 xl:grid-cols-5 2xl:grid-cols-10">
                 <div className="xl:col-span-2 2xl:col-span-3">
                     <ContentCreationForm />
                 </div>
@@ -21,7 +17,6 @@ const AiCreatorPage = () => {
                     <GeneratedContents />
                 </div>
             </div>
-        </>
     );
 };
 

@@ -19,24 +19,24 @@ export const adminMenuItems: ISidebarMenuItem[] = [
         url: "/analytics",
     },
     {
-        id: "campaign",
+        id: "campaigns",
         icon: "lucide--megaphone",
-        label: "Campaign",
+        label: "Campaigns",
         children: [
             {
-                id: "campaign-create",
+                id: "campaigns-create",
                 label: "Create",
-                url: "/campaign/create",
+                url: "/campaigns/create",
             },
             {
-                id: "campaign-view",
+                id: "campaigns-view",
                 label: "View",
-                url: "/campaign/view",
+                url: "/campaigns/view",
             },
             {
-                id: "campaign-results",
+                id: "campaigns-results",
                 label: "Results",
-                url: "/campaign/results",
+                url: "/campaigns/results",
             },
         ],
     },
@@ -47,10 +47,10 @@ export const adminMenuItems: ISidebarMenuItem[] = [
         url: "/apps/chat",
     },
     {
-        id: "trending",
-        icon: "lucide--trending-up",
-        label: "Trending",
-        url: "/trending",
+        id: "leads",
+        icon: "lucide--user-plus",
+        label: "Leads",
+        url: "/leads",
     },
     {
         id: "catalogue",

@@ -1,16 +1,12 @@
 import { type Metadata } from "next";
 
-import { PageTitle } from "@/components/PageTitle";
-
 export const metadata: Metadata = {
     title: "Campaign Results",
 };
 
 const CampaignResultsPage = () => {
     return (
-        <>
-            <PageTitle title="Campaign Results" />
-            <div className="mt-6">
+        <div className="mt-6">
                 <div className="card card-border bg-base-100">
                     <div className="card-body">
                         <h2 className="card-title">
@@ -23,7 +19,6 @@ const CampaignResultsPage = () => {
                     </div>
                 </div>
             </div>
-        </>
     );
 };
 

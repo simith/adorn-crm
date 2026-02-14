@@ -1,20 +1,20 @@
 import { type Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Catalogue",
+    title: "View Campaigns",
 };
 
-const CataloguePage = () => {
+const ViewCampaignPage = () => {
     return (
         <div className="mt-6">
                 <div className="card card-border bg-base-100">
                     <div className="card-body">
                         <h2 className="card-title">
-                            <span className="iconify lucide--library size-5" />
-                            Catalogue
+                            <span className="iconify lucide--list size-5" />
+                            View Campaigns
                         </h2>
                         <p className="text-base-content/70">
-                            Browse and manage your product catalogue, categories, and listings.
+                            Browse and manage your existing campaigns.
                         </p>
                     </div>
                 </div>
@@ -22,4 +22,4 @@ const CataloguePage = () => {
     );
 };
 
-export default CataloguePage;
+export default ViewCampaignPage;

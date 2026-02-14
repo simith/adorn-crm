@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 
-import { PageTitle } from "@/components/PageTitle";
-
 import { OrderTable } from "./OrderTable";
 
 export const metadata: Metadata = {
@@ -10,12 +8,9 @@ export const metadata: Metadata = {
 
 const EcommerceOrdersPage = () => {
     return (
-        <>
-            <PageTitle title="Orders" />
-            <div className="mt-6">
-                <OrderTable />
-            </div>
-        </>
+        <div className="mt-6">
+            <OrderTable />
+        </div>
     );
 };
 

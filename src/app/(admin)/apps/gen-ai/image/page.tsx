@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 
-import { PageTitle } from "@/components/PageTitle";
-
 import { GeneratedImages } from "./GeneratedImages";
 import { ImageCreationForm } from "./ImageCreationForm";
 
@@ -11,10 +9,7 @@ export const metadata: Metadata = {
 
 const AiChatPage = () => {
     return (
-        <>
-            <PageTitle title="Image Gen" />
-
-            <div className="mt-6 grid grid-cols-1 gap-6 xl:grid-cols-5 2xl:grid-cols-10">
+        <div className="mt-6 grid grid-cols-1 gap-6 xl:grid-cols-5 2xl:grid-cols-10">
                 <div className="xl:col-span-2 2xl:col-span-3">
                     <ImageCreationForm />
                 </div>
@@ -22,7 +17,6 @@ const AiChatPage = () => {
                     <GeneratedImages />
                 </div>
             </div>
-        </>
     );
 };
 

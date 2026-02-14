@@ -1,4 +1,3 @@
-import { PageTitle } from "@/components/PageTitle";
 
 import { ErrorActionDemo } from "./ErrorActionDemo";
 import { FileDeletedActionDemo } from "./FileDeletedActionDemo";
@@ -16,7 +15,6 @@ import { StorageStatusActionDemo } from "./StorageStatusActionDemo";
 const AgenticFilePage = () => {
     return (
         <>
-            <PageTitle title="Agentic Storage" />
             <div className="mt-6 flex items-center justify-center">
                 <InputToolbar />
             </div>
