@@ -1,17 +1,13 @@
 import { type Metadata } from "next";
 
-import { AnalyticsBranchCard } from "./components/AnalyticsBranchCard";
+import { JewelleryAnalyticsView } from "./components/JewelleryAnalyticsView";
 
 export const metadata: Metadata = {
-    title: "Analytics",
+    title: "Jewellery Analytics",
 };
 
 const AnalyticsPage = () => {
-    return (
-        <div className="mt-6">
-            <AnalyticsBranchCard />
-        </div>
-    );
+    return <JewelleryAnalyticsView />;
 };
 
 export default AnalyticsPage;

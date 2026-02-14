@@ -40,7 +40,7 @@ export const TopbarBranchMenu = () => {
     }, [setBranch]);
 
     return (
-        <div className="min-w-52 w-56 [&_.choices]:w-full [&_.choices__inner]:min-h-9 [&_.choices__inner]:rounded-lg [&_.choices__inner]:bg-base-200/50 [&_.choices__inner]:text-sm">
+        <div className="branch-select min-w-52 w-56 [&_.choices]:w-full [&_.choices__inner]:min-h-9 [&_.choices__inner]:rounded-lg [&_.choices__inner]:bg-base-200 [&_.choices__inner]:text-sm [&_.choices__inner]:border-l-2 [&_.choices__inner]:border-l-primary">
             <select ref={selectRef} aria-label="Select branch" defaultValue={branch}>
                 {BRANCH_OPTIONS.map((b) => (
                     <option key={b.id} value={b.id}>
