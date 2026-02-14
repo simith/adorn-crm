@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 const EcommerceOrdersPage = () => {
     return (
         <>
-            <PageTitle title="Orders" items={[{ label: "Ecommerce" }, { label: "Orders", active: true }]} />
+            <PageTitle title="Orders" />
             <div className="mt-6">
                 <OrderTable />
             </div>

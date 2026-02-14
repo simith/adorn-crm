@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 const TrendingPage = () => {
     return (
         <>
-            <PageTitle title="Trending" items={[{ label: "Trending", active: true }]} />
+            <PageTitle title="Trending" />
             <div className="mt-6">
                 <div className="card card-border bg-base-100">
                     <div className="card-body">

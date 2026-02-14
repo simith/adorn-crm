@@ -1,0 +1,41 @@
+{
+  "title": "Campaign Generator",
+  "previewTitle": "Generated Preview",
+  "modelSectionTitle": "1. Choose a Model",
+  "jewellerySectionTitle": "2. Select Jewellery",
+  "messageSectionTitle": "3. Enter Campaign Message",
+  "audienceSectionTitle": "4. Campaign Audience",
+  "models": [
+    { "id": "row_1_1", "label": "Model 1" },
+    { "id": "row_1_2", "label": "Model 2" },
+    { "id": "row_1_3", "label": "Model 3" },
+    { "id": "row_1_4", "label": "Model 4" },
+    { "id": "row_1_5", "label": "Model 5" },
+    { "id": "row_1_6", "label": "Model 6" }
+  ],
+  "jewellery": [
+    { "id": "row_2_1", "label": "Necklace Set" },
+    { "id": "row_2_2", "label": "Earrings" },
+    { "id": "row_2_3", "label": "Maang Tikka" },
+    { "id": "row_2_4", "label": "Bracelet" },
+    { "id": "row_2_5", "label": "Pendant" },
+    { "id": "row_2_6", "label": "Nose Ring" }
+  ],
+  "campaignMessage": "Elegance that Dazzles. Shine Bright with Our Exclusive Jewellery Collection.",
+  "selectionSummary": {
+    "newUsers": 812,
+    "returningUsers": 3715,
+    "totalSelected": 4527
+  },
+  "deliveryChannels": [
+    { "id": "whatsapp", "label": "WhatsApp", "icon": "whatsapp" },
+    { "id": "text_message", "label": "Text Message", "icon": "text" },
+    { "id": "email", "label": "Email", "icon": "email" }
+  ],
+  "launchCampaignLabel": "Launch Campaign",
+  "watermarkText": "Sample Watermark",
+  "defaults": {
+    "modelId": "row_1_1",
+    "jewelleryId": "row_2_1"
+  }
+}

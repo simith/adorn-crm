@@ -1,0 +1,108 @@
+{
+  "kpis": [
+    {
+      "id": "revenue",
+      "title": "Revenue",
+      "value": 2185,
+      "currency": "INR",
+      "changePercent": -6.2,
+      "comparison": "Compare to last year (2019)"
+    },
+    {
+      "id": "sales",
+      "title": "Sales",
+      "value": 6420,
+      "currency": "INR",
+      "changePercent": 5.4,
+      "comparison": "Compare to last year (2019)"
+    },
+    {
+      "id": "costs",
+      "title": "Costs",
+      "value": 7895,
+      "currency": "INR",
+      "changePercent": 1.1,
+      "comparison": "Compare to last year (2019)"
+    }
+  ],
+  "monthlyTarget": {
+    "percent": 81,
+    "cta": "Learn More",
+    "note": "You need abit more effort to hit monthly target"
+  },
+  "activeMembers": {
+    "count": 15942,
+    "changePercent": 2.1
+  },
+  "uniqueVisitors": {
+    "series": [
+      {
+        "name": "Session Duration",
+        "values": [42, 49, 36, 27, 31, 26, 23, 19, 11, 12, 15, 12]
+      },
+      {
+        "name": "Page Views",
+        "values": [29, 38, 57, 44, 19, 21, 30, 33, 32, 47, 29, 31]
+      }
+    ],
+    "labels": [
+      "01 Jan",
+      "02 Jan",
+      "03 Jan",
+      "04 Jan",
+      "05 Jan",
+      "06 Jan",
+      "07 Jan",
+      "08 Jan",
+      "09 Jan",
+      "10 Jan",
+      "11 Jan",
+      "12 Jan"
+    ]
+  },
+  "newJoinMembers": [
+    { "name": "Rohit Menon", "role": "Support Lead" },
+    { "name": "Aditi Rao", "role": "QA Engineer" },
+    { "name": "Nikhil Das", "role": "Sales Ops" },
+    { "name": "Priya Pai", "role": "Marketing" },
+    { "name": "Vivek Shetty", "role": "Finance" }
+  ],
+  "latestTransactions": [
+    {
+      "customer": "Sanjay Rao",
+      "date": "8 May 2020",
+      "amount": 126.0,
+      "currency": "INR",
+      "status": "Approved"
+    },
+    {
+      "customer": "Meera Kulkarni",
+      "date": "6 May 2020",
+      "amount": 318.0,
+      "currency": "INR",
+      "status": "Approved"
+    },
+    {
+      "customer": "Kiran Shetty",
+      "date": "1 May 2020",
+      "amount": 508.0,
+      "currency": "INR",
+      "status": "Pending"
+    },
+    {
+      "customer": "Devika R",
+      "date": "28 April 2020",
+      "amount": 842.0,
+      "currency": "INR",
+      "status": "Rejected"
+    },
+    {
+      "customer": "Arun Pillai",
+      "date": "28 April 2020",
+      "amount": 229.0,
+      "currency": "INR",
+      "status": "Approved"
+    }
+  ],
+  "updatedAt": "2026-02-09T00:00:00.000Z"
+}

@@ -1,0 +1,77 @@
+{
+  "favorites": {
+    "title": "Most Favorites Items",
+    "items": [
+      {
+        "name": "Emerald Necklace Set",
+        "rating": 4,
+        "reviews": 454,
+        "likes": 256000,
+        "interestPercent": 45,
+        "totalSales": 6732,
+        "goalPercent": 87
+      },
+      {
+        "name": "Kundan Bridal Choker",
+        "rating": 4,
+        "reviews": 454,
+        "likes": 256000,
+        "interestPercent": 26,
+        "totalSales": 5721,
+        "goalPercent": 75
+      },
+      {
+        "name": "Pearl Layered Set",
+        "rating": 4,
+        "reviews": 454,
+        "likes": 256000,
+        "interestPercent": 26,
+        "totalSales": 3515,
+        "goalPercent": 90
+      }
+    ],
+    "cta": "View More"
+  },
+  "dailyTrendingMenus": {
+    "title": "Daily Trending Menus",
+    "subtitle": "Lorem ipsum dolor",
+    "items": [
+      { "rank": 1, "name": "Ruby Stud Earrings", "price": 5600, "orders": 90 },
+      { "rank": 2, "name": "Emerald Pendant", "price": 4800, "orders": 70 },
+      { "rank": 3, "name": "Antique Gold Bangles", "price": 12300, "orders": 60 },
+      { "rank": 4, "name": "Sapphire Nose Pin", "price": 7200, "orders": 50 },
+      { "rank": 5, "name": "Kundan Bridal Choker", "price": 6300, "orders": 40 }
+    ]
+  },
+  "salesSummary": {
+    "title": "Sales Summary",
+    "subtitle": "Lorem ipsum dolor sit amet, consectetur",
+    "period": "Monthly",
+    "metrics": [
+      { "label": "Pieces Sold", "value": 63876 },
+      { "label": "Revenue", "value": 873335, "currency": "INR" },
+      { "label": "Safe (20%)", "value": 97126, "currency": "INR" }
+    ]
+  },
+  "loyalCustomers": {
+    "title": "Loyal Customers",
+    "subtitle": "Lorem ipsum dolor",
+    "customers": [
+      { "name": "Ananya Iyer", "orders": 651 },
+      { "name": "Rohan Gupta", "orders": 356 },
+      { "name": "Meera Nair", "orders": 125 },
+      { "name": "Kavya Rao", "orders": 78 }
+    ]
+  },
+  "bestSeller": {
+    "title": "Best seller jewellery",
+    "subtitle": "Lorem ipsum dolor",
+    "item": {
+      "name": "Kundan Bridal Choker",
+      "price": 6530,
+      "likes": 256000,
+      "sales": 6723
+    }
+  },
+  "updatedAt": "2026-02-09T00:00:00.000Z"
+}

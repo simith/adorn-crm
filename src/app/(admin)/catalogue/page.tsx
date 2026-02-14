@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 const CataloguePage = () => {
     return (
         <>
-            <PageTitle title="Catalogue" items={[{ label: "Catalogue", active: true }]} />
+            <PageTitle title="Catalogue" />
             <div className="mt-6">
                 <div className="card card-border bg-base-100">
                     <div className="card-body">

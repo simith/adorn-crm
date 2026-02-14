@@ -1,0 +1,46 @@
+{
+  "title": "Responses from your WhatsApp Jewellery Campaign",
+  "contact": {
+    "name": "Rajesh Sharma",
+    "phone": "+91 98765 32109",
+    "status": "Last seen just now"
+  },
+  "metrics": {
+    "responses": 4,
+    "views": 5720,
+    "sent": 9452,
+    "campaignCode": "BE59 AG30"
+  },
+  "conversation": [
+    {
+      "id": "msg-1",
+      "from": "customer",
+      "text": "Hi, what is the price of this jewellery set?",
+      "time": "3 minutes ago"
+    },
+    {
+      "id": "msg-2",
+      "from": "agent",
+      "text": "Hello Rajesh, thank you for your jewellery set?",
+      "time": "9 minutes ago"
+    },
+    {
+      "id": "msg-3",
+      "from": "agent",
+      "text": "The price of this exclusive jewellery set is ₹ 85,000. We have a special offer right now: you can get it at 15% off which brings the price down to ₹ 72,250.",
+      "time": "Just now",
+      "highlight": true
+    },
+    {
+      "id": "msg-4",
+      "from": "customer",
+      "text": "Great, that's a good offer. Is the set available for immediate delivery?",
+      "time": "3 minutes ago"
+    }
+  ],
+  "composer": {
+    "placeholder": "Type a message...",
+    "actions": ["attach", "emoji", "send"]
+  },
+  "updatedAt": "2026-02-09T00:00:00.000Z"
+}

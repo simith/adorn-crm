@@ -1,0 +1,97 @@
+{
+  "title": "Customer List Generator",
+  "subtitle": "Generate targeted customer lists using natural language commands.",
+  "query": {
+    "placeholder": "AI search generated customer list",
+    "actionLabel": "Generate List"
+  },
+  "resultPreview": {
+    "kpis": [
+      { "label": "Active Customers", "value": 736 },
+      { "label": "New Customers", "value": 214 },
+      { "label": "Returning Customers", "value": 522 },
+      { "label": "Returning", "value": 71, "unit": "percent" }
+    ],
+    "returningBreakdown": {
+      "returningPercent": 71,
+      "newPercent": 29
+    },
+    "actions": [
+      { "label": "Add to CRM" },
+      { "label": "Save List" },
+      { "label": "Download CSV" }
+    ]
+  },
+  "table": {
+    "columns": ["Name", "Email", "Last Visit", "Last Purchase", "City"],
+    "rows": [
+      {
+        "name": "Aarav Menon",
+        "email": "aarav.menon@email.com",
+        "lastVisit": "Apr 28, 2024",
+        "lastPurchase": "Diamond Studs, $1,350",
+        "city": "Bangalore"
+      },
+      {
+        "name": "Ria Kapoor",
+        "email": "ria.kapoor@email.com",
+        "lastVisit": "Apr 27, 2024",
+        "lastPurchase": "Gold Necklace Set, $1,920",
+        "city": "Delhi"
+      },
+      {
+        "name": "Sana Khan",
+        "email": "sana.khan@email.com",
+        "lastVisit": "Apr 26, 2024",
+        "lastPurchase": "Pearl Choker, $780",
+        "city": "Hyderabad"
+      },
+      {
+        "name": "Rahul Iyer",
+        "email": "rahul.iyer@email.com",
+        "lastVisit": "Apr 25, 2024",
+        "lastPurchase": "Kundan Set, $1,140",
+        "city": "Chennai"
+      },
+      {
+        "name": "Nikita Shah",
+        "email": "nikita.shah@email.com",
+        "lastVisit": "Apr 24, 2024",
+        "lastPurchase": "Temple Pendant, $860",
+        "city": "Mumbai"
+      },
+      {
+        "name": "Pranav Joshi",
+        "email": "pranav.joshi@email.com",
+        "lastVisit": "Apr 23, 2024",
+        "lastPurchase": "Polki Ring, $690",
+        "city": "Pune"
+      },
+      {
+        "name": "Ishani Verma",
+        "email": "ishani.verma@email.com",
+        "lastVisit": "Apr 22, 2024",
+        "lastPurchase": "Bridal Set, $2,450",
+        "city": "Jaipur"
+      },
+      {
+        "name": "Karan Bhat",
+        "email": "karan.bhat@email.com",
+        "lastVisit": "Apr 21, 2024",
+        "lastPurchase": "Minimal Chain, $410",
+        "city": "Kochi"
+      }
+    ]
+  },
+  "pagination": {
+    "label": "Showing 1 to 8 of 736",
+    "currentPage": 1,
+    "totalPages": 3,
+    "actions": ["Previous", "Next"]
+  },
+  "nextScreen": {
+    "label": "Next",
+    "href": "/campaigns/view"
+  },
+  "updatedAt": "2026-02-12T00:00:00.000Z"
+}

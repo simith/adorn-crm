@@ -70,7 +70,7 @@ const LayoutBuilderPage = () => {
                         <Topbar />
                     </div>
                     <div id="layout-content">
-                        <PageTitle title="Layout Builder" items={[{ label: "Layout Builder", active: true }]} />
+                        <PageTitle title="Layout Builder" />
                         <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-5">
                             <div className="bg-base-100 card card-border h-fit">
                                 <div className="bg-base-200/30 rounded-box mx-3 mt-3 flex items-center gap-2 px-4 py-2 font-medium">

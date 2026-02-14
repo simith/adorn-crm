@@ -1,0 +1,97 @@
+{
+  "title": "Customer List Generator",
+  "subtitle": "Generate targeted customer lists using natural language commands.",
+  "query": {
+    "placeholder": "Show me customers who bought a necklace in the last one month",
+    "actionLabel": "Generate List"
+  },
+  "resultPreview": {
+    "kpis": [
+      { "label": "Active Customers", "value": 964 },
+      { "label": "New Customers", "value": 172 },
+      { "label": "Returning Customers", "value": 792 },
+      { "label": "Returning", "value": 82, "unit": "percent" }
+    ],
+    "returningBreakdown": {
+      "returningPercent": 82,
+      "newPercent": 18
+    },
+    "actions": [
+      { "label": "Add to CRM" },
+      { "label": "Save List" },
+      { "label": "Download CSV" }
+    ]
+  },
+  "table": {
+    "columns": ["Name", "Email", "Last Visit", "Last Purchase", "City"],
+    "rows": [
+      {
+        "name": "Aisha Sharma",
+        "email": "aisha.sharma@email.com",
+        "lastVisit": "Apr 21, 2024",
+        "lastPurchase": "Gold Necklace Set, $850",
+        "city": "Mumbai"
+      },
+      {
+        "name": "Shreya Nair",
+        "email": "shreya.nair@email.com",
+        "lastVisit": "Apr 21, 2024",
+        "lastPurchase": "Temple Necklace, $1,480",
+        "city": "Kochi"
+      },
+      {
+        "name": "Rahul Khanna",
+        "email": "rahul.khanna@email.com",
+        "lastVisit": "Apr 20, 2024",
+        "lastPurchase": "Layered Necklace, $1,120",
+        "city": "Delhi"
+      },
+      {
+        "name": "Meera Patel",
+        "email": "meera.patel@email.com",
+        "lastVisit": "Apr 19, 2024",
+        "lastPurchase": "Antique Necklace, $675",
+        "city": "Bangalore"
+      },
+      {
+        "name": "Ishita Rao",
+        "email": "ishita.rao@email.com",
+        "lastVisit": "Apr 18, 2024",
+        "lastPurchase": "Pearl Necklace, $950",
+        "city": "Hyderabad"
+      },
+      {
+        "name": "Neha Malhotra",
+        "email": "neha.malhotra@email.com",
+        "lastVisit": "Apr 17, 2024",
+        "lastPurchase": "Diamond Choker, $1,100",
+        "city": "Jaipur"
+      },
+      {
+        "name": "Rohit Joshi",
+        "email": "rohit.joshi@email.com",
+        "lastVisit": "Apr 17, 2024",
+        "lastPurchase": "Kundan Necklace, $620",
+        "city": "Chennai"
+      },
+      {
+        "name": "Pooja Chawla",
+        "email": "pooja.chawla@email.com",
+        "lastVisit": "Apr 16, 2024",
+        "lastPurchase": "Chain Necklace, $540",
+        "city": "Pune"
+      }
+    ]
+  },
+  "pagination": {
+    "label": "Showing 1 to 8 of 964",
+    "currentPage": 1,
+    "totalPages": 3,
+    "actions": ["Previous", "Next"]
+  },
+  "nextScreen": {
+    "label": "Next",
+    "href": "/campaigns/view"
+  },
+  "updatedAt": "2026-02-12T00:00:00.000Z"
+}

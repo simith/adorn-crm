@@ -12,13 +12,7 @@ export const metadata: Metadata = {
 const CreateShopPage = () => {
     return (
         <>
-            <PageTitle
-                title="Create Shop"
-                items={[
-                    { label: "Shops", path: "/apps/ecommerce/shops" },
-                    { label: "Create", active: true },
-                ]}
-            />
+            <PageTitle title="Create Shop" />
             <div className="mt-6">
                 <CreateShopForm />
             </div>

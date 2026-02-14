@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 const AiLibraryPage = () => {
     return (
         <>
-            <PageTitle title="Library" items={[{ label: "Gen Ai" }, { label: "Library", active: true }]} />
+            <PageTitle title="Library" />
             <div className="mt-6">
                 <AiLibraryTable />
             </div>

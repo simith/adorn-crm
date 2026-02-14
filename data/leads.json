@@ -1,0 +1,109 @@
+{
+  "title": "Leads",
+  "subtitle": "Track customer onboarding, engagement, and total spend across stores.",
+  "summary": {
+    "totalLeads": 12,
+    "totalSpend": 1049500
+  },
+  "table": {
+    "columns": ["Customer", "Email", "Joined On", "Last Visited", "Total Spend", "City"],
+    "rows": [
+      {
+        "customer": "Aisha Sharma",
+        "email": "aisha.sharma@email.com",
+        "joinedOn": "Jan 05, 2024",
+        "lastVisited": "Apr 23, 2024",
+        "totalSpend": 124500,
+        "city": "Mumbai"
+      },
+      {
+        "customer": "Ravi Kapoor",
+        "email": "ravi.kapoor@email.com",
+        "joinedOn": "Jan 12, 2024",
+        "lastVisited": "Apr 22, 2024",
+        "totalSpend": 98200,
+        "city": "Delhi"
+      },
+      {
+        "customer": "Meera Patel",
+        "email": "meera.patel@email.com",
+        "joinedOn": "Feb 01, 2024",
+        "lastVisited": "Apr 21, 2024",
+        "totalSpend": 67500,
+        "city": "Bangalore"
+      },
+      {
+        "customer": "Anil Verma",
+        "email": "anil.verma@email.com",
+        "joinedOn": "Feb 07, 2024",
+        "lastVisited": "Apr 20, 2024",
+        "totalSpend": 75250,
+        "city": "Kolkata"
+      },
+      {
+        "customer": "Preeti Sinha",
+        "email": "preeti.sinha@email.com",
+        "joinedOn": "Feb 18, 2024",
+        "lastVisited": "Apr 19, 2024",
+        "totalSpend": 95400,
+        "city": "Ahmedabad"
+      },
+      {
+        "customer": "Neha Malhotra",
+        "email": "neha.malhotra@email.com",
+        "joinedOn": "Mar 02, 2024",
+        "lastVisited": "Apr 19, 2024",
+        "totalSpend": 110350,
+        "city": "Jaipur"
+      },
+      {
+        "customer": "Rohit Joshi",
+        "email": "rohit.joshi@email.com",
+        "joinedOn": "Mar 05, 2024",
+        "lastVisited": "Apr 18, 2024",
+        "totalSpend": 62100,
+        "city": "Chennai"
+      },
+      {
+        "customer": "Pooja Chawla",
+        "email": "pooja.chawla@email.com",
+        "joinedOn": "Mar 12, 2024",
+        "lastVisited": "Apr 17, 2024",
+        "totalSpend": 43500,
+        "city": "Pune"
+      },
+      {
+        "customer": "Devika Menon",
+        "email": "devika.menon@email.com",
+        "joinedOn": "Mar 19, 2024",
+        "lastVisited": "Apr 16, 2024",
+        "totalSpend": 158700,
+        "city": "Kochi"
+      },
+      {
+        "customer": "Arjun Mehta",
+        "email": "arjun.mehta@email.com",
+        "joinedOn": "Mar 26, 2024",
+        "lastVisited": "Apr 16, 2024",
+        "totalSpend": 186000,
+        "city": "Mumbai"
+      },
+      {
+        "customer": "Naina Sethi",
+        "email": "naina.sethi@email.com",
+        "joinedOn": "Apr 01, 2024",
+        "lastVisited": "Apr 15, 2024",
+        "totalSpend": 143000,
+        "city": "Delhi"
+      },
+      {
+        "customer": "Irfan Khan",
+        "email": "irfan.khan@email.com",
+        "joinedOn": "Apr 06, 2024",
+        "lastVisited": "Apr 15, 2024",
+        "totalSpend": 84800,
+        "city": "Lucknow"
+      }
+    ]
+  }
+}

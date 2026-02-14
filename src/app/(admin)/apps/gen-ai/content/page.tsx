@@ -12,10 +12,7 @@ export const metadata: Metadata = {
 const AiCreatorPage = () => {
     return (
         <>
-            <PageTitle
-                title="Content Creator"
-                items={[{ label: "Gen Ai" }, { label: "Content Creator", active: true }]}
-            />
+            <PageTitle title="Content Creator" />
             <div className="mt-6 grid grid-cols-1 gap-6 xl:grid-cols-5 2xl:grid-cols-10">
                 <div className="xl:col-span-2 2xl:col-span-3">
                     <ContentCreationForm />

@@ -1,0 +1,108 @@
+{
+  "kpis": [
+    {
+      "id": "revenue",
+      "title": "Revenue",
+      "value": 2454,
+      "currency": "INR",
+      "changePercent": -11.4,
+      "comparison": "Compare to last year (2019)"
+    },
+    {
+      "id": "sales",
+      "title": "Sales",
+      "value": 6982,
+      "currency": "INR",
+      "changePercent": 8.2,
+      "comparison": "Compare to last year (2019)"
+    },
+    {
+      "id": "costs",
+      "title": "Costs",
+      "value": 8310,
+      "currency": "INR",
+      "changePercent": 0.7,
+      "comparison": "Compare to last year (2019)"
+    }
+  ],
+  "monthlyTarget": {
+    "percent": 87,
+    "cta": "Learn More",
+    "note": "You need abit more effort to hit monthly target"
+  },
+  "activeMembers": {
+    "count": 17329,
+    "changePercent": 3.7
+  },
+  "uniqueVisitors": {
+    "series": [
+      {
+        "name": "Session Duration",
+        "values": [45, 52, 38, 25, 34, 29, 24, 21, 8, 10, 14, 11]
+      },
+      {
+        "name": "Page Views",
+        "values": [33, 40, 60, 42, 15, 18, 28, 36, 35, 50, 31, 34]
+      }
+    ],
+    "labels": [
+      "01 Jan",
+      "02 Jan",
+      "03 Jan",
+      "04 Jan",
+      "05 Jan",
+      "06 Jan",
+      "07 Jan",
+      "08 Jan",
+      "09 Jan",
+      "10 Jan",
+      "11 Jan",
+      "12 Jan"
+    ]
+  },
+  "newJoinMembers": [
+    { "name": "Ananya Iyer", "role": "Software Engineer" },
+    { "name": "Rohan Gupta", "role": "UI/UX Designer" },
+    { "name": "Meera Nair", "role": "HR Executive" },
+    { "name": "Kavya Rao", "role": "Frontend Developer" },
+    { "name": "Sandeep Menon", "role": "Compliance Manager" }
+  ],
+  "latestTransactions": [
+    {
+      "customer": "Arjun Mehta",
+      "date": "8 May 2020",
+      "amount": 137.0,
+      "currency": "INR",
+      "status": "Approved"
+    },
+    {
+      "customer": "Priya Sharma",
+      "date": "6 May 2020",
+      "amount": 322.0,
+      "currency": "INR",
+      "status": "Approved"
+    },
+    {
+      "customer": "Neha Kapoor",
+      "date": "1 May 2020",
+      "amount": 543.0,
+      "currency": "INR",
+      "status": "Pending"
+    },
+    {
+      "customer": "Vikram Reddy",
+      "date": "28 April 2020",
+      "amount": 876.0,
+      "currency": "INR",
+      "status": "Rejected"
+    },
+    {
+      "customer": "Amit Kulkarni",
+      "date": "28 April 2020",
+      "amount": 241.0,
+      "currency": "INR",
+      "status": "Approved"
+    }
+  ],
+  "updatedAt": "2026-02-09T00:00:00.000Z"
+}

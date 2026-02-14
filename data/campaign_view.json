@@ -1,0 +1,58 @@
+{
+  "title": "Campaign Results",
+  "subtitle": "Elegance that Dazzles. Shine Bright with Our Exclusive Jewellery Collec.",
+  "campaignMessage": {
+    "title": "Campaign Message",
+    "body": "Elegance that Dazzles. Shine Bright with Our Exclusive Jewellery."
+  },
+  "summary": [
+    { "label": "Campaign Views", "value": 7153 },
+    { "label": "Responded Customers", "value": 4195 },
+    { "label": "Response Rate", "value": 32, "unit": "percent" },
+    { "label": "Unread Messages", "value": 2034 }
+  ],
+  "pie": {
+    "segments": [
+      { "label": "Read", "value": 5119, "percent": 71 },
+      { "label": "Unread", "value": 2034, "percent": 29 },
+      { "label": "Responded", "value": 4095, "percent": 59 }
+    ]
+  },
+  "table": {
+    "columns": ["Customer", "Email", "Status", "Response Date"],
+    "rows": [
+      {
+        "customer": "Aisha Sharma",
+        "email": "aisin-aiapoor@email.com",
+        "status": "Read",
+        "responseDate": "Apr 23, 2024"
+      },
+      {
+        "customer": "Ravi Kapoor",
+        "email": "am-kapoor@email.com",
+        "status": "Responded",
+        "responseDate": "Apr 23, 2024"
+      },
+      {
+        "customer": "Meera Patel",
+        "email": "am-kapooil@email.com",
+        "status": "Responded",
+        "responseDate": "Apr 23, 2024"
+      },
+      {
+        "customer": "Aeti Varma",
+        "email": "atiil-arme@email.com",
+        "status": "Read",
+        "responseDate": "Apr 23, 2024"
+      }
+    ]
+  },
+  "pagination": {
+    "label": "Showing 1 to 8 of 7,153",
+    "currentPage": 1,
+    "totalPages": 3,
+    "actions": ["Previous", "Next"]
+  },
+  "actions": ["Download CSV"],
+  "updatedAt": "2026-02-09T00:00:00.000Z"
+}

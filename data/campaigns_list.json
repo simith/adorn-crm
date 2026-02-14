@@ -1,0 +1,30 @@
+{
+  "title": "Campaigns",
+  "subtitle": "View all campaigns and open detailed campaign results.",
+  "campaigns": [
+    {
+      "id": "campaign_1",
+      "name": "Elegance that Dazzles",
+      "description": "Diwali jewellery audience campaign",
+      "status": "Active",
+      "audience": 7153,
+      "updatedAt": "Apr 23, 2024"
+    },
+    {
+      "id": "campaign_2",
+      "name": "Bridal Gold Edit",
+      "description": "High-value returning customers segment",
+      "status": "Completed",
+      "audience": 4210,
+      "updatedAt": "Apr 16, 2024"
+    },
+    {
+      "id": "campaign_3",
+      "name": "Spring Necklace Drop",
+      "description": "Necklace buyers in the last one month",
+      "status": "Draft",
+      "audience": 964,
+      "updatedAt": "Apr 10, 2024"
+    }
+  ]
+}

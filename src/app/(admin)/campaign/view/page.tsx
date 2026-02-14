@@ -9,10 +9,7 @@ export const metadata: Metadata = {
 const ViewCampaignPage = () => {
     return (
         <>
-            <PageTitle
-                title="View Campaigns"
-                items={[{ label: "Campaign" }, { label: "View", active: true }]}
-            />
+            <PageTitle title="View Campaigns" />
             <div className="mt-6">
                 <div className="card card-border bg-base-100">
                     <div className="card-body">

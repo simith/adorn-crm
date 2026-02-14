@@ -64,7 +64,7 @@ export const Topbar = () => {
                                             <Link href="/dashboard">Dashboard</Link>
                                         </li>
                                         <li>
-                                            <Link href="/auth/register">Sign up</Link>
+                                            <Link href="/auth/login">Login</Link>
                                         </li>
                                         <li>
                                             <Link href="/components">Components</Link>
@@ -83,7 +83,7 @@ export const Topbar = () => {
                             <Link href="/dashboard">Dashboard</Link>
                         </li>
                         <li>
-                            <Link href="/auth/register">Sign up</Link>
+                            <Link href="/auth/login">Login</Link>
                         </li>
                         <li>
                             <Link href="/components">Components</Link>
@@ -92,10 +92,10 @@ export const Topbar = () => {
                     <div className="inline-flex items-center gap-3">
                         <ThemeToggle className="btn btn-square btn-ghost btn-sm border-transparent" />
                         <Link
-                            href="/auth/register"
+                            href="/auth/login"
                             className="btn from-primary to-secondary group/purchase text-primary-content btn-sm max-sm:btn-square relative gap-2 border-0 bg-linear-to-r text-sm">
-                            <span className="iconify lucide--user-plus size-4" />
-                            <span className="max-sm:hidden">Sign up</span>
+                            <span className="iconify lucide--log-in size-4" />
+                            <span className="max-sm:hidden">Login</span>
                             <div className="from-primary to-secondary absolute inset-x-0 top-1 -z-1 h-8 bg-linear-to-r opacity-40 blur-md transition-all duration-500 group-hover/purchase:opacity-60 group-hover/purchase:blur-lg"></div>
                         </Link>
                     </div>

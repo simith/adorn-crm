@@ -1,0 +1,108 @@
+{
+  "kpis": [
+    {
+      "id": "revenue",
+      "title": "Revenue",
+      "value": 2710,
+      "currency": "INR",
+      "changePercent": 3.9,
+      "comparison": "Compare to last year (2019)"
+    },
+    {
+      "id": "sales",
+      "title": "Sales",
+      "value": 7155,
+      "currency": "INR",
+      "changePercent": 9.1,
+      "comparison": "Compare to last year (2019)"
+    },
+    {
+      "id": "costs",
+      "title": "Costs",
+      "value": 8120,
+      "currency": "INR",
+      "changePercent": 0.4,
+      "comparison": "Compare to last year (2019)"
+    }
+  ],
+  "monthlyTarget": {
+    "percent": 92,
+    "cta": "Learn More",
+    "note": "You need abit more effort to hit monthly target"
+  },
+  "activeMembers": {
+    "count": 18610,
+    "changePercent": 4.6
+  },
+  "uniqueVisitors": {
+    "series": [
+      {
+        "name": "Session Duration",
+        "values": [48, 55, 41, 29, 36, 30, 26, 22, 14, 16, 18, 14]
+      },
+      {
+        "name": "Page Views",
+        "values": [36, 44, 63, 46, 22, 24, 33, 38, 36, 54, 34, 36]
+      }
+    ],
+    "labels": [
+      "01 Jan",
+      "02 Jan",
+      "03 Jan",
+      "04 Jan",
+      "05 Jan",
+      "06 Jan",
+      "07 Jan",
+      "08 Jan",
+      "09 Jan",
+      "10 Jan",
+      "11 Jan",
+      "12 Jan"
+    ]
+  },
+  "newJoinMembers": [
+    { "name": "Kavya Iyer", "role": "Product Manager" },
+    { "name": "Rahul N", "role": "Data Analyst" },
+    { "name": "Sneha Kumar", "role": "UX Research" },
+    { "name": "Aravind S", "role": "Engineering" },
+    { "name": "Divya Priya", "role": "Operations" }
+  ],
+  "latestTransactions": [
+    {
+      "customer": "Vishal Kumar",
+      "date": "8 May 2020",
+      "amount": 144.0,
+      "currency": "INR",
+      "status": "Approved"
+    },
+    {
+      "customer": "Srilatha M",
+      "date": "6 May 2020",
+      "amount": 338.0,
+      "currency": "INR",
+      "status": "Approved"
+    },
+    {
+      "customer": "Arun Raj",
+      "date": "1 May 2020",
+      "amount": 560.0,
+      "currency": "INR",
+      "status": "Pending"
+    },
+    {
+      "customer": "Meera K",
+      "date": "28 April 2020",
+      "amount": 892.0,
+      "currency": "INR",
+      "status": "Rejected"
+    },
+    {
+      "customer": "Joseph Paul",
+      "date": "28 April 2020",
+      "amount": 265.0,
+      "currency": "INR",
+      "status": "Approved"
+    }
+  ],
+  "updatedAt": "2026-02-09T00:00:00.000Z"
+}

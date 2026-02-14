@@ -1,0 +1,97 @@
+{
+  "title": "Customer List Generator",
+  "subtitle": "Generate targeted customer lists using natural language commands.",
+  "query": {
+    "placeholder": "Show me customers who have visited the store in the last 7 days",
+    "actionLabel": "Generate List"
+  },
+  "resultPreview": {
+    "kpis": [
+      { "label": "Active Customers", "value": 1324 },
+      { "label": "New Customers", "value": 286 },
+      { "label": "Returning Customers", "value": 1038 },
+      { "label": "Returning", "value": 78, "unit": "percent" }
+    ],
+    "returningBreakdown": {
+      "returningPercent": 78,
+      "newPercent": 22
+    },
+    "actions": [
+      { "label": "Add to CRM" },
+      { "label": "Save List" },
+      { "label": "Download CSV" }
+    ]
+  },
+  "table": {
+    "columns": ["Name", "Email", "Last Visit", "Last Purchase", "City"],
+    "rows": [
+      {
+        "name": "Aisha Sharma",
+        "email": "aisha.sharma@email.com",
+        "lastVisit": "Apr 28, 2024",
+        "lastPurchase": "Gold Necklace Set, $850",
+        "city": "Mumbai"
+      },
+      {
+        "name": "Ravi Kapoor",
+        "email": "ravi.kapoor@email.com",
+        "lastVisit": "Apr 27, 2024",
+        "lastPurchase": "Diamond Earrings, $1,200",
+        "city": "Delhi"
+      },
+      {
+        "name": "Meera Patel",
+        "email": "meera.patel@email.com",
+        "lastVisit": "Apr 27, 2024",
+        "lastPurchase": "Antique Bangle, $675",
+        "city": "Bangalore"
+      },
+      {
+        "name": "Anil Verma",
+        "email": "anil.verma@email.com",
+        "lastVisit": "Apr 26, 2024",
+        "lastPurchase": "Ruby Pendant, $750",
+        "city": "Kolkata"
+      },
+      {
+        "name": "Preeti Sinha",
+        "email": "preeti.sinha@email.com",
+        "lastVisit": "Apr 25, 2024",
+        "lastPurchase": "Pearl Set, $950",
+        "city": "Ahmedabad"
+      },
+      {
+        "name": "Neha Malhotra",
+        "email": "neha.malhotra@email.com",
+        "lastVisit": "Apr 24, 2024",
+        "lastPurchase": "Halita Brass, $1,100",
+        "city": "Jaipur"
+      },
+      {
+        "name": "Rohit Joshi",
+        "email": "rohit.joshi@email.com",
+        "lastVisit": "Apr 23, 2024",
+        "lastPurchase": "Kundan Bracelet, $620",
+        "city": "Chennai"
+      },
+      {
+        "name": "Pooja Chawla",
+        "email": "pooja.chawla@email.com",
+        "lastVisit": "Apr 22, 2024",
+        "lastPurchase": "Minimal Studs, $210",
+        "city": "Pune"
+      }
+    ]
+  },
+  "pagination": {
+    "label": "Showing 1 to 8 of 1,324",
+    "currentPage": 1,
+    "totalPages": 3,
+    "actions": ["Previous", "Next"]
+  },
+  "nextScreen": {
+    "label": "Next",
+    "href": "/campaigns/view"
+  },
+  "updatedAt": "2026-02-12T00:00:00.000Z"
+}

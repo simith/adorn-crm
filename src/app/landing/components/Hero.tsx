@@ -39,11 +39,14 @@ export const Hero = () => {
                     </div>
 
                     <div className="mt-6 inline-flex items-center gap-2.5 transition-all delay-300 duration-1000 sm:gap-5 xl:mt-10 starting:opacity-0 starting:blur-sm">
-                        <Link href="/auth/register" className="btn btn-primary btn-lg gap-2.5">
-                            <span className="iconify lucide--user-plus size-5 sm:size-5.5" />
-                            Sign up
+                        <Link href="/auth/login" className="btn btn-primary btn-lg gap-2.5">
+                            <span className="iconify lucide--log-in size-5 sm:size-5.5" />
+                            Login
                         </Link>
-                        <Link href="/dashboard" target="_blank" className="btn btn-ghost btn-neutral btn-lg gap-2.5 !border-transparent text-base dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-black">
+                        <Link
+                            href="/dashboard"
+                            target="_blank"
+                            className="btn btn-ghost btn-neutral btn-lg gap-2.5 !border-transparent text-base dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-black">
                             <span className="iconify lucide--monitor-dot size-5 sm:size-5.5" />
                             <div className="text-start">
                                 <p className="text-sm/none">Dashboard</p>

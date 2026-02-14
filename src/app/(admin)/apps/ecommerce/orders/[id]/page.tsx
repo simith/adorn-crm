@@ -17,13 +17,7 @@ export const metadata: Metadata = {
 const EcommerceOrderPage = () => {
     return (
         <>
-            <PageTitle
-                title="Order Detail"
-                items={[
-                    { label: "Orders", path: "/apps/ecommerce/orders" },
-                    { label: "Detail", active: true },
-                ]}
-            />
+            <PageTitle title="Order Detail" />
             <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-12">
                 <div className="lg:col-span-8 2xl:col-span-9">
                     <OrderItemsTable />

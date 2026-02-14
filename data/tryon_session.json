@@ -1,0 +1,93 @@
+{
+  "title": "Customer Interaction History",
+  "sessions": [
+    {
+      "dateLabel": "Today at 4:00 PM",
+      "startTime": "4:01 PM",
+      "events": [
+        {
+          "type": "session_started",
+          "label": "Session Started",
+          "time": "4:01 PM"
+        },
+        {
+          "type": "jewellery_tried",
+          "label": "Jewellery Product Code JWL123 tried",
+          "jewelleryId": 845672,
+          "asset": "images/jewellery/845672.png",
+          "note": "Tried after 1 minute"
+        },
+        {
+          "type": "costume_tried",
+          "label": "Costume ID 456 tried",
+          "costumeId": 456,
+          "asset": "images/costume/456.png",
+          "note": "Tried after 2 minutes"
+        },
+        {
+          "type": "product_bought",
+          "label": "Product JWL123 bought",
+          "orderId": "2024042301",
+          "note": "Bought after 5 minutes"
+        }
+      ]
+    },
+    {
+      "dateLabel": "12/06/2020 at 3:30 PM",
+      "startTime": "3:31 PM",
+      "events": [
+        {
+          "type": "session_started",
+          "label": "Session Started",
+          "time": "3:31 PM"
+        },
+        {
+          "type": "jewellery_tried",
+          "label": "Jewellery Product Code JWL567 tried",
+          "jewelleryId": 732891,
+          "asset": "images/jewellery/732891.png",
+          "note": "Tried after 1 minute"
+        },
+        {
+          "type": "costume_tried",
+          "label": "Costume ID 789 tried",
+          "costumeId": 789,
+          "asset": "images/costume/789.png",
+          "note": "Tried after 2 minutes"
+        },
+        {
+          "type": "product_bought",
+          "label": "Product JWL567 bought",
+          "orderId": "2024061202",
+          "note": "Bought after 5 minutes"
+        }
+      ]
+    },
+    {
+      "dateLabel": "02/06/2020 at 11:00 AM",
+      "startTime": "11:01 AM",
+      "events": [
+        {
+          "type": "session_started",
+          "label": "Session Started",
+          "time": "11:01 AM"
+        },
+        {
+          "type": "jewellery_tried",
+          "label": "Jewellery Product Code JWL220 tried",
+          "jewelleryId": 691473,
+          "asset": "images/jewellery/691473.png",
+          "note": "Tried after 1 minute"
+        },
+        {
+          "type": "costume_tried",
+          "label": "Costume ID 567 tried",
+          "costumeId": 567,
+          "asset": "images/costume/567.png",
+          "note": "Tried after 2 minutes"
+        }
+      ]
+    }
+  ],
+  "updatedAt": "2026-02-09T00:00:00.000Z"
+}

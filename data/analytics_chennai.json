@@ -1,0 +1,77 @@
+{
+  "favorites": {
+    "title": "Most Favorites Items",
+    "items": [
+      {
+        "name": "Diamond Mangalsutra",
+        "rating": 4,
+        "reviews": 470,
+        "likes": 268000,
+        "interestPercent": 52,
+        "totalSales": 7025,
+        "goalPercent": 91
+      },
+      {
+        "name": "Ruby Bridal Set",
+        "rating": 4,
+        "reviews": 445,
+        "likes": 232000,
+        "interestPercent": 29,
+        "totalSales": 5900,
+        "goalPercent": 78
+      },
+      {
+        "name": "Pearl Stud Earrings",
+        "rating": 4,
+        "reviews": 418,
+        "likes": 190000,
+        "interestPercent": 24,
+        "totalSales": 3650,
+        "goalPercent": 88
+      }
+    ],
+    "cta": "View More"
+  },
+  "dailyTrendingMenus": {
+    "title": "Daily Trending Menus",
+    "subtitle": "Lorem ipsum dolor",
+    "items": [
+      { "rank": 1, "name": "Diamond Mangalsutra", "price": 5900, "orders": 96 },
+      { "rank": 2, "name": "Ruby Bridal Set", "price": 5200, "orders": 72 },
+      { "rank": 3, "name": "Antique Vanki", "price": 12900, "orders": 64 },
+      { "rank": 4, "name": "Gold Kada", "price": 7400, "orders": 55 },
+      { "rank": 5, "name": "Pearl Stud Earrings", "price": 6100, "orders": 41 }
+    ]
+  },
+  "salesSummary": {
+    "title": "Sales Summary",
+    "subtitle": "Lorem ipsum dolor sit amet, consectetur",
+    "period": "Monthly",
+    "metrics": [
+      { "label": "Pieces Sold", "value": 68210 },
+      { "label": "Revenue", "value": 925400, "currency": "INR" },
+      { "label": "Safe (20%)", "value": 103120, "currency": "INR" }
+    ]
+  },
+  "loyalCustomers": {
+    "title": "Loyal Customers",
+    "subtitle": "Lorem ipsum dolor",
+    "customers": [
+      { "name": "Kavya Iyer", "orders": 684 },
+      { "name": "Rahul N", "orders": 392 },
+      { "name": "Sneha Kumar", "orders": 142 },
+      { "name": "Aravind S", "orders": 86 }
+    ]
+  },
+  "bestSeller": {
+    "title": "Best seller jewellery",
+    "subtitle": "Lorem ipsum dolor",
+    "item": {
+      "name": "Diamond Mangalsutra",
+      "price": 7025,
+      "likes": 268000,
+      "sales": 6890
+    }
+  },
+  "updatedAt": "2026-02-09T00:00:00.000Z"
+}

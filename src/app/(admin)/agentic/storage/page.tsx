@@ -16,7 +16,7 @@ import { StorageStatusActionDemo } from "./StorageStatusActionDemo";
 const AgenticFilePage = () => {
     return (
         <>
-            <PageTitle title="Agentic Storage" items={[{ label: "Agentic Hub" }, { label: "Storage", active: true }]} />
+            <PageTitle title="Agentic Storage" />
             <div className="mt-6 flex items-center justify-center">
                 <InputToolbar />
             </div>

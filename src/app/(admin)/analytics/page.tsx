@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 const AnalyticsPage = () => {
     return (
         <>
-            <PageTitle title="Analytics" items={[{ label: "Analytics", active: true }]} />
+            <PageTitle title="Analytics" />
             <div className="mt-6">
                 <div className="card card-border bg-base-100">
                     <div className="card-body">

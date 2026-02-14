@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 const AiChatPage = () => {
     return (
         <>
-            <PageTitle title="Image Gen" items={[{ label: "Gen Ai" }, { label: "Image Gen", active: true }]} />
+            <PageTitle title="Image Gen" />
 
             <div className="mt-6 grid grid-cols-1 gap-6 xl:grid-cols-5 2xl:grid-cols-10">
                 <div className="xl:col-span-2 2xl:col-span-3">

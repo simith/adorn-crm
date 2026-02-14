@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 const ChatPage = () => {
     return (
         <>
-            <PageTitle title="Chat" items={[{ label: "Apps" }, { label: "Chat", active: true }]} />
+            <PageTitle title="Chat" />
             <div className="mt-6">
                 <ChatApp />
             </div>

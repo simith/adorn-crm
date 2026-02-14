@@ -45,7 +45,7 @@ export const CustomerDealsCard = () => {
                 <div className="card-body p-0">
                     <div className="flex items-center justify-between gap-2 px-5 pt-5">
                         <span className="iconify lucide--handshake text-base-content/80 size-4.5" />
-                        <span className="grow font-medium">Customer Deals</span>
+                        <span className="grow font-medium">Recent Try-Ons</span>
                         <button className="btn btn-outline border-base-300 btn-sm">
                             <span className="iconify lucide--plus size-3.5" />
                             Make a Deal

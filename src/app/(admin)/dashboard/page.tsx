@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 const DashboardPage = () => {
     return (
         <>
-            <PageTitle title="Dashboard" items={[{ label: "Dashboard", active: true }]} />
+            <PageTitle title="Dashboard" />
             <div className="mt-6">
                 <div className="grid grid-cols-12 gap-5">
                     <div className="col-span-12 md:col-span-4 xl:col-span-3 2xl:col-span-2">

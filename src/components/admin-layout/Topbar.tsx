@@ -1,6 +1,6 @@
 import { ThemeToggle } from "@/components/ThemeToggle";
 
-import { TopbarLanguageMenu } from "./TopbarLanguageMenu";
+import { TopbarBranchMenu } from "./TopbarBranchMenu";
 import { TopbarNotificationButton } from "./TopbarNotificationButton";
 import { TopbarProfileMenu } from "./TopbarProfileMenu";
 import { TopbarInlineSearch } from "./TopbarInlineSearch";
@@ -30,7 +30,7 @@ export const Topbar = () => {
                 <TopbarInlineSearch />
             </div>
             <div className="inline-flex shrink-0 items-center gap-0.5">
-                <TopbarLanguageMenu />
+                <TopbarBranchMenu />
                 <ThemeToggle className="btn btn-sm btn-circle btn-ghost" />
                 <label htmlFor="layout-rightbar-drawer" className="btn btn-circle btn-ghost btn-sm drawer-button">
                     <span className="iconify lucide--settings-2 size-4.5" />
