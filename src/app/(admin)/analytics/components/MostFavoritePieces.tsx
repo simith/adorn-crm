@@ -40,8 +40,7 @@ const AnimatedRadialProgress = ({
                 } as React.CSSProperties
             }
             role="progressbar"
-            aria-valuenow={targetPercent}
-        >
+            aria-valuenow={targetPercent}>
             <span className="text-sm font-bold">{targetPercent}%</span>
         </div>
     );
@@ -60,16 +59,16 @@ export type FavoriteItem = {
 
 export const MostFavoritePieces = ({ items }: { items: FavoriteItem[] }) => {
     return (
-        <div className="card card-border bg-base-200/40">
+        <div className="card card-border bg-base-100">
             <div className="card-body">
-                <h2 className="card-title text-xl font-bold text-base-content">Most Favorite Pieces</h2>
-                <p className="text-sm text-base-content/60">Across top jewellery lines</p>
+                <h2 className="card-title text-base-content text-xl font-bold">Most Favorite Pieces</h2>
+                <p className="text-base-content/60 text-sm">Across top jewellery lines</p>
                 <div className="mt-4 flex flex-col gap-6">
                     {items.map((item, idx) => (
                         <div key={idx}>
                             <div className="flex flex-wrap items-start gap-4">
                                 <div className="avatar shrink-0">
-                                    <div className="mask mask-squircle size-14 bg-base-300">
+                                    <div className="mask mask-squircle bg-base-300 size-14">
                                         {item.imageUrl ? (
                                             <img src={item.imageUrl} alt={item.name} />
                                         ) : (
@@ -82,18 +81,26 @@ export const MostFavoritePieces = ({ items }: { items: FavoriteItem[] }) => {
                                     </div>
                                 </div>
                                 <div className="min-w-0 flex-1">
-                                    <p className="font-semibold text-base-content">{item.name}</p>
-                                    <p className="text-sm text-base-content/60">
+                                    <p className="text-base-content font-semibold">{item.name}</p>
+                                    <p className="text-base-content/60 text-sm">
                                         {formatNum(item.reviews)} reviews • {formatNum(item.likes)} likes
                                     </p>
                                     <div className="mt-3 flex flex-wrap items-center gap-6">
                                         <div>
-                                            <p className="text-xs uppercase tracking-wide text-base-content/50">Interest</p>
-                                            <p className="text-xl font-bold text-base-content">{item.interestPercent}%</p>
+                                            <p className="text-base-content/50 text-xs tracking-wide uppercase">
+                                                Interest
+                                            </p>
+                                            <p className="text-base-content text-xl font-bold">
+                                                {item.interestPercent}%
+                                            </p>
                                         </div>
                                         <div>
-                                            <p className="text-xs uppercase tracking-wide text-base-content/50">Total sales</p>
-                                            <p className="text-xl font-bold text-base-content">{formatNum(item.totalSales)}</p>
+                                            <p className="text-base-content/50 text-xs tracking-wide uppercase">
+                                                Total sales
+                                            </p>
+                                            <p className="text-base-content text-xl font-bold">
+                                                {formatNum(item.totalSales)}
+                                            </p>
                                         </div>
                                         <div className="flex items-center gap-2">
                                             <AnimatedRadialProgress targetPercent={item.goalPercent} />
@@ -101,7 +108,7 @@ export const MostFavoritePieces = ({ items }: { items: FavoriteItem[] }) => {
                                     </div>
                                 </div>
                             </div>
-                            {idx < items.length - 1 && <div className="mt-4 border-t border-base-300/60" />}
+                            {idx < items.length - 1 && <div className="border-base-300/60 mt-4 border-t" />}
                         </div>
                     ))}
                 </div>
