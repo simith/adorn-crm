@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import SimpleBarCore from "simplebar-core";
 // @ts-ignore
 import SimpleBar from "simplebar-react";
@@ -16,6 +16,7 @@ type IChatMessageList = {
 
 export const ChatMessageList = ({ chat, onSendMessage }: IChatMessageList) => {
     const messagesScrollbarRef = useRef<SimpleBarCore | null>(null);
+    const [campaignImageError, setCampaignImageError] = useState(false);
 
     useEffect(() => {
         const scrollE = messagesScrollbarRef.current?.getScrollElement();
@@ -25,13 +26,20 @@ export const ChatMessageList = ({ chat, onSendMessage }: IChatMessageList) => {
     return (
         <div className="card overflow-hidden border border-gray-200 shadow-sm">
             <div className="flex items-center gap-3 bg-[#00a884] px-4 py-3">
-                <img src={chat.image} className="size-10 max-sm:size-8 rounded-full object-cover" alt="avatar" />
-                <div className="mt-1.5 grow">
-                    <p className="leading-none font-medium text-white max-sm:text-sm">{chat.name}</p>
+                <img src={chat.image} className="size-10 max-sm:size-8 rounded-full object-cover bg-base-200" alt="avatar" />
+                <div className="mt-1.5 grow min-w-0">
+                    <p className="leading-none font-medium text-white max-sm:text-sm truncate">{chat.name}</p>
                     <div className="mt-0.5 flex items-center gap-2">
-                        <div className="size-2 rounded-full bg-green-300"></div>
-                        <p className="text-white/90 text-xs">Active</p>
+                        <div className="size-2 shrink-0 rounded-full bg-green-300" />
+                        <p className="text-white/90 text-xs truncate">
+                            {chat.lastSeen ?? "Active"}
+                        </p>
                     </div>
+                    {chat.campaign && (
+                        <p className="mt-0.5 truncate text-white/70 text-xs" title={chat.campaign.title}>
+                            {chat.campaign.name}
+                        </p>
+                    )}
                 </div>
                 <div className="tooltip tooltip-bottom" data-tip="Audio Call">
                     <button
@@ -99,6 +107,40 @@ export const ChatMessageList = ({ chat, onSendMessage }: IChatMessageList) => {
                     </div>
                 </div>
             </div>
+            {chat.campaign?.image_link && (
+                <div className="flex items-center gap-3 border-b border-base-200 bg-base-100 px-4 py-3">
+                    <div className="flex size-16 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-base-200">
+                        {campaignImageError ? (
+                            <span className="iconify lucide--gem size-8 text-base-content/30" />
+                        ) : (
+                            <img
+                                src={chat.campaign.image_link}
+                                alt={chat.campaign.title}
+                                className="size-full object-cover"
+                                onError={() => setCampaignImageError(true)}
+                            />
+                        )}
+                    </div>
+                    <div className="min-w-0 flex-1">
+                        <p className="font-medium text-base-content">{chat.campaign.title}</p>
+                        <p className="text-sm text-base-content/60">{chat.campaign.name}</p>
+                    </div>
+                </div>
+            )}
+            {chat.campaign_stats && (
+                <div className="flex flex-wrap items-center gap-4 border-b border-base-200 bg-base-100/80 px-4 py-2 text-xs">
+                    <span className="text-base-content/70">
+                        <strong className="text-base-content">Responses:</strong> {chat.campaign_stats.responses}
+                    </span>
+                    <span className="text-base-content/70">
+                        <strong className="text-base-content">Views:</strong> {chat.campaign_stats.views.toLocaleString()}
+                    </span>
+                    <span className="text-base-content/70">
+                        <strong className="text-base-content">Sent:</strong> {chat.campaign_stats.sent.toLocaleString()}
+                    </span>
+                    <span className="badge badge-soft badge-primary badge-sm">{chat.campaign_stats.status}</span>
+                </div>
+            )}
             <SimpleBar className="h-[calc(100vh_-_320px)] bg-[#efeae2] p-5" ref={messagesScrollbarRef}>
                 {chat.messages.map((message, index) => (
                     <ChatMessageItem chat={chat} message={message} key={index} />

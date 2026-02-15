@@ -6,6 +6,11 @@ export type IChatItem = {
     name: string;
     messages: IChatMessageItem[];
     unreadCount?: number;
+    /** From /api/chat */
+    lastSeen?: string;
+    phone?: string;
+    campaign?: { name: string; title: string; image_link: string };
+    campaign_stats?: { responses: number; views: number; sent: number; status: string };
 };
 
 export const ChatItem = ({ image, name, messages, unreadCount, selected }: IChatItem & { selected: boolean }) => {
