@@ -33,11 +33,6 @@ export const adminMenuItems: ISidebarMenuItem[] = [
                 label: "View",
                 url: "/campaigns/view",
             },
-            {
-                id: "campaigns-results",
-                label: "Results",
-                url: "/campaigns/results",
-            },
         ],
     },
     {
