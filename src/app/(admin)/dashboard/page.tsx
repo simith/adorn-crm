@@ -1,4 +1,7 @@
-import { type Metadata } from "next";
+"use client";
+
+import { DashboardSkeleton } from "@/components/skeletons";
+import { useEffect, useState } from "react";
 
 import { BranchStatList } from "./components/BranchStatList";
 import { CustomerDealsCard } from "./components/CustomerDealsCard";
@@ -7,11 +10,22 @@ import { PremiumCard } from "./components/PremiumCard";
 import { SalesMetricCard } from "./components/SalesMetricCard";
 import { SocialAcquisitionCard } from "./components/SocialAcquisitionCard";
 
-export const metadata: Metadata = {
-    title: "Dashboard",
-};
-
 const DashboardPage = () => {
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        // Give components time to mount and start fetching
+        const timer = setTimeout(() => {
+            setIsLoading(false);
+        }, 500);
+
+        return () => clearTimeout(timer);
+    }, []);
+
+    if (isLoading) {
+        return <DashboardSkeleton />;
+    }
+
     return (
         <div className="mt-6">
             <div className="grid grid-cols-1 gap-5 xl:grid-cols-4">

@@ -9,7 +9,8 @@
         "likes": 198000,
         "interestPercent": 38,
         "totalSales": 5980,
-        "goalPercent": 82
+        "goalPercent": 82,
+        "imageUrl": "/images/jewellery/100.jpg"
       },
       {
         "name": "Lakshmi Coin Necklace",
@@ -18,7 +19,8 @@
         "likes": 214000,
         "interestPercent": 22,
         "totalSales": 5120,
-        "goalPercent": 71
+        "goalPercent": 71,
+        "imageUrl": "/images/jewellery/101.jpg"
       },
       {
         "name": "Antique Jhumka Set",
@@ -27,7 +29,8 @@
         "likes": 176000,
         "interestPercent": 19,
         "totalSales": 3320,
-        "goalPercent": 88
+        "goalPercent": 88,
+        "imageUrl": "/images/jewellery/102.jpg"
       }
     ],
     "cta": "View More"
@@ -36,11 +39,36 @@
     "title": "Daily Trending Menus",
     "subtitle": "Lorem ipsum dolor",
     "items": [
-      { "rank": 1, "name": "Gold Kasu Mala", "price": 5200, "orders": 84 },
-      { "rank": 2, "name": "Antique Jhumka Set", "price": 4600, "orders": 66 },
-      { "rank": 3, "name": "Coral Necklace", "price": 11900, "orders": 58 },
-      { "rank": 4, "name": "Temple Bangles", "price": 6800, "orders": 49 },
-      { "rank": 5, "name": "Lakshmi Coin Necklace", "price": 6100, "orders": 38 }
+      {
+        "rank": 1,
+        "name": "Gold Kasu Mala",
+        "price": 5200,
+        "orders": 84
+      },
+      {
+        "rank": 2,
+        "name": "Antique Jhumka Set",
+        "price": 4600,
+        "orders": 66
+      },
+      {
+        "rank": 3,
+        "name": "Coral Necklace",
+        "price": 11900,
+        "orders": 58
+      },
+      {
+        "rank": 4,
+        "name": "Temple Bangles",
+        "price": 6800,
+        "orders": 49
+      },
+      {
+        "rank": 5,
+        "name": "Lakshmi Coin Necklace",
+        "price": 6100,
+        "orders": 38
+      }
     ]
   },
   "salesSummary": {
@@ -48,19 +76,42 @@
     "subtitle": "Lorem ipsum dolor sit amet, consectetur",
     "period": "Monthly",
     "metrics": [
-      { "label": "Pieces Sold", "value": 59210 },
-      { "label": "Revenue", "value": 812400, "currency": "INR" },
-      { "label": "Safe (20%)", "value": 90230, "currency": "INR" }
+      {
+        "label": "Pieces Sold",
+        "value": 59210
+      },
+      {
+        "label": "Revenue",
+        "value": 812400,
+        "currency": "INR"
+      },
+      {
+        "label": "Safe (20%)",
+        "value": 90230,
+        "currency": "INR"
+      }
     ]
   },
   "loyalCustomers": {
     "title": "Loyal Customers",
     "subtitle": "Lorem ipsum dolor",
     "customers": [
-      { "name": "Aditi Rao", "orders": 602 },
-      { "name": "Nikhil Das", "orders": 342 },
-      { "name": "Priya Pai", "orders": 118 },
-      { "name": "Vivek Shetty", "orders": 74 }
+      {
+        "name": "Aditi Rao",
+        "orders": 602
+      },
+      {
+        "name": "Nikhil Das",
+        "orders": 342
+      },
+      {
+        "name": "Priya Pai",
+        "orders": 118
+      },
+      {
+        "name": "Vivek Shetty",
+        "orders": 74
+      }
     ]
   },
   "bestSeller": {
@@ -70,7 +121,8 @@
       "name": "Temple Gold Necklace",
       "price": 6530,
       "likes": 214000,
-      "sales": 6412
+      "sales": 6412,
+      "imageUrl": "/images/jewellery/best-seller.jpg"
     }
   },
   "updatedAt": "2026-02-09T00:00:00.000Z"

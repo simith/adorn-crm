@@ -37,27 +37,29 @@ export const BestSellerCard = ({ data }: { data: BestSellerData }) => {
                 <h2 className="card-title text-xl font-bold text-base-content">{title}</h2>
                 <p className="text-sm text-base-content/60">{subtitle}</p>
                 <div className="mt-4 flex flex-col items-center">
-                    <div className="flex w-full justify-center rounded-xl bg-base-200/50 p-4">
+                    <div className="relative w-full overflow-hidden rounded-xl bg-base-200/50">
                         {item.imageUrl ? (
                             <img
                                 src={item.imageUrl}
                                 alt={item.name}
-                                className="max-h-40 w-auto object-contain"
+                                className="h-auto w-full object-cover"
                             />
                         ) : (
-                            <span
-                                className="iconify text-base-content/20"
-                                data-icon="lucide:gem"
-                                style={{ fontSize: "6rem" }}
-                            />
+                            <div className="flex h-64 w-full items-center justify-center">
+                                <span
+                                    className="iconify text-base-content/20"
+                                    data-icon="lucide:gem"
+                                    style={{ fontSize: "6rem" }}
+                                />
+                            </div>
                         )}
                     </div>
                     <div className="mt-4 w-full text-center">
-                        <p className="font-bold text-base-content">{item.name}</p>
+                        <p className="text-lg font-bold text-base-content">{item.name}</p>
                         <p className="mt-1 text-sm text-base-content/60">
                             {formatPrice(item.price)} • {formatNum(item.likes)} likes
                         </p>
-                        <p className="mt-1 font-bold text-base-content">{formatNum(item.sales)} sales</p>
+                        <p className="mt-1 text-lg font-bold text-base-content">{formatNum(item.sales)} sales</p>
                     </div>
                 </div>
             </div>

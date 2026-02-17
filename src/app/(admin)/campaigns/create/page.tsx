@@ -1,5 +1,6 @@
 "use client";
 
+import { CampaignCreateSkeleton } from "@/components/skeletons";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -72,6 +73,7 @@ const CreateCampaignPage = () => {
     const [data, setData] = useState<CustomerListData | null>(null);
     const [searchQuery, setSearchQuery] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const [isPageLoading, setIsPageLoading] = useState(true);
     const [showResults, setShowResults] = useState(true); // Show results by default
     const [customerCount, setCustomerCount] = useState(4527);
     const [selectedSegment, setSelectedSegment] = useState("Choose customers");
@@ -85,8 +87,13 @@ const CreateCampaignPage = () => {
                     setSearchQuery(body.data.query?.placeholder || "");
                 }
             })
-            .catch(() => setData(null));
+            .catch(() => setData(null))
+            .finally(() => setIsPageLoading(false));
     }, []);
+
+    if (isPageLoading) {
+        return <CampaignCreateSkeleton />;
+    }
 
     const fetchCustomerList = (listId: string) => {
         setIsLoading(true);

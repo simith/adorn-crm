@@ -72,12 +72,8 @@ export const BranchProvider = ({ children }: { children: ReactNode }) => {
             } catch {
                 // ignore
             }
-        } else {
-            const current = getStoredBranch();
-            const params = new URLSearchParams(searchParams.toString());
-            params.set("branch", current);
-            router.replace(`${pathname}?${params.toString()}`);
         }
+        // Note: We no longer auto-add branch to URL - only when user explicitly selects a branch
     }, [searchParams, pathname, router, onCampaignsPage]);
 
     const setBranch = useCallback(

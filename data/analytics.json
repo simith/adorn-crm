@@ -2,7 +2,14 @@
   "favorites": {
     "title": "Most Favorites Items",
     "subtitle": "Lorem ipsum dolor sit amet, consectetur",
-    "categories": ["All Categories", "Main Course", "Pizza", "Drink", "Dessert", "More"],
+    "categories": [
+      "All Categories",
+      "Main Course",
+      "Pizza",
+      "Drink",
+      "Dessert",
+      "More"
+    ],
     "items": [
       {
         "name": "Watermelon Juice with Ice",
@@ -11,7 +18,8 @@
         "likes": 256000,
         "interestPercent": 45,
         "totalSales": 6732,
-        "goalPercent": 87
+        "goalPercent": 87,
+        "imageUrl": "/images/jewellery/100.jpg"
       },
       {
         "name": "Medium Spicy Pizza with Kemangi Leaf",
@@ -20,7 +28,8 @@
         "likes": 256000,
         "interestPercent": 26,
         "totalSales": 5721,
-        "goalPercent": 75
+        "goalPercent": 75,
+        "imageUrl": "/images/jewellery/101.jpg"
       },
       {
         "name": "Mozarella Pizza with Random Topping",
@@ -29,7 +38,8 @@
         "likes": 256000,
         "interestPercent": 26,
         "totalSales": 3515,
-        "goalPercent": 90
+        "goalPercent": 90,
+        "imageUrl": "/images/jewellery/102.jpg"
       }
     ],
     "cta": "View More"
@@ -38,11 +48,36 @@
     "title": "Daily Trending Menus",
     "subtitle": "Lorem ipsum dolor",
     "items": [
-      { "rank": 1, "name": "Chicken curry special with cucumber", "price": 5.6, "orders": 90 },
-      { "rank": 2, "name": "Watermelon juice with ice", "price": 4.8, "orders": 70 },
-      { "rank": 3, "name": "Italiano pizza with garlic", "price": 12.3, "orders": 60 },
-      { "rank": 4, "name": "Tuna soup-spicy with himalaya salt", "price": 7.2, "orders": 50 },
-      { "rank": 5, "name": "Medium Spicy Pizza with Kemangi Leaf", "price": 6.3, "orders": 40 }
+      {
+        "rank": 1,
+        "name": "Chicken curry special with cucumber",
+        "price": 5.6,
+        "orders": 90
+      },
+      {
+        "rank": 2,
+        "name": "Watermelon juice with ice",
+        "price": 4.8,
+        "orders": 70
+      },
+      {
+        "rank": 3,
+        "name": "Italiano pizza with garlic",
+        "price": 12.3,
+        "orders": 60
+      },
+      {
+        "rank": 4,
+        "name": "Tuna soup-spicy with himalaya salt",
+        "price": 7.2,
+        "orders": 50
+      },
+      {
+        "rank": 5,
+        "name": "Medium Spicy Pizza with Kemangi Leaf",
+        "price": 6.3,
+        "orders": 40
+      }
     ]
   },
   "salesSummary": {
@@ -50,19 +85,42 @@
     "subtitle": "Lorem ipsum dolor sit amet, consectetur",
     "period": "Monthly",
     "metrics": [
-      { "label": "Menu Sold", "value": 63876 },
-      { "label": "Revenue", "value": 873335, "currency": "USD" },
-      { "label": "Safe (20%)", "value": 97126, "currency": "USD" }
+      {
+        "label": "Menu Sold",
+        "value": 63876
+      },
+      {
+        "label": "Revenue",
+        "value": 873335,
+        "currency": "USD"
+      },
+      {
+        "label": "Safe (20%)",
+        "value": 97126,
+        "currency": "USD"
+      }
     ]
   },
   "loyalCustomers": {
     "title": "Loyal Customers",
     "subtitle": "Lorem ipsum dolor",
     "customers": [
-      { "name": "Alexzander Queqe", "orders": 651 },
-      { "name": "Bella Simatupang", "orders": 356 },
-      { "name": "Jordi Alaba", "orders": 125 },
-      { "name": "Kevin Jamet", "orders": 78 }
+      {
+        "name": "Alexzander Queqe",
+        "orders": 651
+      },
+      {
+        "name": "Bella Simatupang",
+        "orders": 356
+      },
+      {
+        "name": "Jordi Alaba",
+        "orders": 125
+      },
+      {
+        "name": "Kevin Jamet",
+        "orders": 78
+      }
     ]
   },
   "bestSeller": {

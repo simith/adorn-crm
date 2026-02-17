@@ -1,5 +1,6 @@
 "use client";
 
+import { CampaignListSkeleton } from "@/components/skeletons";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
@@ -61,9 +62,7 @@ const ViewCampaignPage = () => {
             <div className="card bg-base-100 shadow-sm">
                 <div className="card-body p-0">
                     {isLoading ? (
-                        <div className="flex items-center justify-center py-12">
-                            <span className="iconify lucide--loader-2 size-8 animate-spin text-primary" />
-                        </div>
+                        <CampaignListSkeleton />
                     ) : (
                         <div className="overflow-x-auto">
                             <table className="table">

@@ -1,52 +1,52 @@
 [
   {
     "product_id": "NK0034",
-    "image": "https://cdn.example.com/catalogue/NK0034.jpg",
+    "image": "/images/jewellery/100.jpg",
     "description": "Light Antique Gold Haram with intricate temple detailing and matching earrings."
   },
   {
     "product_id": "NK0092",
-    "image": "https://cdn.example.com/catalogue/NK0092.jpg",
+    "image": "/images/jewellery/101.jpg",
     "description": "Temple Gold Necklace featuring traditional craftsmanship and ornate pendant work."
   },
   {
     "product_id": "NK0101",
-    "image": "https://cdn.example.com/catalogue/NK0101.jpg",
+    "image": "/images/jewellery/102.jpg",
     "description": "Kundan Choker Necklace with layered pearls and gemstone accents."
   },
   {
     "product_id": "ND0083",
-    "image": "https://cdn.example.com/catalogue/ND0083.jpg",
+    "image": "/images/jewellery/best-seller.jpg",
     "description": "Teardrop Diamond Set with matching earrings and a statement centerpiece."
   },
   {
     "product_id": "ND0078",
-    "image": "https://cdn.example.com/catalogue/ND0078.jpg",
+    "image": "/images/jewellery/100.jpg",
     "description": "Antique Ruby Gold Set crafted with detailed gold filigree and ruby embellishments."
   },
   {
     "product_id": "ND0067",
-    "image": "https://cdn.example.com/catalogue/ND0067.jpg",
+    "image": "/images/jewellery/101.jpg",
     "description": "Classic Antique Ruby Necklace Set with traditional South Indian styling."
   },
   {
     "product_id": "NK0045",
-    "image": "https://cdn.example.com/catalogue/NK0045.jpg",
+    "image": "/images/jewellery/102.jpg",
     "description": "Polki Pearl Necklace Set combining uncut diamonds with elegant pearl drops."
   },
   {
     "product_id": "PD0032",
-    "image": "https://cdn.example.com/catalogue/PD0032.jpg",
+    "image": "/images/jewellery/best-seller.jpg",
     "description": "Emerald Diamond Pendant with matching earrings in a modern luxury finish."
   },
   {
     "product_id": "ER0078",
-    "image": "https://cdn.example.com/catalogue/ER0078.jpg",
+    "image": "/images/jewellery/100.jpg",
     "description": "Kundan Pearl Jhumkas featuring intricate gold work and pearl hangings."
   },
   {
     "product_id": "ER0106",
-    "image": "https://cdn.example.com/catalogue/ER0106.jpg",
+    "image": "/images/jewellery/101.jpg",
     "description": "Diamond Drop Earrings with a timeless teardrop silhouette and brilliant stones."
   }
 ]

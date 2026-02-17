@@ -1,5 +1,6 @@
 "use client";
 
+import { AnalyticsSkeleton } from "@/components/skeletons";
 import { useEffect, useState } from "react";
 
 import { useBranch } from "@/contexts/branch";
@@ -43,16 +44,7 @@ export const JewelleryAnalyticsView = () => {
     }, [branch]);
 
     if (loading) {
-        return (
-            <div className="mt-6">
-                <p className="text-sm uppercase tracking-wide text-base-content/50">Insights</p>
-                <h1 className="mt-1 text-2xl font-bold text-base-content md:text-3xl">Jewellery Analytics</h1>
-                <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-12">
-                    <div className="h-64 animate-pulse rounded-box bg-base-200/60 lg:col-span-7" />
-                    <div className="h-64 animate-pulse rounded-box bg-base-200/60 lg:col-span-5" />
-                </div>
-            </div>
-        );
+        return <AnalyticsSkeleton />;
     }
 
     if (error || !data) {
@@ -91,7 +83,7 @@ export const JewelleryAnalyticsView = () => {
                 </div>
             ) : null}
             {(loyalCustomers?.customers?.length || bestSeller?.item) ? (
-                <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-2">
+                <div className="mt-6 grid grid-cols-1 items-start gap-6 lg:grid-cols-2">
                     {loyalCustomers?.customers?.length ? (
                         <LoyalCustomersCard data={loyalCustomers} />
                     ) : null}

@@ -1,5 +1,6 @@
 "use client";
 
+import { CampaignDetailSkeleton } from "@/components/skeletons";
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 
@@ -115,11 +116,7 @@ const CampaignDetailPage = () => {
     };
 
     if (isLoading) {
-        return (
-            <div className="mt-6 flex items-center justify-center py-12">
-                <span className="iconify lucide--loader-2 size-8 animate-spin text-primary" />
-            </div>
-        );
+        return <CampaignDetailSkeleton />;
     }
 
     if (!data) {
