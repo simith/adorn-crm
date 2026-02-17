@@ -6,12 +6,13 @@ const CHAT_RESPONSE = {
     campaign: {
         name: "Diwali Jewellery Campaign",
         title: "Elegance That Dazzles",
-        image_link: "/campaigns/diwali_jewellery.jpg",
+        image_link: "/images/jewellery/100.jpg",
     },
     customer: {
         name: "Rajesh Sharma",
         phone: "+91 98765 32109",
         last_seen: "just now",
+        avatar: "/images/avatars/3.png",
     },
     chat: [
         {
