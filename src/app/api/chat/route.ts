@@ -22,6 +22,13 @@ const CHAT_RESPONSE = {
         },
         {
             sender: "business",
+            type: "image",
+            image: "/images/jewellery/100.jpg",
+            message: "",
+            time: "3 minutes ago",
+        },
+        {
+            sender: "business",
             message: "Hello Rajesh, thank you for your interest in our jewellery set.",
             time: "9 minutes ago",
         },
