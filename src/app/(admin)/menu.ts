@@ -48,6 +48,12 @@ export const adminMenuItems: ISidebarMenuItem[] = [
         url: "/leads",
     },
     {
+        id: "next-best-action",
+        icon: "lucide--list-checks",
+        label: "Next Best Action",
+        url: "/next-best-action",
+    },
+    {
         id: "catalogue",
         icon: "lucide--library",
         label: "Catalogue",

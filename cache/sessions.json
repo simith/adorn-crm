@@ -1,0 +1,102 @@
+{
+  "version": 1,
+  "totalEvents": 12,
+  "sessions": [
+    {
+      "session_id": "sess_seed_02",
+      "user_name": "Nisha Iyer",
+      "email_id": "nisha@example.com",
+      "mob_number": "9876500002",
+      "started_at": "2026-02-23T11:30:00.000Z",
+      "last_event_at": "2026-02-23T11:41:00.000Z",
+      "events": [
+        {
+          "event_id": "seed_evt_4",
+          "event_type": "start_session",
+          "timestamp": "2026-02-23T11:30:00.000Z"
+        },
+        {
+          "event_id": "seed_evt_5",
+          "event_type": "view",
+          "timestamp": "2026-02-23T11:36:00.000Z",
+          "jewellery_id": "JW-2004"
+        },
+        {
+          "event_id": "seed_evt_6",
+          "event_type": "share",
+          "timestamp": "2026-02-23T11:41:00.000Z"
+        }
+      ]
+    },
+    {
+      "session_id": "sess_5d99edfddb0d",
+      "user_name": "New User 892362",
+      "email_id": "new.user.892362@example.com",
+      "mob_number": "9800892362",
+      "started_at": "2026-02-23T10:34:52.363Z",
+      "last_event_at": "2026-02-23T10:39:52.363Z",
+      "events": [
+        {
+          "event_id": "a884c4e8-8b13-4f66-b414-d2153764b79d",
+          "event_type": "start_session",
+          "timestamp": "2026-02-23T10:34:52.363Z"
+        },
+        {
+          "event_id": "2412e378-22af-43a1-b1d3-98073c036b4c",
+          "event_type": "view",
+          "timestamp": "2026-02-23T10:35:52.363Z",
+          "jewellery_id": "JW-2000"
+        },
+        {
+          "event_id": "e8be98d5-7de4-42b4-9b5a-d90ebd8d89d9",
+          "event_type": "wishlist",
+          "timestamp": "2026-02-23T10:36:52.363Z"
+        },
+        {
+          "event_id": "e2d2a246-5c73-4751-a827-6ceca6ae42cf",
+          "event_type": "add_to_cart",
+          "timestamp": "2026-02-23T10:37:52.363Z",
+          "jewellery_id": "JW-2002"
+        },
+        {
+          "event_id": "0222b228-5907-4f86-a77e-d1210d81d911",
+          "event_type": "share",
+          "timestamp": "2026-02-23T10:38:52.363Z"
+        },
+        {
+          "event_id": "feec2b4a-d67e-4a00-b998-561afaae451c",
+          "event_type": "purchase",
+          "timestamp": "2026-02-23T10:39:52.363Z",
+          "jewellery_id": "JW-2004"
+        }
+      ]
+    },
+    {
+      "session_id": "sess_seed_01",
+      "user_name": "Aarav Menon",
+      "email_id": "aarav@example.com",
+      "mob_number": "9876500001",
+      "started_at": "2026-02-23T10:00:00.000Z",
+      "last_event_at": "2026-02-23T10:11:00.000Z",
+      "events": [
+        {
+          "event_id": "seed_evt_1",
+          "event_type": "start_session",
+          "timestamp": "2026-02-23T10:00:00.000Z"
+        },
+        {
+          "event_id": "seed_evt_2",
+          "event_type": "view",
+          "timestamp": "2026-02-23T10:05:00.000Z",
+          "jewellery_id": "JW-1001"
+        },
+        {
+          "event_id": "seed_evt_3",
+          "event_type": "wishlist",
+          "timestamp": "2026-02-23T10:11:00.000Z",
+          "jewellery_id": "JW-1001"
+        }
+      ]
+    }
+  ]
+}
