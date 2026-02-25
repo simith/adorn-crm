@@ -6,6 +6,7 @@ export type IChatMessageItem = {
     message: string;
     sendAt: string;
     sender: "me" | "other";
+    imageUrl?: string;
     status?: MessageStatus;
 };
 
@@ -15,7 +16,7 @@ const TickIcon = ({ status }: { status?: MessageStatus }) => {
     const isDelivered = status === "delivered" || isRead;
     const colorClass = isRead ? "text-[#0088ea]" : "text-[#667781]";
     return (
-        <span className={`inline-flex shrink-0 size-4 ${colorClass}`} aria-hidden>
+        <span className={`inline-flex size-4 shrink-0 ${colorClass}`} aria-hidden>
             {isDelivered ? (
                 <span className="iconify lucide--check-check size-4" />
             ) : (
@@ -27,6 +28,8 @@ const TickIcon = ({ status }: { status?: MessageStatus }) => {
 
 export const ChatMessageItem = ({ chat, message }: { chat: IChatItem; message: IChatMessageItem }) => {
     const isMe = message.sender === "me";
+    const hasText = Boolean(message.message?.trim());
+
     return (
         <div>
             <div className={`chat ${isMe ? "chat-end" : "chat-start"}`}>
@@ -40,18 +43,26 @@ export const ChatMessageItem = ({ chat, message }: { chat: IChatItem; message: I
                     </div>
                 </div>
                 <div
-                    className={`chat-bubble text-sm max-w-[85%] ${
+                    className={`chat-bubble max-w-[85%] text-sm ${
                         isMe
-                            ? "bg-[#d9fdd3] text-gray-900 border border-[#b8e6b0]"
-                            : "bg-white text-gray-900 border border-gray-200 shadow-sm"
+                            ? "border border-[#b8e6b0] bg-[#d9fdd3] text-gray-900"
+                            : "border border-gray-200 bg-white text-gray-900 shadow-sm"
                     }`}>
-                    <p className="break-words">{message.message}</p>
+                    {message.imageUrl && (
+                        <img
+                            src={message.imageUrl}
+                            alt="Message attachment"
+                            className={`mb-2 w-full rounded-lg object-cover ${hasText ? "max-h-72" : "max-h-80"}`}
+                            loading="lazy"
+                        />
+                    )}
+                    {hasText && <p className="break-words">{message.message}</p>}
                     <div className="mt-0.5 flex flex-nowrap items-center justify-end gap-1.5">
-                        <span className="text-gray-600 text-[11px] shrink-0">{message.sendAt}</span>
+                        <span className="shrink-0 text-[11px] text-gray-600">{message.sendAt}</span>
                         {isMe && <TickIcon status={message.status ?? "sent"} />}
                     </div>
                 </div>
-                {!isMe && <div className="chat-footer text-gray-600 text-xs">{message.sendAt}</div>}
+                {!isMe && <div className="chat-footer text-xs text-gray-600">{message.sendAt}</div>}
             </div>
         </div>
     );

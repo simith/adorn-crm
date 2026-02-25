@@ -1,0 +1,81 @@
+{
+  "version": 1,
+  "chats": [
+    {
+      "payload": {
+        "campaign": {
+          "name": "Diwali Jewellery Campaign",
+          "title": "Elegance That Dazzles",
+          "image_link": "/images/jewellery/100.jpg"
+        },
+        "customer": {
+          "user_id": "cust_rajesh_001",
+          "name": "Rajesh Sharma",
+          "phone": "+91 98765 32109",
+          "last_seen": "just now",
+          "avatar": "/images/avatars/3.png"
+        },
+        "chat": [
+          {
+            "sender": "customer",
+            "message": "Hi, what is the price of this jewellery set?",
+            "time": "3 minutes ago"
+          },
+          {
+            "sender": "business",
+            "message": "Hello Rajesh, thank you for your interest in our jewellery set.",
+            "time": "9 minutes ago"
+          },
+          {
+            "sender": "business",
+            "message": "The price of this exclusive jewellery set is Rs 85,000.",
+            "time": "just now"
+          },
+          {
+            "sender": "business",
+            "message": "We have a special offer right now: 15% off, making it Rs 72,250.",
+            "time": "just now"
+          },
+          {
+            "sender": "customer",
+            "message": "Great, that's a good offer. Is the set available for immediate delivery?",
+            "time": "3 minutes ago"
+          },
+          {
+            "message_id": "c5bcf4a0-2634-446d-8456-9a57891e9f14",
+            "sender": "customer",
+            "message": "Sharing this necklace design. Do you have this in stock?",
+            "time": "4:29 PM",
+            "image_url": "https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=900&q=80"
+          },
+          {
+            "message_id": "4ebe9eae-6527-4f7a-b584-d54ea3f843c4",
+            "sender": "customer",
+            "message": "Is this jewellery set available in rose gold and what is the final price?",
+            "time": "4:33 PM"
+          },
+          {
+            "message_id": "08385b3a-f4ae-4314-974e-38152f54a312",
+            "sender": "business",
+            "message": "Yes, it is available in rose gold. Final offer price is Rs 72,250 and we can dispatch today.",
+            "time": "4:33 PM"
+          },
+          {
+            "message_id": "5102cef4-1c30-4186-aa07-3c0ecd57be9a",
+            "sender": "customer",
+            "message": "Sharing this necklace design. Do you have this in stock?",
+            "time": "4:33 PM",
+            "image_url": "https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=900&q=80"
+          }
+        ],
+        "campaign_stats": {
+          "responses": 7,
+          "views": 5720,
+          "sent": 9453,
+          "status": "Best Ag30"
+        }
+      },
+      "updatedAt": 1771997598883
+    }
+  ]
+}

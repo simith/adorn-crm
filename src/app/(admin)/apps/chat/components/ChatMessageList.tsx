@@ -24,7 +24,7 @@ export const ChatMessageList = ({ chat, onSendMessage }: IChatMessageList) => {
     }, [chat, messagesScrollbarRef]);
 
     return (
-        <div className="card overflow-hidden border border-gray-200 shadow-sm">
+        <div className="card flex h-[calc(100vh-200px)] flex-col overflow-hidden border border-gray-200 shadow-sm">
             <div className="flex items-center gap-3 bg-[#00a884] px-4 py-3">
                 <img src={chat.image} className="size-10 max-sm:size-8 rounded-full object-cover bg-base-200" alt="avatar" />
                 <div className="mt-1.5 grow min-w-0">
@@ -141,7 +141,7 @@ export const ChatMessageList = ({ chat, onSendMessage }: IChatMessageList) => {
                     <span className="badge badge-soft badge-primary badge-sm">{chat.campaign_stats.status}</span>
                 </div>
             )}
-            <SimpleBar className="h-[calc(100vh_-_320px)] bg-[#efeae2] p-5" ref={messagesScrollbarRef}>
+            <SimpleBar className="min-h-0 flex-1 bg-[#efeae2] p-5" ref={messagesScrollbarRef}>
                 {chat.messages.map((message, index) => (
                     <ChatMessageItem chat={chat} message={message} key={index} />
                 ))}

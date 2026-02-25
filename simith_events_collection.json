@@ -1,0 +1,209 @@
+{
+  "info": {
+    "name": "Adorn Event API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8000/health",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["health"]
+        }
+      }
+    },
+    {
+      "name": "Create Session",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"store_id\": \"store_1\",\n  \"seller_id\": \"seller_1\",\n  \"device_id\": \"ipad_1\",\n  \"customer_id\": \"cust_123\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8000/v1/sessions",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["v1", "sessions"]
+        }
+      }
+    },
+    {
+      "name": "Create Event",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"event_type\": \"session.started\",\n  \"session_id\": \"{{session_id}}\",\n  \"store_id\": \"store_1\",\n  \"seller_id\": \"seller_1\",\n  \"device_id\": \"ipad_1\",\n  \"payload\": {\n    \"customer\": {\n      \"name\": \"Asha\",\n      \"phone\": \"+14155550123\",\n      \"email\": \"asha@example.com\"\n    },\n    \"consent\": true\n  }\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8000/v1/events",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["v1", "events"]
+        }
+      }
+    },
+    {
+      "name": "WhatsApp Opt-In",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"event_type\": \"whatsapp.opt_in\",\n  \"session_id\": \"{{session_id}}\",\n  \"store_id\": \"store_1\",\n  \"seller_id\": \"seller_1\",\n  \"device_id\": \"ipad_1\",\n  \"payload\": {\n    \"phone\": \"+14155550123\",\n    \"consent\": true\n  }\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8000/v1/events",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["v1", "events"]
+        }
+      }
+    },
+    {
+      "name": "Send WhatsApp Template",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"phone\": \"+14155550123\",\n  \"name\": \"Asha\",\n  \"message_key\": \"adorn_session_start\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8000/v1/whatsapp/template",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["v1", "whatsapp", "template"]
+        }
+      }
+    },
+    {
+      "name": "Jewelry Tried",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"event_type\": \"jewelry.tried\",\n  \"session_id\": \"{{session_id}}\",\n  \"store_id\": \"store_1\",\n  \"seller_id\": \"seller_1\",\n  \"device_id\": \"ipad_1\",\n  \"payload\": {\n    \"jewelry_id\": \"necklace_7\",\n    \"jewelry_name\": \"Twilight Chain\",\n    \"attire_id\": \"saree_2\",\n    \"customer_asset_id\": \"customer_1\"\n  }\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8000/v1/events",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["v1", "events"]
+        }
+      }
+    },
+    {
+      "name": "Image Shared (WhatsApp)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"event_type\": \"image.shared\",\n  \"session_id\": \"{{session_id}}\",\n  \"store_id\": \"store_1\",\n  \"seller_id\": \"seller_1\",\n  \"device_id\": \"ipad_1\",\n  \"payload\": {\n    \"channel\": \"whatsapp\",\n    \"destination\": \"+14155550123\",\n    \"preview_asset_id\": \"customer_1_saree_2_necklace_7\",\n    \"share_status\": \"sent\"\n  }\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8000/v1/events",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["v1", "events"]
+        }
+      }
+    },
+    {
+      "name": "Session Closed",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"event_type\": \"session.closed\",\n  \"session_id\": \"{{session_id}}\",\n  \"store_id\": \"store_1\",\n  \"seller_id\": \"seller_1\",\n  \"device_id\": \"ipad_1\",\n  \"payload\": {\n    \"sale_made\": true,\n    \"purchased_jewelry_ids\": [\"necklace_1\", \"necklace_3\"],\n    \"sale_amount\": \"1250\",\n    \"notes\": \"Customer wants matching earrings\"\n  }\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8000/v1/events",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["v1", "events"]
+        }
+      }
+    },
+    {
+      "name": "List Events",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8000/v1/events?session_id={{session_id}}",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["v1", "events"],
+          "query": [
+            {
+              "key": "session_id",
+              "value": "{{session_id}}"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "session_id",
+      "value": ""
+    }
+  ]
+}

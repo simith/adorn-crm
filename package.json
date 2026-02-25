@@ -16,7 +16,9 @@
         "lint": "eslint .",
         "format": "prettier . --write",
         "events:ingest": "node scripts/ingest-events.mjs",
-        "events:ingest:new-user": "node scripts/ingest-new-user-session.mjs"
+        "events:ingest:new-user": "node scripts/ingest-new-user-session.mjs",
+        "messages:test:incoming": "node scripts/test-incoming-message.mjs",
+        "messages:test:retailer": "node scripts/test-retailer-message.mjs"
     },
     "engines": {
         "node": ">=18.18.0"

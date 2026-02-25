@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 320" role="img" aria-labelledby="title desc">
+  <title id="title">Malabar Gold and Diamonds</title>
+  <desc id="desc">Malabar Gold and Diamonds logo in a magenta rectangle with white emblem and text.</desc>
+  <rect width="1200" height="320" fill="#8f0059"/>
+  <circle cx="190" cy="160" r="86" fill="none" stroke="#ffffff" stroke-width="10"/>
+  <g fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="10">
+    <path d="M132 220V103"/>
+    <path d="M132 103L190 161L248 103"/>
+    <path d="M248 220V103"/>
+    <path d="M160 147L220 147"/>
+  </g>
+  <circle cx="190" cy="173" r="7" fill="#ffffff"/>
+  <text x="410" y="165" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="96" font-weight="400" letter-spacing="3">MALABAR</text>
+  <text x="410" y="248" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="66" font-weight="400" letter-spacing="2">GOLD &amp; DIAMONDS</text>
+</svg>

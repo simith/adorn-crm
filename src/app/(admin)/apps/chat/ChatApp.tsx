@@ -2,27 +2,33 @@
 
 import { useCallback, useEffect, useState } from "react";
 
-import { ChatList } from "./components/ChatList";
-import { ChatMessageList } from "./components/ChatMessageList";
 import type { IChatItem } from "./components/ChatItem";
+import { ChatList } from "./components/ChatList";
 import type { IChatMessageItem } from "./components/ChatMessageItem";
+import { ChatMessageList } from "./components/ChatMessageList";
 
 type ChatApiResponse = {
     campaign: { name: string; title: string; image_link: string };
-    customer: { name: string; phone: string; last_seen: string; avatar?: string };
-    chat: Array<{ sender: string; message: string; time: string }>;
+    customer: { user_id: string; name: string; phone: string; last_seen: string; avatar?: string };
+    chat: Array<{ sender: string; message: string; time: string; image_url?: string }>;
     campaign_stats: { responses: number; views: number; sent: number; status: string };
 };
+
+function chatIdFromUserId(userId: string) {
+    return Array.from(userId).reduce((sum, char) => sum + char.charCodeAt(0), 0);
+}
 
 function mapApiChatToItem(data: ChatApiResponse): IChatItem {
     const messages: IChatMessageItem[] = data.chat.map((c) => ({
         message: c.message,
         sendAt: c.time,
+        imageUrl: c.image_url,
         sender: c.sender === "customer" ? "other" : "me",
         status: "read",
     }));
     return {
-        id: 1,
+        id: chatIdFromUserId(data.customer.user_id),
+        userId: data.customer.user_id,
         image: data.customer.avatar || "/images/avatars/3.png",
         name: data.customer.name,
         messages,
@@ -70,21 +76,21 @@ export const ChatApp = () => {
                 setChats((prev) => prev.map((c) => (c.id === selectedChat.id ? next : c)));
             }
         },
-        [selectedChat]
+        [selectedChat],
     );
 
     if (loading) {
         return (
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
-                <div className="h-[calc(100vh-200px)] animate-pulse rounded-lg bg-base-200/60 lg:col-span-5 xl:col-span-4 2xl:col-span-3" />
-                <div className="h-[calc(100vh-200px)] animate-pulse rounded-lg bg-base-200/60 lg:col-span-7 xl:col-span-8 2xl:col-span-9" />
+                <div className="bg-base-200/60 h-[calc(100vh-200px)] animate-pulse rounded-lg lg:col-span-5 xl:col-span-4 2xl:col-span-3" />
+                <div className="bg-base-200/60 h-[calc(100vh-200px)] animate-pulse rounded-lg lg:col-span-7 xl:col-span-8 2xl:col-span-9" />
             </div>
         );
     }
 
     if (chats.length === 0) {
         return (
-            <div className="flex min-h-[40vh] items-center justify-center rounded-lg border border-base-200 bg-base-100">
+            <div className="border-base-200 bg-base-100 flex min-h-[40vh] items-center justify-center rounded-lg border">
                 <p className="text-base-content/60">Could not load chat.</p>
             </div>
         );

@@ -646,19 +646,11 @@ export const NextBestActionApp = () => {
                         </div>
                         <h4 className="mt-2 text-lg font-semibold">{recommendation.title}</h4>
                         <p className="mt-1 text-sm text-base-content/70">{recommendation.summary}</p>
-                        <div className="mt-3 grid grid-cols-1 gap-3 xl:grid-cols-2">
-                            <div className="rounded-lg border border-base-300 bg-base-100 p-3">
-                                <p className="text-xs font-semibold uppercase tracking-wide text-base-content/60">
-                                    Sales Objective
-                                </p>
-                                <p className="mt-1 text-sm">{recommendation.objective}</p>
-                            </div>
-                            <div className="rounded-lg border border-base-300 bg-base-100 p-3">
-                                <p className="text-xs font-semibold uppercase tracking-wide text-base-content/60">
-                                    Commercial Offer
-                                </p>
-                                <p className="mt-1 text-sm">{recommendation.offer}</p>
-                            </div>
+                        <div className="mt-3 rounded-lg border border-base-300 bg-base-100 p-3">
+                            <p className="text-xs font-semibold uppercase tracking-wide text-base-content/60">
+                                Commercial Offer
+                            </p>
+                            <p className="mt-1 text-sm">{recommendation.offer}</p>
                         </div>
                         <div className="mt-3 rounded-lg border border-base-300 bg-base-100 p-3">
                             <p className="text-xs font-semibold uppercase tracking-wide text-base-content/60">
