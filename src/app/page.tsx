@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-
-import Landing from "./landing/page";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
-    title: "Landing - Product Preview",
-};
-const LandingPage = () => {
-    return <Landing />;
+    title: "Login",
 };
 
-export default LandingPage;
+const HomePage = () => {
+    redirect("/auth/login");
+};
+
+export default HomePage;

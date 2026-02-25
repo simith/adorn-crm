@@ -44,6 +44,7 @@ Triggered when a new customer try-on session begins.
 **Payload:**
 ```json
 {
+  "event_type" : "session_start",
   "customer_name": "Jane Doe",
   "customer_phone": "+6512345678",
   "customer_email": "jane@example.com",
@@ -69,10 +70,12 @@ Triggered when a customer selects a jewelry item to try on.
 **Payload:**
 ```json
 {
+  "event_type" : "jewellery_selected",
   "jewelry_id": "necklace_11",
   "jewelry_name": "Diamond Cascade Necklace",
   "jewelry_category": "necklace",
-  "price": 45000.00
+  "price": 45000.00,
+  "image_url": "https://malabar191.malabargoldanddiamonds.com/media/catalog/product/cache/5/image/500x500/9df78eab33525d08d6e5fb8d27136e95/placeholder/default/placeholder-800x800_2_4.jpg"
 }
 ```
 
@@ -82,6 +85,7 @@ Triggered when a customer selects a jewelry item to try on.
 | `jewelry_name` | string | Display name of the jewelry |
 | `jewelry_category` | string | Category (necklace, earring, etc.) |
 | `price` | number | Price of the item (optional) |
+| `image_url` | string | Product image URL (Malabar Gold source) |
 
 ---
 
@@ -92,10 +96,12 @@ Triggered when a composite try-on image is generated.
 **Payload:**
 ```json
 {
+  "event_type": "image_generated",
   "jewelry_id": "necklace_11",
   "jewelry_name": "Diamond Cascade Necklace",
   "attire_id": "saree_red_silk",
   "attire_name": "Red Silk Saree",
+  "image_url": "https://i.pinimg.com/564x/35/f1/15/35f115d9b47dc754d251284f734dc226.jpg",
   "generation_time_ms": 245
 }
 ```
@@ -117,6 +123,7 @@ Triggered when a try-on image is shared with the customer.
 **Payload:**
 ```json
 {
+  "event_type": "image_shared",
   "channel": "whatsapp",
   "destination": "+6512345678",
   "jewelry_id": "necklace_11",
@@ -150,6 +157,7 @@ Triggered when a customer session is closed.
 **Payload:**
 ```json
 {
+"event_type" :  "session_ended",
   "duration_seconds": 1845,
   "items_tried": 8,
   "items_shared": 3,

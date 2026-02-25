@@ -6,7 +6,7 @@ import { useBranch } from "@/contexts/branch";
 
 type NewJoinMember = {
     name: string;
-    role: string;
+    location?: string;
 };
 
 type BranchData = {
@@ -34,16 +34,15 @@ export const SocialAcquisitionCard = () => {
     }, [branch]);
 
     return (
-        <div className="card rounded-box border border-base-200 bg-base-100 shadow-sm">
+        <div className="card rounded-box border-base-200 bg-base-100 border shadow-sm">
             <div className="card-body p-4">
                 <div className="flex items-center justify-between">
-                    <h2 className="card-title text-base font-bold text-base-content">New Join Member</h2>
+                    <h2 className="card-title text-base-content text-base font-bold">New Join Member</h2>
                     <button
                         type="button"
                         className="btn btn-ghost btn-circle btn-sm shrink-0"
-                        aria-label="More options"
-                    >
-                        <span className="iconify lucide--more-horizontal size-5 text-base-content/70" />
+                        aria-label="More options">
+                        <span className="iconify lucide--more-horizontal text-base-content/70 size-5" />
                     </button>
                 </div>
                 {loading ? (
@@ -59,16 +58,20 @@ export const SocialAcquisitionCard = () => {
                         ))}
                     </ul>
                 ) : members.length === 0 ? (
-                    <p className="mt-2 text-sm text-base-content/60">No new members.</p>
+                    <p className="text-base-content/60 mt-2 text-sm">No new members.</p>
                 ) : (
-                    <ul className="mt-2 flex flex-col divide-y divide-base-200">
+                    <ul className="divide-base-200 mt-2 flex flex-col divide-y">
                         {members.map((member, idx) => (
                             <li key={idx} className="flex items-center justify-between gap-3 py-3 first:pt-1">
                                 <div className="min-w-0 flex-1">
-                                    <p className="font-bold text-base-content">{member.name}</p>
-                                    <p className="text-sm text-base-content/60">{member.role}</p>
+                                    <p className="text-base-content font-bold">{member.name}</p>
+                                    <p className="text-base-content/60 text-sm">
+                                        {member.location || "Location unavailable"}
+                                    </p>
                                 </div>
-                                <button type="button" className="btn btn-ghost btn-sm rounded-lg bg-base-200 text-base-content">
+                                <button
+                                    type="button"
+                                    className="btn btn-ghost btn-sm bg-base-200 text-base-content rounded-lg">
                                     Add
                                 </button>
                             </li>

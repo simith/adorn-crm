@@ -14,14 +14,11 @@ export const metadata: Metadata = {
     icons: {
         icon: [
             {
-                url: "/images/favicon-light.png",
-                media: "(prefers-color-scheme: light)",
-            },
-            {
-                url: "/images/favicon-dark.png",
-                media: "(prefers-color-scheme: dark)",
+                url: "/images/favicon-adorn-jewellers.svg",
+                type: "image/svg+xml",
             },
         ],
+        shortcut: [{ url: "/images/favicon-adorn-jewellers.svg", type: "image/svg+xml" }],
     },
 };
 
@@ -36,8 +33,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             </head>
             <body>
                 <ConfigProvider>
-                <BranchProvider>{children}</BranchProvider>
-            </ConfigProvider>
+                    <BranchProvider>{children}</BranchProvider>
+                </ConfigProvider>
             </body>
         </html>
     );

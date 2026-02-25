@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">Adorn Jewellers Favicon</title>
+  <desc id="desc">Square magenta favicon with a white A monogram for Adorn Jewellers.</desc>
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="#8d0058" />
+  <path d="M20 45V19h4l8 9 8-9h4v26h-4V25l-8 9-8-9v20h-4z" fill="#ffffff" />
+  <circle cx="32" cy="36.5" r="2.5" fill="#ffffff" />
+</svg>

@@ -8,6 +8,26 @@ type UserEvent = {
     id: string;
     event_type: string;
     jewellery_id?: string;
+    jewelry_name?: string;
+    jewelry_category?: string;
+    price?: number;
+    image_url?: string;
+    attire_id?: string;
+    attire_name?: string;
+    generation_time_ms?: number;
+    channel?: string;
+    destination?: string;
+    jeweler_id?: string;
+    jeweler_name?: string;
+    share_status?: string;
+    message_sid?: string;
+    duration_seconds?: number;
+    items_tried?: number;
+    items_shared?: number;
+    sale_made?: boolean;
+    sale_amount?: number;
+    purchased_items?: string[];
+    notes?: string;
     timestamp: string;
     session_id: string;
 };
@@ -45,6 +65,27 @@ type ApiEvent = {
     event_type: string;
     timestamp: string;
     jewellery_id?: string;
+    jewelry_id?: string;
+    jewelry_name?: string;
+    jewelry_category?: string;
+    price?: number;
+    image_url?: string;
+    attire_id?: string;
+    attire_name?: string;
+    generation_time_ms?: number;
+    channel?: string;
+    destination?: string;
+    jeweler_id?: string;
+    jeweler_name?: string;
+    share_status?: string;
+    message_sid?: string;
+    duration_seconds?: number;
+    items_tried?: number;
+    items_shared?: number;
+    sale_made?: boolean;
+    sale_amount?: number;
+    purchased_items?: string[];
+    notes?: string;
 };
 
 type ApiSession = {
@@ -125,7 +166,27 @@ function mapApiSessionsToUsers(sessions: ApiSession[]): SessionUser[] {
                 .map((event, index) => ({
                     id: event.event_id || `${session.session_id}_${index}`,
                     event_type: event.event_type,
-                    jewellery_id: event.jewellery_id,
+                    jewellery_id: event.jewellery_id || event.jewelry_id,
+                    jewelry_name: event.jewelry_name,
+                    jewelry_category: event.jewelry_category,
+                    price: event.price,
+                    image_url: event.image_url,
+                    attire_id: event.attire_id,
+                    attire_name: event.attire_name,
+                    generation_time_ms: event.generation_time_ms,
+                    channel: event.channel,
+                    destination: event.destination,
+                    jeweler_id: event.jeweler_id,
+                    jeweler_name: event.jeweler_name,
+                    share_status: event.share_status,
+                    message_sid: event.message_sid,
+                    duration_seconds: event.duration_seconds,
+                    items_tried: event.items_tried,
+                    items_shared: event.items_shared,
+                    sale_made: event.sale_made,
+                    sale_amount: event.sale_amount,
+                    purchased_items: event.purchased_items,
+                    notes: event.notes,
                     timestamp: event.timestamp,
                     session_id: session.session_id,
                 }))
@@ -150,9 +211,7 @@ function mapApiSessionsToUsers(sessions: ApiSession[]): SessionUser[] {
     return [...byUser.values()]
         .map((user) => ({
             ...user,
-            sessions: [...user.sessions].sort(
-                (a, b) => toEpoch(b.last_activity_at) - toEpoch(a.last_activity_at)
-            ),
+            sessions: [...user.sessions].sort((a, b) => toEpoch(b.last_activity_at) - toEpoch(a.last_activity_at)),
         }))
         .sort((a, b) => {
             const aLatest = a.sessions[0]?.last_activity_at || "";
@@ -245,10 +304,29 @@ function userLastActivity(user: SessionUser) {
 }
 
 function eventSummary(event: UserEvent) {
-    const item = event.jewellery_id || "a jewellery item";
+    const item = event.jewelry_name || event.jewellery_id || "a jewellery item";
 
     if (event.event_type === "start_session") {
         return "Customer started a new browsing session.";
+    }
+    if (event.event_type === "jewellery_selected" || event.event_type === "jewelry_selected") {
+        return `Customer selected ${item} for try-on.`;
+    }
+    if (event.event_type === "image_generated" || event.event_type === "image.generated") {
+        const attire = event.attire_name || event.attire_id || "selected attire";
+        return `Try-on image generated for ${item} with ${attire}.`;
+    }
+    if (event.event_type === "image_shared" || event.event_type === "image.shared") {
+        const channel = event.channel || "share channel";
+        const target = event.destination || "customer destination";
+        return `Try-on image for ${item} shared via ${channel} to ${target}.`;
+    }
+    if (event.event_type === "session_ended" || event.event_type === "session.ended") {
+        if (event.sale_made) {
+            const amount = typeof event.sale_amount === "number" ? ` Rs ${event.sale_amount.toLocaleString()}` : "";
+            return `Session ended with a sale.${amount}`;
+        }
+        return "Session ended without a sale.";
     }
     if (event.event_type === "view") {
         return `Customer viewed ${item}.`;
@@ -269,19 +347,45 @@ function eventSummary(event: UserEvent) {
     return `Customer triggered ${event.event_type.replaceAll("_", " ")}.`;
 }
 
+function eventTypeLabel(eventType: string) {
+    if (eventType === "jewellery_selected" || eventType === "jewelry_selected") {
+        return "Jewellery Selected";
+    }
+    if (eventType === "image_generated" || eventType === "image.generated") {
+        return "Image Generated";
+    }
+    if (eventType === "image_shared" || eventType === "image.shared") {
+        return "Image Shared";
+    }
+    if (eventType === "session_ended" || eventType === "session.ended") {
+        return "Session Ended";
+    }
+
+    return eventType.replaceAll("_", " ");
+}
+
 function buildSessionRecommendation(
     user: SessionUser,
     session: UserSession,
-    events: UserEvent[]
+    events: UserEvent[],
 ): SessionRecommendation {
     const sessionLabel = sessionLabelFromTimestamp(session.started_at);
-    const hasPurchase = events.some((event) => event.event_type === "purchase");
+    const hasPurchase = events.some(
+        (event) =>
+            event.event_type === "purchase" ||
+            ((event.event_type === "session_ended" || event.event_type === "session.ended") && event.sale_made),
+    );
     const hasCart = events.some((event) => event.event_type === "add_to_cart");
     const hasWishlist = events.some((event) => event.event_type === "wishlist");
-    const hasShare = events.some((event) => event.event_type === "share");
+    const hasShare = events.some(
+        (event) =>
+            event.event_type === "share" || event.event_type === "image_shared" || event.event_type === "image.shared",
+    );
     const viewCount = events.filter((event) => event.event_type === "view").length;
     const preferredJewellery =
-        [...events].reverse().find((event) => event.jewellery_id)?.jewellery_id || "highlighted item";
+        [...events].reverse().find((event) => event.jewelry_name || event.jewellery_id)?.jewelry_name ||
+        [...events].reverse().find((event) => event.jewellery_id)?.jewellery_id ||
+        "highlighted item";
     const contactName = firstName(user.name);
 
     if (hasPurchase) {
@@ -365,11 +469,11 @@ export const NextBestActionApp = () => {
                 setUsers(mappedUsers);
                 const firstUser = mappedUsers[0];
                 setSelectedUserId((current) =>
-                    mappedUsers.some((user) => user.id === current) ? current : firstUser?.id || ""
+                    mappedUsers.some((user) => user.id === current) ? current : firstUser?.id || "",
                 );
                 setSelectedSessionId((current) => {
                     const sessionStillExists = mappedUsers.some((user) =>
-                        user.sessions.some((session) => session.id === current)
+                        user.sessions.some((session) => session.id === current),
                     );
                     return sessionStillExists ? current : firstUser?.sessions[0]?.id || "";
                 });
@@ -402,9 +506,9 @@ export const NextBestActionApp = () => {
                         sessionId: session.id,
                         userName: user.name,
                         lastSeen: session.last_activity_at,
-                    }))
+                    })),
             ),
-        [users]
+        [users],
     );
 
     const filteredUsers = useMemo(() => {
@@ -419,7 +523,7 @@ export const NextBestActionApp = () => {
                 user.name.toLowerCase().includes(searchValue) ||
                 user.id.toLowerCase().includes(searchValue) ||
                 user.email_id.toLowerCase().includes(searchValue) ||
-                user.mob_number.toLowerCase().includes(searchValue)
+                user.mob_number.toLowerCase().includes(searchValue),
         );
     }, [search, users]);
 
@@ -433,9 +537,7 @@ export const NextBestActionApp = () => {
     const sessionsForSelectedUser = useMemo(() => {
         if (!selectedUser) return [];
 
-        return [...selectedUser.sessions].sort(
-            (a, b) => toEpoch(b.last_activity_at) - toEpoch(a.last_activity_at)
-        );
+        return [...selectedUser.sessions].sort((a, b) => toEpoch(b.last_activity_at) - toEpoch(a.last_activity_at));
     }, [selectedUser]);
 
     const selectedSession =
@@ -444,11 +546,8 @@ export const NextBestActionApp = () => {
         emptySession;
 
     const orderedEvents = useMemo(
-        () =>
-            [...selectedSession.events].sort(
-                (a, b) => toEpoch(a.timestamp) - toEpoch(b.timestamp)
-            ),
-        [selectedSession]
+        () => [...selectedSession.events].sort((a, b) => toEpoch(a.timestamp) - toEpoch(b.timestamp)),
+        [selectedSession],
     );
 
     const recommendation = useMemo(() => {
@@ -471,15 +570,15 @@ export const NextBestActionApp = () => {
     if (loading) {
         return (
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
-                <div className="h-[calc(100vh-200px)] animate-pulse rounded-lg bg-base-200/60 lg:col-span-4" />
-                <div className="h-[calc(100vh-200px)] animate-pulse rounded-lg bg-base-200/60 lg:col-span-8" />
+                <div className="bg-base-200/60 h-[calc(100vh-200px)] animate-pulse rounded-lg lg:col-span-4" />
+                <div className="bg-base-200/60 h-[calc(100vh-200px)] animate-pulse rounded-lg lg:col-span-8" />
             </div>
         );
     }
 
     if (error) {
         return (
-            <div className="rounded-lg border border-error/30 bg-error/10 p-4 text-sm text-error-content">
+            <div className="border-error/30 bg-error/10 text-error-content rounded-lg border p-4 text-sm">
                 Failed to load session data from `/api_events`: {error}
             </div>
         );
@@ -487,9 +586,9 @@ export const NextBestActionApp = () => {
 
     if (users.length === 0) {
         return (
-            <div className="rounded-lg border border-dashed border-base-300 bg-base-100 p-8 text-center">
+            <div className="border-base-300 bg-base-100 rounded-lg border border-dashed p-8 text-center">
                 <p className="text-lg font-semibold">No session data found</p>
-                <p className="mt-1 text-sm text-base-content/60">
+                <p className="text-base-content/60 mt-1 text-sm">
                     Start a session via `/api_events` with `event_type: "start_session"` to populate this page.
                 </p>
             </div>
@@ -499,8 +598,8 @@ export const NextBestActionApp = () => {
     return (
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
             <div className="lg:col-span-5 xl:col-span-4 2xl:col-span-3">
-                <div className="card h-full overflow-hidden border border-gray-200 bg-base-100 shadow-sm">
-                    <div className="border-b border-base-200 bg-base-100 px-4 py-3">
+                <div className="card bg-base-100 h-full overflow-hidden border border-gray-200 shadow-sm">
+                    <div className="border-base-200 bg-base-100 border-b px-4 py-3">
                         <div className="flex items-center justify-between gap-2">
                             <h2 className="text-base font-semibold">Users</h2>
                             <button
@@ -512,7 +611,7 @@ export const NextBestActionApp = () => {
                             </button>
                         </div>
                         <label className="input input-sm mt-3 flex items-center gap-2">
-                            <span className="iconify lucide--search size-4 text-base-content/50" />
+                            <span className="iconify lucide--search text-base-content/50 size-4" />
                             <input
                                 value={search}
                                 onChange={(event) => setSearch(event.target.value)}
@@ -523,20 +622,22 @@ export const NextBestActionApp = () => {
                             />
                         </label>
                         {showActiveList && (
-                            <div className="mt-3 rounded-lg border border-base-200 bg-base-50 p-3">
-                                <p className="text-xs font-semibold uppercase tracking-wide text-base-content/60">
+                            <div className="border-base-200 bg-base-50 mt-3 rounded-lg border p-3">
+                                <p className="text-base-content/60 text-xs font-semibold tracking-wide uppercase">
                                     Active Right Now
                                 </p>
                                 <ul className="mt-2 space-y-2">
                                     {activeSessions.map((session) => (
-                                        <li key={session.sessionId} className="flex items-center justify-between gap-2 text-sm">
+                                        <li
+                                            key={session.sessionId}
+                                            className="flex items-center justify-between gap-2 text-sm">
                                             <div className="min-w-0">
                                                 <p className="truncate font-medium">{session.userName}</p>
-                                                <p className="truncate text-xs text-base-content/60">
+                                                <p className="text-base-content/60 truncate text-xs">
                                                     {sessionLabelFromTimestamp(session.lastSeen)}
                                                 </p>
                                             </div>
-                                            <span className="text-xs text-base-content/60">
+                                            <span className="text-base-content/60 text-xs">
                                                 {formatRelativeTime(session.lastSeen)}
                                             </span>
                                         </li>
@@ -563,18 +664,18 @@ export const NextBestActionApp = () => {
                                     <img
                                         src={user.avatar}
                                         alt={user.name}
-                                        className="size-10 rounded-full bg-base-200 object-cover"
+                                        className="bg-base-200 size-10 rounded-full object-cover"
                                     />
                                     <div className="min-w-0 flex-1">
                                         <div className="flex items-center justify-between gap-2">
                                             <p className="truncate text-sm font-medium">{user.name}</p>
-                                            <span className="text-xs text-base-content/60">
+                                            <span className="text-base-content/60 text-xs">
                                                 {user.sessions.length} sessions
                                             </span>
                                         </div>
                                         <div className="mt-0.5 flex items-center gap-2">
                                             <span className={`inline-block size-2 rounded-full ${statusDot(status)}`} />
-                                            <span className="truncate text-xs text-base-content/60">
+                                            <span className="text-base-content/60 truncate text-xs">
                                                 {lastActivity ? formatRelativeTime(lastActivity) : "No activity"}
                                             </span>
                                         </div>
@@ -583,11 +684,11 @@ export const NextBestActionApp = () => {
                             );
                         })}
                         {filteredUsers.length === 0 && (
-                            <p className="px-2 py-4 text-sm text-base-content/60">No users found.</p>
+                            <p className="text-base-content/60 px-2 py-4 text-sm">No users found.</p>
                         )}
                     </div>
-                    <div className="border-y border-base-200 bg-base-100 px-4 py-2">
-                        <p className="text-xs font-semibold uppercase tracking-wide text-base-content/60">
+                    <div className="border-base-200 bg-base-100 border-y px-4 py-2">
+                        <p className="text-base-content/60 text-xs font-semibold tracking-wide uppercase">
                             Sessions for {selectedUser?.name || "Selected User"}
                         </p>
                     </div>
@@ -602,29 +703,31 @@ export const NextBestActionApp = () => {
                                         : "border-base-200 hover:bg-base-200/70"
                                 }`}>
                                 <div className="flex items-center justify-between gap-2">
-                                    <p className="text-sm font-medium">{sessionLabelFromTimestamp(session.started_at)}</p>
+                                    <p className="text-sm font-medium">
+                                        {sessionLabelFromTimestamp(session.started_at)}
+                                    </p>
                                     <span className={`badge ${statusBadge(session.status)} badge-soft badge-sm`}>
                                         {session.status}
                                     </span>
                                 </div>
-                                <div className="mt-1 flex items-center justify-between gap-2 text-xs text-base-content/60">
+                                <div className="text-base-content/60 mt-1 flex items-center justify-between gap-2 text-xs">
                                     <span>{session.events.length} events</span>
                                     <span>{formatRelativeTime(session.last_activity_at)}</span>
                                 </div>
                             </button>
                         ))}
                         {sessionsForSelectedUser.length === 0 && (
-                            <p className="px-2 py-4 text-sm text-base-content/60">No sessions for this user.</p>
+                            <p className="text-base-content/60 px-2 py-4 text-sm">No sessions for this user.</p>
                         )}
                     </div>
                 </div>
             </div>
             <div className="lg:col-span-7 xl:col-span-8 2xl:col-span-9">
-                <div className="card overflow-hidden border border-gray-200 bg-base-100 shadow-sm">
-                    <div className="flex items-center justify-between gap-3 border-b border-base-200 px-4 py-3">
+                <div className="card bg-base-100 overflow-hidden border border-gray-200 shadow-sm">
+                    <div className="border-base-200 flex items-center justify-between gap-3 border-b px-4 py-3">
                         <div className="min-w-0">
                             <h3 className="truncate text-base font-semibold">{selectedUser?.name || "Unknown User"}</h3>
-                            <p className="text-sm text-base-content/60">
+                            <p className="text-base-content/60 text-sm">
                                 {(selectedUser?.email_id || "N/A") +
                                     " · " +
                                     sessionLabelFromTimestamp(selectedSession.started_at)}
@@ -634,10 +737,10 @@ export const NextBestActionApp = () => {
                             {selectedSession.status}
                         </span>
                     </div>
-                    <div className="border-b border-base-200 bg-base-100/70 px-4 py-2 text-xs text-base-content/60">
+                    <div className="border-base-200 bg-base-100/70 text-base-content/60 border-b px-4 py-2 text-xs">
                         Events shown in chronological order for selected session
                     </div>
-                    <div className="border-b border-base-200 bg-gradient-to-r from-base-200/70 to-base-100 px-4 py-4">
+                    <div className="border-base-200 from-base-200/70 to-base-100 border-b bg-gradient-to-r px-4 py-4">
                         <div className="flex flex-wrap items-center justify-between gap-2">
                             <p className="text-sm font-semibold tracking-wide">Next Best Action Recommendation</p>
                             <span className="badge badge-primary badge-soft">
@@ -645,61 +748,171 @@ export const NextBestActionApp = () => {
                             </span>
                         </div>
                         <h4 className="mt-2 text-lg font-semibold">{recommendation.title}</h4>
-                        <p className="mt-1 text-sm text-base-content/70">{recommendation.summary}</p>
-                        <div className="mt-3 rounded-lg border border-base-300 bg-base-100 p-3">
-                            <p className="text-xs font-semibold uppercase tracking-wide text-base-content/60">
+                        <p className="text-base-content/70 mt-1 text-sm">{recommendation.summary}</p>
+                        <div className="border-base-300 bg-base-100 mt-3 rounded-lg border p-3">
+                            <p className="text-base-content/60 text-xs font-semibold tracking-wide uppercase">
                                 Commercial Offer
                             </p>
                             <p className="mt-1 text-sm">{recommendation.offer}</p>
                         </div>
-                        <div className="mt-3 rounded-lg border border-base-300 bg-base-100 p-3">
-                            <p className="text-xs font-semibold uppercase tracking-wide text-base-content/60">
+                        <div className="border-base-300 bg-base-100 mt-3 rounded-lg border p-3">
+                            <p className="text-base-content/60 text-xs font-semibold tracking-wide uppercase">
                                 Suggested Outreach Message
                             </p>
                             <p className="mt-1 text-sm leading-relaxed">{recommendation.outreach}</p>
                         </div>
                         <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
-                            <p className="text-xs text-base-content/70">{recommendation.urgency}</p>
+                            <p className="text-base-content/70 text-xs">{recommendation.urgency}</p>
                             <button className="btn btn-primary btn-sm">{recommendation.cta}</button>
                         </div>
                     </div>
-                    <div className="h-[calc(100vh_-_520px)] min-h-[18rem] overflow-y-auto bg-base-100 px-4 py-4">
-                        <ol className="relative border-s border-base-200 ps-5">
+                    <div className="bg-base-100 h-[calc(100vh_-_520px)] min-h-[18rem] overflow-y-auto px-4 py-4">
+                        <ol className="border-base-200 relative border-s ps-5">
                             {orderedEvents.map((event) => (
-                                <li key={event.id} className="mb-5 ms-1">
-                                    <span className="absolute -start-1.5 mt-2 size-3 rounded-full border-2 border-base-100 bg-primary" />
-                                    <div className="rounded-lg border border-base-200 bg-base-100 p-3">
+                                <li key={event.id} className="ms-1 mb-5">
+                                    <span className="border-base-100 bg-primary absolute -start-1.5 mt-2 size-3 rounded-full border-2" />
+                                    <div className="border-base-200 bg-base-100 rounded-lg border p-3">
                                         <div className="flex flex-wrap items-center justify-between gap-2">
-                                            <p className="font-medium capitalize">{event.event_type.replaceAll("_", " ")}</p>
-                                            <span className="text-xs text-base-content/60">
+                                            <p className="font-medium capitalize">{eventTypeLabel(event.event_type)}</p>
+                                            <span className="text-base-content/60 text-xs">
                                                 {formatRelativeTime(event.timestamp)}
                                             </span>
                                         </div>
-                                        <p className="mt-1 text-sm text-base-content/70">{eventSummary(event)}</p>
-                                        {event.event_type === "view" && (
-                                            <div className="mt-3 flex items-center gap-3 rounded-lg border border-base-200 bg-base-50 p-2">
+                                        <p className="text-base-content/70 mt-1 text-sm">{eventSummary(event)}</p>
+                                        {(event.event_type === "view" ||
+                                            event.event_type === "jewellery_selected" ||
+                                            event.event_type === "jewelry_selected" ||
+                                            event.event_type === "image_generated" ||
+                                            event.event_type === "image.generated" ||
+                                            event.event_type === "image_shared" ||
+                                            event.event_type === "image.shared") && (
+                                            <div className="border-base-200 bg-base-50 mt-3 flex items-center gap-3 rounded-lg border p-2">
                                                 <img
-                                                    src={jewelleryImageForEvent(event)}
-                                                    alt={event.jewellery_id ?? "Jewellery item"}
+                                                    src={event.image_url || jewelleryImageForEvent(event)}
+                                                    alt={event.jewelry_name || event.jewellery_id || "Jewellery item"}
                                                     className="size-14 rounded-md object-cover"
                                                 />
                                                 <div className="min-w-0">
-                                                    <p className="text-xs font-semibold uppercase tracking-wide text-base-content/60">
-                                                        Viewed Jewellery
+                                                    <p className="text-base-content/60 flex items-center gap-1 text-xs font-semibold tracking-wide uppercase">
+                                                        {event.event_type === "view"
+                                                            ? "Viewed Jewellery"
+                                                            : event.event_type === "jewellery_selected" ||
+                                                                event.event_type === "jewelry_selected"
+                                                              ? "Jewellery Selected"
+                                                              : event.event_type === "image_generated" ||
+                                                                  event.event_type === "image.generated"
+                                                                ? "Image Generated"
+                                                                : "Image Shared"}
+                                                        {(event.event_type === "image_shared" ||
+                                                            event.event_type === "image.shared") &&
+                                                            event.channel === "whatsapp" && (
+                                                                <span className="iconify ri--whatsapp-fill size-4 text-[#25d366]" />
+                                                            )}
                                                     </p>
                                                     <p className="truncate text-sm font-medium">
-                                                        {event.jewellery_id ?? "Item code unavailable"}
+                                                        {event.jewelry_name ||
+                                                            event.jewellery_id ||
+                                                            "Item code unavailable"}
                                                     </p>
+                                                    {(event.event_type === "image_shared" ||
+                                                        event.event_type === "image.shared") &&
+                                                        event.destination && (
+                                                            <p className="text-base-content/60 truncate text-xs">
+                                                                To: {event.destination}
+                                                            </p>
+                                                        )}
+                                                    {event.attire_name && (
+                                                        <p className="text-base-content/60 truncate text-xs">
+                                                            Attire: {event.attire_name}
+                                                        </p>
+                                                    )}
+                                                    {typeof event.price === "number" &&
+                                                        Number.isFinite(event.price) && (
+                                                            <p className="text-base-content/60 text-xs">
+                                                                Rs {event.price.toLocaleString()}
+                                                            </p>
+                                                        )}
+                                                    {typeof event.generation_time_ms === "number" &&
+                                                        Number.isFinite(event.generation_time_ms) && (
+                                                            <p className="text-base-content/60 text-xs">
+                                                                Generated in {event.generation_time_ms} ms
+                                                            </p>
+                                                        )}
                                                 </div>
                                             </div>
                                         )}
-                                        <div className="mt-2 flex flex-wrap gap-2 text-xs text-base-content/70">
+                                        {(event.event_type === "session_ended" ||
+                                            event.event_type === "session.ended") &&
+                                            event.notes && (
+                                                <div className="border-base-200 bg-base-50 mt-3 rounded-lg border p-2">
+                                                    <p className="text-base-content/60 text-xs font-semibold tracking-wide uppercase">
+                                                        Session Notes
+                                                    </p>
+                                                    <p className="mt-1 text-sm">{event.notes}</p>
+                                                </div>
+                                            )}
+                                        <div className="text-base-content/70 mt-2 flex flex-wrap gap-2 text-xs">
                                             <span className="badge badge-outline badge-sm">
                                                 {sessionLabelFromTimestamp(selectedSession.started_at)}
                                             </span>
                                             <span className="badge badge-outline badge-sm">
                                                 Jewellery: {event.jewellery_id ?? "N/A"}
                                             </span>
+                                            {event.jewelry_category && (
+                                                <span className="badge badge-outline badge-sm">
+                                                    Category: {event.jewelry_category}
+                                                </span>
+                                            )}
+                                            {event.attire_id && (
+                                                <span className="badge badge-outline badge-sm">
+                                                    Attire: {event.attire_id}
+                                                </span>
+                                            )}
+                                            {(event.event_type === "image_shared" ||
+                                                event.event_type === "image.shared") && (
+                                                <span className="badge badge-outline badge-sm">
+                                                    Channel: {event.channel || "N/A"}
+                                                </span>
+                                            )}
+                                            {event.share_status && (
+                                                <span className="badge badge-outline badge-sm">
+                                                    Share Status: {event.share_status}
+                                                </span>
+                                            )}
+                                            {typeof event.duration_seconds === "number" &&
+                                                Number.isFinite(event.duration_seconds) && (
+                                                    <span className="badge badge-outline badge-sm">
+                                                        Duration: {event.duration_seconds}s
+                                                    </span>
+                                                )}
+                                            {typeof event.items_tried === "number" &&
+                                                Number.isFinite(event.items_tried) && (
+                                                    <span className="badge badge-outline badge-sm">
+                                                        Items Tried: {event.items_tried}
+                                                    </span>
+                                                )}
+                                            {typeof event.items_shared === "number" &&
+                                                Number.isFinite(event.items_shared) && (
+                                                    <span className="badge badge-outline badge-sm">
+                                                        Items Shared: {event.items_shared}
+                                                    </span>
+                                                )}
+                                            {typeof event.sale_made === "boolean" && (
+                                                <span className="badge badge-outline badge-sm">
+                                                    Sale Made: {event.sale_made ? "Yes" : "No"}
+                                                </span>
+                                            )}
+                                            {typeof event.sale_amount === "number" &&
+                                                Number.isFinite(event.sale_amount) && (
+                                                    <span className="badge badge-outline badge-sm">
+                                                        Sale Amount: Rs {event.sale_amount.toLocaleString()}
+                                                    </span>
+                                                )}
+                                            {event.purchased_items && event.purchased_items.length > 0 && (
+                                                <span className="badge badge-outline badge-sm">
+                                                    Purchased: {event.purchased_items.join(", ")}
+                                                </span>
+                                            )}
                                             <span className="badge badge-outline badge-sm">
                                                 {formatAbsoluteTime(event.timestamp)}
                                             </span>
@@ -709,7 +922,7 @@ export const NextBestActionApp = () => {
                             ))}
                             {orderedEvents.length === 0 && (
                                 <li className="ms-1">
-                                    <div className="rounded-lg border border-dashed border-base-300 bg-base-100 p-4 text-sm text-base-content/60">
+                                    <div className="border-base-300 bg-base-100 text-base-content/60 rounded-lg border border-dashed p-4 text-sm">
                                         No events found for this session.
                                     </div>
                                 </li>

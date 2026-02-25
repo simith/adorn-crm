@@ -7,8 +7,8 @@ import React, { useState } from "react";
 export const LoginAuth = () => {
     const router = useRouter();
     const [showPassword, setShowPassword] = useState(false);
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("malabar_gold_marketing@adorn.com");
+    const [password, setPassword] = useState("adorn");
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
 
@@ -117,10 +117,7 @@ export const LoginAuth = () => {
                 </label>
             </div>
 
-            <button
-                type="submit"
-                className="btn btn-primary btn-wide mt-4 max-w-full gap-3 md:mt-6"
-                disabled={loading}>
+            <button type="submit" className="btn btn-primary btn-wide mt-4 max-w-full gap-3 md:mt-6" disabled={loading}>
                 {loading ? (
                     <>
                         <span className="loading loading-spinner loading-sm" />
@@ -132,11 +129,6 @@ export const LoginAuth = () => {
                         Login
                     </>
                 )}
-            </button>
-
-            <button type="button" className="btn btn-ghost btn-wide border-base-300 mt-4 max-w-full gap-3">
-                <img src="/images/brand-logo/google-mini.svg" className="size-6" alt="" />
-                Login with Google
             </button>
         </form>
     );

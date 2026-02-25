@@ -61,11 +61,11 @@
     ]
   },
   "newJoinMembers": [
-    { "name": "Ananya Iyer", "role": "Software Engineer" },
-    { "name": "Rohan Gupta", "role": "UI/UX Designer" },
-    { "name": "Meera Nair", "role": "HR Executive" },
-    { "name": "Kavya Rao", "role": "Frontend Developer" },
-    { "name": "Sandeep Menon", "role": "Compliance Manager" }
+    { "name": "Ananya Iyer", "location": "Bangalore" },
+    { "name": "Rohan Gupta", "location": "Indiranagar" },
+    { "name": "Meera Nair", "location": "Whitefield" },
+    { "name": "Kavya Rao", "location": "Jayanagar" },
+    { "name": "Sandeep Menon", "location": "Koramangala" }
   ],
   "latestTransactions": [
     {

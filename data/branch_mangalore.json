@@ -61,11 +61,11 @@
     ]
   },
   "newJoinMembers": [
-    { "name": "Rohit Menon", "role": "Support Lead" },
-    { "name": "Aditi Rao", "role": "QA Engineer" },
-    { "name": "Nikhil Das", "role": "Sales Ops" },
-    { "name": "Priya Pai", "role": "Marketing" },
-    { "name": "Vivek Shetty", "role": "Finance" }
+    { "name": "Rohit Menon", "location": "Mangalore" },
+    { "name": "Aditi Rao", "location": "Kadri" },
+    { "name": "Nikhil Das", "location": "Lalbagh" },
+    { "name": "Priya Pai", "location": "Bejai" },
+    { "name": "Vivek Shetty", "location": "Kankanady" }
   ],
   "latestTransactions": [
     {

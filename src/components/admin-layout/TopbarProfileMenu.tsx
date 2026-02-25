@@ -106,24 +106,12 @@ export const TopbarProfileMenu = () => {
                                     </li>
 
                                     <li>
-                                        <Link className="text-error hover:bg-error/10" href="#">
+                                        <Link className="text-error hover:bg-error/10" href="/auth/login">
                                             <span className="iconify lucide--log-out size-4.5" />
                                             <span>Sign Out</span>
                                         </Link>
                                     </li>
                                 </ul>
-                            </div>
-
-                            <div className="rounded-box from-primary to-secondary text-primary-content m-4 mt-auto flex cursor-pointer flex-col items-center justify-center bg-linear-to-br p-4 text-center transition-all hover:opacity-95 sm:p-6">
-                                <div className="bg-primary-content/10 border-primary-content/10 flex items-center justify-center rounded-full border p-1.5 sm:p-2.5">
-                                    <span className="iconify lucide--zap size-5 sm:size-6" />
-                                </div>
-                                <p className="mt-2 font-mono text-[11px] font-medium tracking-wider uppercase opacity-70 sm:mt-4">
-                                    Upgrade your plan
-                                </p>
-                                <p className="mt-1 leading-none font-medium sm:text-lg">
-                                    Save <span className="font-semibold underline">30%</span> today
-                                </p>
                             </div>
                         </div>
                     </div>

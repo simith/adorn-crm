@@ -61,11 +61,11 @@
     ]
   },
   "newJoinMembers": [
-    { "name": "Kavya Iyer", "role": "Product Manager" },
-    { "name": "Rahul N", "role": "Data Analyst" },
-    { "name": "Sneha Kumar", "role": "UX Research" },
-    { "name": "Aravind S", "role": "Engineering" },
-    { "name": "Divya Priya", "role": "Operations" }
+    { "name": "Kavya Iyer", "location": "Chennai" },
+    { "name": "Rahul N", "location": "T Nagar" },
+    { "name": "Sneha Kumar", "location": "Velachery" },
+    { "name": "Aravind S", "location": "Anna Nagar" },
+    { "name": "Divya Priya", "location": "Adyar" }
   ],
   "latestTransactions": [
     {

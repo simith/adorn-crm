@@ -18,7 +18,14 @@
         "events:ingest": "node scripts/ingest-events.mjs",
         "events:ingest:new-user": "node scripts/ingest-new-user-session.mjs",
         "messages:test:incoming": "node scripts/test-incoming-message.mjs",
-        "messages:test:retailer": "node scripts/test-retailer-message.mjs"
+        "messages:test:retailer": "node scripts/test-retailer-message.mjs",
+        "next-best-action:test:session": "node scripts/test-next-best-action-session.mjs",
+        "next-best-action:test:jewellery-selected": "node scripts/test-next-best-action-jewellery-selected.mjs",
+        "next-best-action:test:jewellery-selected:payload": "node scripts/test-next-best-action-jewellery-selected-payload.mjs",
+        "next-best-action:test:full-flow:payload": "node scripts/test-next-best-action-full-flow-payload.mjs",
+        "next-best-action:test:image-generated:payload": "node scripts/test-next-best-action-image-generated-payload.mjs",
+        "next-best-action:test:image-shared:payload": "node scripts/test-next-best-action-image-shared-payload.mjs",
+        "next-best-action:test:session-ended:payload": "node scripts/test-next-best-action-session-ended-payload.mjs"
     },
     "engines": {
         "node": ">=18.18.0"
