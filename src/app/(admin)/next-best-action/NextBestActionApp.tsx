@@ -816,7 +816,7 @@ export const NextBestActionApp = () => {
                             <button className="btn btn-primary btn-sm">{recommendation.cta}</button>
                         </div>
                     </div>
-                    <div className="bg-base-100 h-[calc(100vh_-_520px)] min-h-[18rem] overflow-y-auto px-4 py-4">
+                    <div className="bg-base-100 px-4 py-4">
                         <ol className="border-base-200 relative border-s ps-5">
                             {orderedEvents.map((event) => (
                                 <li key={event.id} className="ms-1 mb-5">

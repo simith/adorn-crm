@@ -3,7 +3,7 @@ const sessionsEndpoint = process.env.NBA_SESSIONS_API_URL || "http://localhost:3
 
 const sessionStartPayload = {
     event_type: "session_start",
-    customer_name: "Jane Doe",
+    customer_name: "Laxmi Rajesh",
     customer_phone: "+6512345678",
     customer_email: "jane@example.com",
     jeweler_id: "abharana",
