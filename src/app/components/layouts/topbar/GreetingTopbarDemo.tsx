@@ -18,7 +18,7 @@ export const GreetingTopbarDemo = () => {
                 </label>
                 <div>
                     <p className="leading-none font-medium md:text-lg">
-                        Good Morning<span className="max-sm:hidden">, Denish!</span>
+                        Good Morning<span className="max-sm:hidden">, Dinesh!</span>
                     </p>
                     <p className="text-base-content/60 mt-1 text-sm/none max-sm:hidden">
                         Welcome back, great to see you again!
@@ -32,8 +32,8 @@ export const GreetingTopbarDemo = () => {
                             <img src="/images/avatars/1.png" alt="Avatar" />
                         </div>
                         <div>
-                            <p className="leading-none font-medium">Denish</p>
-                            <p className="text-base-content/60 mt-0 text-xs/none">@withden</p>
+                            <p className="leading-none font-medium">Dinesh</p>
+                            <p className="text-base-content/60 mt-0 text-xs/none">@malabar</p>
                         </div>
                     </div>
                     <div tabIndex={0} className="dropdown-content bg-base-100 rounded-box mt-2 w-44 shadow-sm">

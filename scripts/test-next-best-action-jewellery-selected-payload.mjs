@@ -12,7 +12,7 @@ const sessionStartPayload = {
 
 const jewellerySelectedPayload = {
     event_type: "jewellery_selected",
-    jewelry_id: "necklace_11",
+    jewelry_id: "NCK-011",
     jewelry_name: "Diamond Cascade Necklace",
     jewelry_category: "necklace",
     price: 45000.0,

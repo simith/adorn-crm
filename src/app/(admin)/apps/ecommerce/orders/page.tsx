@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { OrderTable } from "./OrderTable";
 
 export const metadata: Metadata = {
-    title: "Orders - Ecommerce",
+    title: "Adorn Jewellery Platform",
 };
 
 const EcommerceOrdersPage = () => {

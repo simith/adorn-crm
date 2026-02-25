@@ -12,7 +12,7 @@ import { NavMenu1TopbarDemo } from "./NavMenu1TopbarDemo";
 import { NavMenu2TopbarDemo } from "./NavMenu2TopbarDemo";
 
 export const metadata: Metadata = {
-    title: "Topbar - Layouts",
+    title: "Adorn Jewellery Platform",
 };
 
 const TopbarPage = () => {

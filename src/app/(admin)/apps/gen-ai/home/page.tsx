@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Ai Home",
+    title: "Adorn Jewellery Platform",
 };
 
 const AiHomePage = () => {
@@ -10,7 +10,7 @@ const AiHomePage = () => {
             <div className="flex flex-col items-center justify-center md:mt-16 lg:mt-24 xl:mt-32">
                 <div className="max-w-4xl">
                     <div className="from-base-content to-primary inline-block bg-gradient-to-tr from-40% bg-clip-text text-2xl font-semibold tracking-tight text-transparent sm:text-4xl">
-                        <p>Hi there, Denish</p>
+                        <p>Hi there, Dinesh</p>
                         <p className="mt-1">How can I assist you today?</p>
                     </div>
                     <div className="mt-6 grid gap-6 md:grid-cols-3">

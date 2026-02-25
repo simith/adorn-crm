@@ -5,7 +5,7 @@ import React from "react";
 import { LoginAuth } from "./LoginAuth";
 
 export const metadata: Metadata = {
-    title: "Login",
+    title: "Adorn Jewellery Platform",
 };
 
 const LoginPage = () => {

@@ -11,7 +11,7 @@ import { Testimonial } from "./components/Testimonial";
 import { Topbar } from "./components/Topbar";
 
 export const metadata: Metadata = {
-    title: "Landing - Product Preview",
+    title: "Adorn Jewellery Platform",
 };
 
 const LandingPage = () => {

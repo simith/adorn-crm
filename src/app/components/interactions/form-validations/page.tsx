@@ -15,7 +15,7 @@ import { TextDemo } from "./TextDemo";
 import { ToggleDemo } from "./ToggleDemo";
 
 export const metadata: Metadata = {
-    title: "Form Validation - Advanced",
+    title: "Adorn Jewellery Platform",
 };
 
 const FormValidationPage = () => {

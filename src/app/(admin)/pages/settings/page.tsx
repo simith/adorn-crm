@@ -57,7 +57,7 @@ const SettingsPage = () => {
                                                 className="grow"
                                                 placeholder="Name"
                                                 id="name"
-                                                defaultValue="Denish Navadiya"
+                                                defaultValue="Dinesh Navadiya"
                                             />
                                         </label>
                                     </div>

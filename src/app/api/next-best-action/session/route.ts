@@ -2,6 +2,38 @@ import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 
+type SessionEventForSummary = {
+    event_type?: string;
+    timestamp?: string;
+    jewelry_name?: string;
+    jewellery_id?: string;
+    price?: number;
+    channel?: string;
+    destination?: string;
+    sale_made?: boolean;
+    sale_amount?: number;
+    notes?: string;
+    purchased_items?: string[];
+};
+
+type SessionForSummary = {
+    session_id?: string;
+    user_name?: string;
+    started_at?: string;
+    events?: SessionEventForSummary[];
+};
+
+type SessionSummaryInput = {
+    session: SessionForSummary | null;
+    durationSeconds: number;
+    itemsTried: number;
+    itemsShared: number;
+    saleMade: boolean;
+    saleAmount: number;
+    purchasedItems: string[];
+    notes: string;
+};
+
 function asTrimmedString(value: unknown) {
     if (typeof value !== "string") {
         return "";
@@ -52,6 +84,201 @@ function asStringArray(value: unknown) {
         .filter((entry): entry is string => typeof entry === "string")
         .map((entry) => entry.trim())
         .filter(Boolean);
+}
+
+function summarizeEventType(eventType: string) {
+    if (eventType === "start_session") return "session_start";
+    if (eventType === "jewellery_selected" || eventType === "jewelry_selected") return "jewellery_selected";
+    if (eventType === "image_generated" || eventType === "image.generated") return "image_generated";
+    if (eventType === "image_shared" || eventType === "image.shared") return "image_shared";
+    if (eventType === "session_ended" || eventType === "session.ended") return "session_ended";
+    return eventType;
+}
+
+function toProfessionalProductCode(rawId?: string) {
+    const value = (rawId || "").trim();
+    if (!value) return "";
+
+    const match = /^([a-zA-Z]+)[_-]?(\d+)$/.exec(value);
+    if (!match) {
+        return value.toUpperCase().replaceAll("_", "-");
+    }
+
+    const [, prefixRaw, numberRaw] = match;
+    const prefix = prefixRaw.toLowerCase();
+    const number = numberRaw.padStart(3, "0");
+    const mappedPrefix =
+        prefix === "necklace"
+            ? "NCK"
+            : prefix === "earring" || prefix === "earing"
+              ? "EAR"
+              : prefix === "ring"
+                ? "RNG"
+                : prefix === "bracelet"
+                  ? "BRC"
+                  : prefix === "pendant"
+                    ? "PND"
+                    : prefix === "mangalsutra"
+                      ? "MGL"
+                      : prefix.slice(0, 3).toUpperCase();
+
+    return `${mappedPrefix}-${number}`;
+}
+
+function replaceProductIdsInText(text?: string) {
+    const value = (text || "").trim();
+    if (!value) return "";
+
+    return value.replace(/\b([a-zA-Z]+)[_-](\d{1,4})\b/g, (_full, prefix, number) =>
+        toProfessionalProductCode(`${String(prefix)}_${String(number)}`),
+    );
+}
+
+function currencyLabel(amount: number) {
+    return `Rs ${amount.toLocaleString("en-IN")}`;
+}
+
+function buildLocalNextBestActionSummary(input: SessionSummaryInput) {
+    const events = [...(input.session?.events || [])];
+    const eventMix = events.reduce<Record<string, number>>((acc, event) => {
+        const key = summarizeEventType(asTrimmedString(event.event_type));
+        if (!key) return acc;
+        acc[key] = (acc[key] || 0) + 1;
+        return acc;
+    }, {});
+
+    const latestJewelry =
+        [...events]
+            .reverse()
+            .find((event) => asTrimmedString(event.jewelry_name) || asTrimmedString(event.jewellery_id))
+            ?.jewelry_name ||
+        toProfessionalProductCode(
+            [...events].reverse().find((event) => asTrimmedString(event.jewellery_id))?.jewellery_id,
+        ) ||
+        "the shortlisted jewellery";
+
+    const shareChannel =
+        [...events].reverse().find((event) => summarizeEventType(asTrimmedString(event.event_type)) === "image_shared")
+            ?.channel || "the preferred channel";
+
+    const saleOutcome = input.saleMade
+        ? `The session converted successfully with a sale of ${currencyLabel(input.saleAmount)}`
+        : "The session ended without a closed sale";
+    const purchasedText =
+        input.purchasedItems.length > 0
+            ? `, including ${input.purchasedItems.map((item) => toProfessionalProductCode(item)).join(", ")}`
+            : "";
+
+    const nextAction = input.saleMade
+        ? `Next best action: send a thank-you follow-up within 24 hours, recommend matching add-ons to ${latestJewelry}, and schedule a care-plan or styling follow-up.`
+        : `Next best action: re-engage within 24 hours with a focused offer on ${latestJewelry}, include a limited-time value incentive, and provide assisted checkout guidance.`;
+
+    return replaceProductIdsInText(
+        `${saleOutcome}${purchasedText}. Customer explored ${input.itemsTried} items and shared ${input.itemsShared} images over ${Math.round(input.durationSeconds / 60)} minutes, with strongest intent around ${latestJewelry}. ` +
+            `Behavioral trail shows ${eventMix.jewellery_selected || 0} jewellery selections, ${eventMix.image_generated || 0} generated try-ons, and ${eventMix.image_shared || 0} shares via ${shareChannel}. ` +
+            `Client note: ${input.notes}. ${nextAction}`,
+    );
+}
+
+async function generateNextBestActionSummaryWithGrok(input: SessionSummaryInput) {
+    const fallback = buildLocalNextBestActionSummary(input);
+    const apiKey = asTrimmedString(process.env.GROK_API_KEY);
+
+    if (!apiKey) {
+        return fallback;
+    }
+
+    const endpoint = asTrimmedString(process.env.GROK_API_URL) || "https://api.x.ai/v1/chat/completions";
+    const model = asTrimmedString(process.env.GROK_MODEL) || "grok-2-latest";
+
+    const compactEvents = [...(input.session?.events || [])].map((event) => ({
+        event_type: summarizeEventType(asTrimmedString(event.event_type)),
+        timestamp: event.timestamp,
+        jewelry_name: event.jewelry_name,
+        jewellery_id: event.jewellery_id,
+        price: event.price,
+        channel: event.channel,
+        destination: event.destination,
+        sale_made: event.sale_made,
+        sale_amount: event.sale_amount,
+    }));
+
+    const promptPayload = {
+        session_id: input.session?.session_id || "",
+        user_name: input.session?.user_name || "",
+        started_at: input.session?.started_at || "",
+        session_end_metrics: {
+            duration_seconds: input.durationSeconds,
+            items_tried: input.itemsTried,
+            items_shared: input.itemsShared,
+            sale_made: input.saleMade,
+            sale_amount: input.saleAmount,
+            purchased_items: input.purchasedItems,
+            notes: input.notes,
+        },
+        prior_events: compactEvents,
+    };
+
+    try {
+        const response = await fetch(endpoint, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${apiKey}`,
+            },
+            body: JSON.stringify({
+                model,
+                temperature: 0.2,
+                max_tokens: 220,
+                messages: [
+                    {
+                        role: "system",
+                        content:
+                            "You are a senior jewellery CRM strategist. Write one professional next-best-action summary in plain English, 80-130 words, focused on commercial follow-up action.",
+                    },
+                    {
+                        role: "user",
+                        content:
+                            `Analyze the session and provide JSON with one key: {"next_best_action_summary":"..."}.\n` +
+                            `Include conversion signal analysis, customer intent, and a concrete action plan.\n\n` +
+                            `${JSON.stringify(promptPayload)}`,
+                    },
+                ],
+            }),
+            cache: "no-store",
+        });
+
+        const payload = (await response.json().catch(() => ({}))) as {
+            choices?: Array<{ message?: { content?: string } }>;
+        };
+
+        if (!response.ok) {
+            console.warn("Grok summary generation failed, falling back to local summary.", payload);
+            return fallback;
+        }
+
+        const rawContent = asTrimmedString(payload.choices?.[0]?.message?.content);
+        if (!rawContent) {
+            return fallback;
+        }
+
+        const jsonStart = rawContent.indexOf("{");
+        const jsonEnd = rawContent.lastIndexOf("}");
+        if (jsonStart >= 0 && jsonEnd > jsonStart) {
+            const candidate = rawContent.slice(jsonStart, jsonEnd + 1);
+            const parsed = JSON.parse(candidate) as { next_best_action_summary?: unknown };
+            const summary = asTrimmedString(parsed.next_best_action_summary);
+            if (summary) {
+                return replaceProductIdsInText(summary);
+            }
+        }
+
+        return replaceProductIdsInText(rawContent);
+    } catch (error) {
+        const details = error instanceof Error ? error.message : String(error);
+        console.warn("Grok summary generation errored, using fallback summary.", details);
+        return fallback;
+    }
 }
 
 export async function POST(request: Request) {
@@ -572,6 +799,27 @@ export async function POST(request: Request) {
                 );
             }
 
+            const sessionSnapshotResponse = await fetch(
+                `${apiEventsUrl.toString()}?session_id=${encodeURIComponent(sessionId)}`,
+                {
+                    cache: "no-store",
+                },
+            );
+            const sessionSnapshotPayload = (await sessionSnapshotResponse.json().catch(() => ({}))) as {
+                session?: SessionForSummary;
+            };
+
+            const nextBestActionSummary = await generateNextBestActionSummaryWithGrok({
+                session: sessionSnapshotResponse.ok ? sessionSnapshotPayload.session || null : null,
+                durationSeconds,
+                itemsTried,
+                itemsShared,
+                saleMade,
+                saleAmount,
+                purchasedItems,
+                notes,
+            });
+
             const mappedPayload = {
                 event_type: "session_ended",
                 session_id: sessionId,
@@ -583,6 +831,7 @@ export async function POST(request: Request) {
                 sale_amount: saleAmount,
                 purchased_items: purchasedItems,
                 notes,
+                next_best_action_summary: nextBestActionSummary,
             };
 
             const createEventResponse = await fetch(apiEventsUrl, {
@@ -619,6 +868,7 @@ export async function POST(request: Request) {
                         sale_amount: saleAmount,
                         purchased_items: purchasedItems,
                         notes,
+                        next_best_action_summary: nextBestActionSummary,
                     },
                     session_id: sessionId,
                     event: createEventPayload.event,

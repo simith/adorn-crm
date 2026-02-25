@@ -7,7 +7,7 @@ import { StorageOverview } from "./components/StorageOverview";
 import { UploadButton } from "./components/UploadButton";
 
 export const metadata: Metadata = {
-    title: "File Manager",
+    title: "Adorn Jewellery Platform",
 };
 
 const FileApp = () => {

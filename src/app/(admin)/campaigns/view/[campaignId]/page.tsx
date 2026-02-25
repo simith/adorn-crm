@@ -1,7 +1,7 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { CampaignDetailSkeleton } from "@/components/skeletons";
 
@@ -50,8 +50,18 @@ const statusStyles: Record<string, string> = {
     Responded: "bg-green-100 text-green-700",
 };
 
+const pieSegmentColors: Record<string, string> = {
+    Read: "#3b82f6",
+    Unread: "#ef4444",
+    Responded: "#22c55e",
+};
+
+const fallbackPieColors = ["#8b5cf6", "#06b6d4", "#f59e0b", "#10b981"];
+const donutRadius = 88;
+const donutCircumference = 2 * Math.PI * donutRadius;
+
 const infusedPreviewByCampaign: Record<string, string> = {
-    campaign_1: "/images/campaign/model_2_jewellery_2.png",
+    campaign_1: "/images/campaign/model_2_jewellery_1.png",
     campaign_2: "/images/campaign/model_2_jewellery_2.png",
 };
 
@@ -60,6 +70,8 @@ const CampaignDetailPage = () => {
     const campaignId = params.campaignId as string;
     const [data, setData] = useState<CampaignDetail | null>(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [hoveredSegment, setHoveredSegment] = useState<string | null>(null);
+    const [selectedSegment, setSelectedSegment] = useState<string | null>(null);
 
     useEffect(() => {
         const fetchCampaignDetail = async () => {
@@ -85,35 +97,39 @@ const CampaignDetailPage = () => {
 
     const previewImageSrc = infusedPreviewByCampaign[campaignId] || "/api/images/row_1_1_row_2_1";
 
-    // Calculate pie chart segments
-    const getPieChartStyle = () => {
-        if (!data?.pie?.segments) return {};
+    const normalizedPieSegments = useMemo(() => {
+        const segments = data?.pie?.segments || [];
+        const validSegments = segments.filter((segment) => segment.value > 0);
+        const total = validSegments.reduce((sum, segment) => sum + segment.value, 0);
 
-        const segments = data.pie.segments;
-        const read = segments.find((s) => s.label === "Read");
-        const unread = segments.find((s) => s.label === "Unread");
-        const responded = segments.find((s) => s.label === "Responded");
+        if (total === 0) {
+            return [];
+        }
 
-        // Use values to calculate proper percentages (total should be 100%)
-        const readValue = read?.value || 0;
-        const unreadValue = unread?.value || 0;
-        const respondedValue = responded?.value || 0;
-        const total = readValue + unreadValue + respondedValue;
+        let cumulativeLength = 0;
+        return validSegments.map((segment, index) => {
+            const percent = (segment.value / total) * 100;
+            const arcLength = (percent / 100) * donutCircumference;
+            const segmentData = {
+                ...segment,
+                normalizedPercent: percent,
+                color: pieSegmentColors[segment.label] || fallbackPieColors[index % fallbackPieColors.length],
+                dashArray: `${arcLength} ${donutCircumference - arcLength}`,
+                dashOffset: -cumulativeLength,
+            };
+            cumulativeLength += arcLength;
+            return segmentData;
+        });
+    }, [data?.pie?.segments]);
 
-        if (total === 0) return {};
+    const totalPieValue = useMemo(
+        () => normalizedPieSegments.reduce((sum, segment) => sum + segment.value, 0),
+        [normalizedPieSegments],
+    );
 
-        const readPercent = (readValue / total) * 100;
-        const unreadPercent = (unreadValue / total) * 100;
-        const respondedPercent = (respondedValue / total) * 100;
-
-        return {
-            background: `conic-gradient(
-                #3b82f6 0deg ${readPercent * 3.6}deg,
-                #ef4444 ${readPercent * 3.6}deg ${(readPercent + unreadPercent) * 3.6}deg,
-                #22c55e ${(readPercent + unreadPercent) * 3.6}deg 360deg
-            )`,
-        };
-    };
+    const focusedSegmentLabel = selectedSegment || hoveredSegment;
+    const focusedSegment = normalizedPieSegments.find((segment) => segment.label === focusedSegmentLabel) || null;
+    const hasFocusedSegment = Boolean(focusedSegmentLabel);
 
     // Get summary values
     const getSummaryValue = (label: string) => {
@@ -207,20 +223,94 @@ const CampaignDetailPage = () => {
 
                         {/* Right Column - Pie Chart */}
                         <div className="flex flex-col items-center justify-center">
-                            <div className="size-52 rounded-full" style={getPieChartStyle()} />
-                            <div className="mt-4 flex flex-wrap justify-center gap-4">
-                                <div className="flex items-center gap-2">
-                                    <div className="size-3 rounded-full bg-blue-500" />
-                                    <span className="text-base-content text-sm">Read</span>
+                            <div className="relative flex size-64 items-center justify-center rounded-full bg-gradient-to-br from-slate-50 via-white to-slate-100 shadow-[inset_0_0_0_1px_rgba(148,163,184,0.3),0_18px_40px_-24px_rgba(15,23,42,0.45)]">
+                                <svg
+                                    viewBox="0 0 220 220"
+                                    className="size-56 -rotate-90"
+                                    role="img"
+                                    aria-label="Interactive campaign response chart">
+                                    <circle
+                                        cx="110"
+                                        cy="110"
+                                        r={donutRadius}
+                                        stroke="#e2e8f0"
+                                        strokeWidth="24"
+                                        fill="none"
+                                    />
+                                    {normalizedPieSegments.map((segment) => {
+                                        const isFocused = focusedSegmentLabel === segment.label;
+                                        const isDimmed = hasFocusedSegment && !isFocused;
+                                        return (
+                                            <circle
+                                                key={segment.label}
+                                                cx="110"
+                                                cy="110"
+                                                r={donutRadius}
+                                                fill="none"
+                                                stroke={segment.color}
+                                                strokeDasharray={segment.dashArray}
+                                                strokeDashoffset={segment.dashOffset}
+                                                strokeLinecap="round"
+                                                strokeWidth={isFocused ? 30 : 24}
+                                                className="cursor-pointer transition-all duration-300 ease-out"
+                                                style={{ opacity: isDimmed ? 0.35 : 1 }}
+                                                onMouseEnter={() => setHoveredSegment(segment.label)}
+                                                onMouseLeave={() => setHoveredSegment(null)}
+                                                onClick={() =>
+                                                    setSelectedSegment((current) =>
+                                                        current === segment.label ? null : segment.label,
+                                                    )
+                                                }
+                                            />
+                                        );
+                                    })}
+                                </svg>
+                                <div className="absolute flex size-36 flex-col items-center justify-center rounded-full bg-white text-center shadow-[inset_0_0_0_1px_rgba(148,163,184,0.25)]">
+                                    <p className="text-xs font-semibold tracking-[0.16em] text-slate-500 uppercase">
+                                        {focusedSegment ? focusedSegment.label : "Total Audience"}
+                                    </p>
+                                    <p className="mt-1 text-2xl font-bold text-slate-800">
+                                        {formatNumber(focusedSegment ? focusedSegment.value : totalPieValue)}
+                                    </p>
+                                    <p className="text-xs text-slate-500">
+                                        {focusedSegment ? `${focusedSegment.normalizedPercent.toFixed(1)}%` : "100%"}
+                                    </p>
                                 </div>
-                                <div className="flex items-center gap-2">
-                                    <div className="size-3 rounded-full bg-red-500" />
-                                    <span className="text-base-content text-sm">Unread</span>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                    <div className="size-3 rounded-full bg-green-500" />
-                                    <span className="text-base-content text-sm">Responded</span>
-                                </div>
+                            </div>
+                            <div className="mt-5 grid w-full max-w-sm grid-cols-1 gap-2">
+                                {normalizedPieSegments.map((segment) => {
+                                    const isFocused = focusedSegmentLabel === segment.label;
+                                    return (
+                                        <button
+                                            key={segment.label}
+                                            type="button"
+                                            onMouseEnter={() => setHoveredSegment(segment.label)}
+                                            onMouseLeave={() => setHoveredSegment(null)}
+                                            onClick={() =>
+                                                setSelectedSegment((current) =>
+                                                    current === segment.label ? null : segment.label,
+                                                )
+                                            }
+                                            className={`flex items-center justify-between rounded-xl border px-3 py-2 text-left transition-all ${
+                                                isFocused
+                                                    ? "border-slate-400 bg-slate-100 shadow-sm"
+                                                    : "border-slate-200 bg-white hover:border-slate-300"
+                                            }`}>
+                                            <span className="flex items-center gap-2">
+                                                <span
+                                                    className="size-3 rounded-full"
+                                                    style={{ backgroundColor: segment.color }}
+                                                />
+                                                <span className="text-sm font-medium text-slate-700">
+                                                    {segment.label}
+                                                </span>
+                                            </span>
+                                            <span className="text-xs font-semibold text-slate-600">
+                                                {segment.normalizedPercent.toFixed(1)}%
+                                            </span>
+                                        </button>
+                                    );
+                                })}
                             </div>
                         </div>
                     </div>

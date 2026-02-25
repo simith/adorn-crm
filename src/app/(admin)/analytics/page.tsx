@@ -3,7 +3,7 @@ import { type Metadata } from "next";
 import { JewelleryAnalyticsView } from "./components/JewelleryAnalyticsView";
 
 export const metadata: Metadata = {
-    title: "Jewellery Analytics",
+    title: "Adorn Jewellery Platform",
 };
 
 const AnalyticsPage = () => {

@@ -24,14 +24,14 @@ All events share a common envelope structure:
 }
 ```
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `event_type` | string | The type of event (see below) |
-| `session_id` | string | Unique session identifier (UUID) |
-| `store_id` | string | Store/location identifier |
-| `seller_id` | string | Sales associate identifier |
-| `device_id` | string | Device identifier (e.g., "ipad_1") |
-| `payload` | object | Event-specific data |
+| Field        | Type   | Description                        |
+| ------------ | ------ | ---------------------------------- |
+| `event_type` | string | The type of event (see below)      |
+| `session_id` | string | Unique session identifier (UUID)   |
+| `store_id`   | string | Store/location identifier          |
+| `seller_id`  | string | Sales associate identifier         |
+| `device_id`  | string | Device identifier (e.g., "ipad_1") |
+| `payload`    | object | Event-specific data                |
 
 ---
 
@@ -42,24 +42,25 @@ All events share a common envelope structure:
 Triggered when a new customer try-on session begins.
 
 **Payload:**
+
 ```json
 {
-  "event_type" : "session_start",
-  "customer_name": "Jane Doe",
-  "customer_phone": "+6512345678",
-  "customer_email": "jane@example.com",
-  "jeweler_id": "abharana",
-  "jeweler_name": "Abharana"
+    "event_type": "session_start",
+    "customer_name": "Jane Doe",
+    "customer_phone": "+6512345678",
+    "customer_email": "jane@example.com",
+    "jeweler_id": "abharana",
+    "jeweler_name": "Abharana"
 }
 ```
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `customer_name` | string | Customer's name |
-| `customer_phone` | string | Customer's phone number |
-| `customer_email` | string | Customer's email address |
-| `jeweler_id` | string | Selected jeweler's identifier |
-| `jeweler_name` | string | Selected jeweler's business name |
+| Field            | Type   | Description                      |
+| ---------------- | ------ | -------------------------------- |
+| `customer_name`  | string | Customer's name                  |
+| `customer_phone` | string | Customer's phone number          |
+| `customer_email` | string | Customer's email address         |
+| `jeweler_id`     | string | Selected jeweler's identifier    |
+| `jeweler_name`   | string | Selected jeweler's business name |
 
 ---
 
@@ -68,24 +69,25 @@ Triggered when a new customer try-on session begins.
 Triggered when a customer selects a jewelry item to try on.
 
 **Payload:**
+
 ```json
 {
-  "event_type" : "jewellery_selected",
-  "jewelry_id": "necklace_11",
-  "jewelry_name": "Diamond Cascade Necklace",
-  "jewelry_category": "necklace",
-  "price": 45000.00,
-  "image_url": "https://malabar191.malabargoldanddiamonds.com/media/catalog/product/cache/5/image/500x500/9df78eab33525d08d6e5fb8d27136e95/placeholder/default/placeholder-800x800_2_4.jpg"
+    "event_type": "jewellery_selected",
+    "jewelry_id": "NCK-011",
+    "jewelry_name": "Diamond Cascade Necklace",
+    "jewelry_category": "necklace",
+    "price": 45000.0,
+    "image_url": "https://malabar191.malabargoldanddiamonds.com/media/catalog/product/cache/5/image/500x500/9df78eab33525d08d6e5fb8d27136e95/placeholder/default/placeholder-800x800_2_4.jpg"
 }
 ```
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `jewelry_id` | string | Unique jewelry asset identifier |
-| `jewelry_name` | string | Display name of the jewelry |
-| `jewelry_category` | string | Category (necklace, earring, etc.) |
-| `price` | number | Price of the item (optional) |
-| `image_url` | string | Product image URL (Malabar Gold source) |
+| Field              | Type   | Description                             |
+| ------------------ | ------ | --------------------------------------- |
+| `jewelry_id`       | string | Unique jewelry asset identifier         |
+| `jewelry_name`     | string | Display name of the jewelry             |
+| `jewelry_category` | string | Category (necklace, earring, etc.)      |
+| `price`            | number | Price of the item (optional)            |
+| `image_url`        | string | Product image URL (Malabar Gold source) |
 
 ---
 
@@ -94,24 +96,25 @@ Triggered when a customer selects a jewelry item to try on.
 Triggered when a composite try-on image is generated.
 
 **Payload:**
+
 ```json
 {
-  "event_type": "image_generated",
-  "jewelry_id": "necklace_11",
-  "jewelry_name": "Diamond Cascade Necklace",
-  "attire_id": "saree_red_silk",
-  "attire_name": "Red Silk Saree",
-  "image_url": "https://i.pinimg.com/564x/35/f1/15/35f115d9b47dc754d251284f734dc226.jpg",
-  "generation_time_ms": 245
+    "event_type": "image_generated",
+    "jewelry_id": "NCK-011",
+    "jewelry_name": "Diamond Cascade Necklace",
+    "attire_id": "saree_red_silk",
+    "attire_name": "Red Silk Saree",
+    "image_url": "https://i.pinimg.com/564x/35/f1/15/35f115d9b47dc754d251284f734dc226.jpg",
+    "generation_time_ms": 245
 }
 ```
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `jewelry_id` | string | Jewelry item used in composite |
-| `jewelry_name` | string | Display name of the jewelry |
-| `attire_id` | string | Attire/saree pattern used |
-| `attire_name` | string | Display name of the attire |
+| Field                | Type   | Description                       |
+| -------------------- | ------ | --------------------------------- |
+| `jewelry_id`         | string | Jewelry item used in composite    |
+| `jewelry_name`       | string | Display name of the jewelry       |
+| `attire_id`          | string | Attire/saree pattern used         |
+| `attire_name`        | string | Display name of the attire        |
 | `generation_time_ms` | number | Time taken to generate image (ms) |
 
 ---
@@ -121,32 +124,33 @@ Triggered when a composite try-on image is generated.
 Triggered when a try-on image is shared with the customer.
 
 **Payload:**
+
 ```json
 {
-  "event_type": "image_shared",
-  "channel": "whatsapp",
-  "destination": "+6512345678",
-  "jewelry_id": "necklace_11",
-  "jewelry_name": "Diamond Cascade Necklace",
-  "jeweler_id": "abharana",
-  "jeweler_name": "Abharana",
-  "share_status": "sent",
-  "message_sid": "SM1234567890abcdef",
-  "image_url": "https://storage.example.com/images/tryon_abc123.jpg"
+    "event_type": "image_shared",
+    "channel": "whatsapp",
+    "destination": "+6512345678",
+    "jewelry_id": "NCK-011",
+    "jewelry_name": "Diamond Cascade Necklace",
+    "jeweler_id": "abharana",
+    "jeweler_name": "Abharana",
+    "share_status": "sent",
+    "message_sid": "SM1234567890abcdef",
+    "image_url": "https://storage.example.com/images/tryon_abc123.jpg"
 }
 ```
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `channel` | string | Sharing channel: "whatsapp", "email", "airdrop", "other" |
-| `destination` | string | Phone number or email address |
-| `jewelry_id` | string | Jewelry item in the shared image |
-| `jewelry_name` | string | Display name of the jewelry |
-| `jeweler_id` | string | Jeweler identifier for branding |
-| `jeweler_name` | string | Jeweler business name |
-| `share_status` | string | Status: "sent", "failed" |
-| `message_sid` | string | WhatsApp/Twilio message SID (if applicable) |
-| `image_url` | string | URL of the uploaded/shared image |
+| Field          | Type   | Description                                              |
+| -------------- | ------ | -------------------------------------------------------- |
+| `channel`      | string | Sharing channel: "whatsapp", "email", "airdrop", "other" |
+| `destination`  | string | Phone number or email address                            |
+| `jewelry_id`   | string | Jewelry item in the shared image                         |
+| `jewelry_name` | string | Display name of the jewelry                              |
+| `jeweler_id`   | string | Jeweler identifier for branding                          |
+| `jeweler_name` | string | Jeweler business name                                    |
+| `share_status` | string | Status: "sent", "failed"                                 |
+| `message_sid`  | string | WhatsApp/Twilio message SID (if applicable)              |
+| `image_url`    | string | URL of the uploaded/shared image                         |
 
 ---
 
@@ -155,28 +159,29 @@ Triggered when a try-on image is shared with the customer.
 Triggered when a customer session is closed.
 
 **Payload:**
+
 ```json
 {
-"event_type" :  "session_ended",
-  "duration_seconds": 1845,
-  "items_tried": 8,
-  "items_shared": 3,
-  "sale_made": true,
-  "sale_amount": 125000.00,
-  "purchased_items": ["necklace_11", "earring_05"],
-  "notes": "Customer preferred gold finish"
+    "event_type": "session_ended",
+    "duration_seconds": 1845,
+    "items_tried": 8,
+    "items_shared": 3,
+    "sale_made": true,
+    "sale_amount": 125000.0,
+    "purchased_items": ["NCK-011", "EAR-005"],
+    "notes": "Customer preferred gold finish"
 }
 ```
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `duration_seconds` | number | Session duration in seconds |
-| `items_tried` | number | Number of jewelry items tried on |
-| `items_shared` | number | Number of images shared |
-| `sale_made` | boolean | Whether a sale was completed |
-| `sale_amount` | number | Total sale amount (if sale made) |
-| `purchased_items` | array | List of purchased jewelry IDs |
-| `notes` | string | Seller notes about the session |
+| Field              | Type    | Description                      |
+| ------------------ | ------- | -------------------------------- |
+| `duration_seconds` | number  | Session duration in seconds      |
+| `items_tried`      | number  | Number of jewelry items tried on |
+| `items_shared`     | number  | Number of images shared          |
+| `sale_made`        | boolean | Whether a sale was completed     |
+| `sale_amount`      | number  | Total sale amount (if sale made) |
+| `purchased_items`  | array   | List of purchased jewelry IDs    |
+| `notes`            | string  | Seller notes about the session   |
 
 ---
 
@@ -185,18 +190,19 @@ Triggered when a customer session is closed.
 Triggered when the customer changes the virtual attire/saree pattern.
 
 **Payload:**
+
 ```json
 {
-  "attire_id": "saree_blue_silk",
-  "attire_name": "Blue Silk Saree",
-  "is_original": false
+    "attire_id": "saree_blue_silk",
+    "attire_name": "Blue Silk Saree",
+    "is_original": false
 }
 ```
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `attire_id` | string | Attire pattern identifier |
-| `attire_name` | string | Display name of the attire |
+| Field         | Type    | Description                               |
+| ------------- | ------- | ----------------------------------------- |
+| `attire_id`   | string  | Attire pattern identifier                 |
+| `attire_name` | string  | Display name of the attire                |
 | `is_original` | boolean | Whether this is the original photo attire |
 
 ---
@@ -215,7 +221,7 @@ curl -X POST http://localhost:8000/v1/events \
     "payload": {
       "channel": "whatsapp",
       "destination": "+6512345678",
-      "jewelry_id": "necklace_11",
+      "jewelry_id": "NCK-011",
       "jewelry_name": "Diamond Cascade Necklace",
       "jeweler_id": "abharana",
       "jeweler_name": "Abharana",
@@ -231,18 +237,20 @@ curl -X POST http://localhost:8000/v1/events \
 ## Response
 
 **Success (200 OK):**
+
 ```json
 {
-  "status": "ok",
-  "event_id": "evt_abc123"
+    "status": "ok",
+    "event_id": "evt_abc123"
 }
 ```
 
 **Error (4xx/5xx):**
+
 ```json
 {
-  "status": "error",
-  "message": "Invalid session_id"
+    "status": "error",
+    "message": "Invalid session_id"
 }
 ```
 

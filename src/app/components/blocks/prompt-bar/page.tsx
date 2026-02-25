@@ -11,7 +11,7 @@ import { ModelPromptBarDemo } from "./ModelPromptBarDemo";
 import { QuickPromptBarDemo } from "./QuickPromptBarDemo";
 
 export const metadata: Metadata = {
-    title: "Prompt Bar - AI Hub",
+    title: "Adorn Jewellery Platform",
 };
 
 const PromptBarPage = () => {

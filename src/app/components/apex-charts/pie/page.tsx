@@ -10,7 +10,7 @@ import { PatternDonutChart } from "./PatternDonutChart";
 import { SimplePieChart } from "./SimplePieChart";
 
 export const metadata: Metadata = {
-    title: "Apex Pie Charts",
+    title: "Adorn Jewellery Platform",
 };
 
 const ChartPage = () => {

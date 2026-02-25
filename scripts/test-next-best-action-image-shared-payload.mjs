@@ -14,7 +14,7 @@ const imageSharedPayload = {
     event_type: "image_shared",
     channel: "whatsapp",
     destination: "+6512345678",
-    jewelry_id: "necklace_11",
+    jewelry_id: "NCK-011",
     jewelry_name: "Diamond Cascade Necklace",
     jeweler_id: "abharana",
     jeweler_name: "Abharana",

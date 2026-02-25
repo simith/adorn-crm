@@ -14,7 +14,7 @@ import { ProjectSidebarDemo } from "./ProjectSidebarDemo";
 import { RemixIconsSidebarDemo } from "./RemixIconsSidebarDemo";
 
 export const metadata: Metadata = {
-    title: "Sidebar - Layouts",
+    title: "Adorn Jewellery Platform",
 };
 
 const SidebarPage = () => {

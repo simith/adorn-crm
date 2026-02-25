@@ -12,7 +12,7 @@ const sessionStartPayload = {
 
 const imageGeneratedPayload = {
     event_type: "image_generated",
-    jewelry_id: "necklace_11",
+    jewelry_id: "NCK-011",
     jewelry_name: "Diamond Cascade Necklace",
     attire_id: "saree_red_silk",
     attire_name: "Red Silk Saree",

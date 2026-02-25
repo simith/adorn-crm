@@ -48,7 +48,7 @@ export const StepperWizardDemo = () => {
                                         className="grow"
                                         placeholder="Name"
                                         id="name"
-                                        defaultValue="Denish Navadiya"
+                                        defaultValue="Dinesh Navadiya"
                                     />
                                 </label>
                             </div>
@@ -232,7 +232,7 @@ export const StepperWizardDemo = () => {
                             </div>
                             <div className="flex">
                                 <span className="w-40 font-medium">Full Name:</span>
-                                <span className="text-base-content/80">Denish Navadiya</span>
+                                <span className="text-base-content/80">Dinesh Navadiya</span>
                             </div>
                             <div className="flex">
                                 <span className="w-40 font-medium">Email:</span>

@@ -9,41 +9,41 @@ import { OrderPaymentDetails } from "./components/OrderPaymentDetails";
 import { OrderTrack } from "./components/OrderTrack";
 
 export const metadata: Metadata = {
-    title: "Order Detail - Ecommerce",
+    title: "Adorn Jewellery Platform",
 };
 
 const EcommerceOrderPage = () => {
     return (
         <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-12">
-                <div className="lg:col-span-8 2xl:col-span-9">
-                    <OrderItemsTable />
-                    <div className="mt-6 grid grid-cols-1 gap-6 xl:grid-cols-2 2xl:grid-cols-3">
-                        <div>
-                            <OrderPaymentDetails />
-                        </div>
-                        <div>
-                            <OrderCustomerDetails />
-                        </div>
-                        <div>
-                            <OrderDeliveryAddress />
-                        </div>
+            <div className="lg:col-span-8 2xl:col-span-9">
+                <OrderItemsTable />
+                <div className="mt-6 grid grid-cols-1 gap-6 xl:grid-cols-2 2xl:grid-cols-3">
+                    <div>
+                        <OrderPaymentDetails />
+                    </div>
+                    <div>
+                        <OrderCustomerDetails />
+                    </div>
+                    <div>
+                        <OrderDeliveryAddress />
                     </div>
                 </div>
-                <div className="lg:col-span-4 2xl:col-span-3">
-                    <div className="card card-border bg-base-100">
-                        <div className="card-body gap-0">
-                            <p className="bg-base-200 rounded-box px-3 py-2 font-medium">Track Order</p>
-                            <div className="mt-2">
-                                <OrderTrack />
-                            </div>
-                            <p className="bg-base-200 rounded-box mt-4 px-3 py-2 font-medium">Delivery Partner</p>
-                            <div className="mt-3">
-                                <OrderDeliveryPartner />
-                            </div>
+            </div>
+            <div className="lg:col-span-4 2xl:col-span-3">
+                <div className="card card-border bg-base-100">
+                    <div className="card-body gap-0">
+                        <p className="bg-base-200 rounded-box px-3 py-2 font-medium">Track Order</p>
+                        <div className="mt-2">
+                            <OrderTrack />
+                        </div>
+                        <p className="bg-base-200 rounded-box mt-4 px-3 py-2 font-medium">Delivery Partner</p>
+                        <div className="mt-3">
+                            <OrderDeliveryPartner />
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
     );
 };
 

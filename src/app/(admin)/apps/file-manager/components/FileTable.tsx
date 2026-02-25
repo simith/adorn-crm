@@ -6,7 +6,7 @@ const files: IFileTableRow[] = [
         name: "Latest Video",
         size: "5.1 GiB",
         date: "26 Dec 2024",
-        owner: "Denish",
+        owner: "Dinesh",
         sharedWith: <span className="text-base-content/60">3 members</span>,
     },
     {

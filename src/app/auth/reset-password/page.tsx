@@ -8,7 +8,7 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 import { ResetPasswordAuth } from "./ResetPasswordAuth";
 
 export const metadata: Metadata = {
-    title: "Reset Password",
+    title: "Adorn Jewellery Platform",
 };
 
 const ResetPasswordPage = () => {

@@ -11,7 +11,7 @@ import { MultipleDemo } from "./MultipleDemo";
 import { SimpleDemo } from "./SimpleDemo";
 
 export const metadata: Metadata = {
-    title: "File Upload - Components",
+    title: "Adorn Jewellery Platform",
 };
 
 const FileUploadPage = () => {

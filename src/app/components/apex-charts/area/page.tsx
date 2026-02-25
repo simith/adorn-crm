@@ -10,7 +10,7 @@ import { SelectionAreaChart } from "./SelectionAreaChart";
 import { SplineAreaChart } from "./SplineAreaChart";
 
 export const metadata: Metadata = {
-    title: "Apex Area Charts",
+    title: "Adorn Jewellery Platform",
 };
 
 const ChartPage = () => {

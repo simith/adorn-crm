@@ -14,6 +14,11 @@ type ChatApiResponse = {
     campaign_stats: { responses: number; views: number; sent: number; status: string };
 };
 
+type ChatListApiResponse = {
+    ok: boolean;
+    chats?: ChatApiResponse[];
+};
+
 function chatIdFromUserId(userId: string) {
     return Array.from(userId).reduce((sum, char) => sum + char.charCodeAt(0), 0);
 }
@@ -50,10 +55,13 @@ export const ChatApp = () => {
                 if (!res.ok) throw new Error("Failed to load chat");
                 return res.json();
             })
-            .then((data: ChatApiResponse) => {
-                const chat = mapApiChatToItem(data);
-                setChats([chat]);
-                setSelectedChat(chat);
+            .then((payload: ChatApiResponse | ChatListApiResponse) => {
+                const apiChats = Array.isArray((payload as ChatListApiResponse).chats)
+                    ? (payload as ChatListApiResponse).chats || []
+                    : ([payload] as ChatApiResponse[]);
+                const mapped = apiChats.map(mapApiChatToItem);
+                setChats(mapped);
+                setSelectedChat(mapped[0] ?? null);
             })
             .catch(() => {
                 setChats([]);

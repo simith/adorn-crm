@@ -8,7 +8,7 @@ import { StepperWizardDemo } from "./StepperWizardDemo";
 import { TabWizardDemo } from "./TabWizardDemo";
 
 export const metadata: Metadata = {
-    title: "Wizard - Advanced",
+    title: "Adorn Jewellery Platform",
 };
 
 const WizardPage = () => {

@@ -16,7 +16,7 @@ import { SimpleDemo } from "./SimpleDemo";
 import { VerticalDemo } from "./VerticalDemo";
 
 export const metadata: Metadata = {
-    title: "Input Spinner - Advanced",
+    title: "Adorn Jewellery Platform",
 };
 
 const InputSpinnerPage = () => {

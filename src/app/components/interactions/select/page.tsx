@@ -14,7 +14,7 @@ import { SimpleDemo } from "./SimpleDemo";
 import { TextInputDemo } from "./TextInputDemo";
 
 export const metadata: Metadata = {
-    title: "Select - Advanced",
+    title: "Adorn Jewellery Platform",
 };
 
 const SelectPage = () => {

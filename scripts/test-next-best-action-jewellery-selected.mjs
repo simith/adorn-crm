@@ -12,7 +12,7 @@ const sessionStartPayload = {
 
 const jewellerySelectedPayload = {
     event_type: "jewellery_selected",
-    jewelry_id: process.env.JEWELRY_ID || "necklace_11",
+    jewelry_id: process.env.JEWELRY_ID || "NCK-011",
     jewelry_name: process.env.JEWELRY_NAME || "Diamond Cascade Necklace",
     jewelry_category: process.env.JEWELRY_CATEGORY || "necklace",
     price: Number(process.env.JEWELRY_PRICE || "45000"),

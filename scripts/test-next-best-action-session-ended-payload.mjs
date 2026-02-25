@@ -17,7 +17,7 @@ const sessionEndedPayload = {
     items_shared: 3,
     sale_made: true,
     sale_amount: 125000.0,
-    purchased_items: ["necklace_11", "earring_05"],
+    purchased_items: ["NCK-011", "EAR-005"],
     notes: "Customer preferred gold finish",
 };
 
@@ -65,7 +65,9 @@ function hasExpectedEventShape(event) {
         event?.sale_made === sessionEndedPayload.sale_made &&
         Number(event?.sale_amount) === sessionEndedPayload.sale_amount &&
         sameStringArray(event?.purchased_items, sessionEndedPayload.purchased_items) &&
-        event?.notes === sessionEndedPayload.notes
+        event?.notes === sessionEndedPayload.notes &&
+        typeof event?.next_best_action_summary === "string" &&
+        event.next_best_action_summary.trim().length > 0
     );
 }
 

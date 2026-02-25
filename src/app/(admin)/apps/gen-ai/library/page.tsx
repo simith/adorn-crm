@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { AiLibraryTable } from "./LibraryTable";
 
 export const metadata: Metadata = {
-    title: "Ai Library",
+    title: "Adorn Jewellery Platform",
 };
 
 const AiLibraryPage = () => {

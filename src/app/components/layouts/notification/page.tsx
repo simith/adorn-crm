@@ -8,7 +8,7 @@ import { DrawerNotificationDemo } from "./DrawerNotificationDemo";
 import { TabNotificationDemo } from "./TabNotificationDemo";
 
 export const metadata: Metadata = {
-    title: "Notifications - Layouts",
+    title: "Adorn Jewellery Platform",
 };
 
 const NotificationPage = () => {

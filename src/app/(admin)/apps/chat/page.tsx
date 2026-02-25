@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { ChatApp } from "./ChatApp";
 
 export const metadata: Metadata = {
-    title: "Chat",
+    title: "Adorn Jewellery Platform",
 };
 
 const ChatPage = () => {

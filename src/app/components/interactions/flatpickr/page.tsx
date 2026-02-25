@@ -26,7 +26,7 @@ import { WeekNumberDemo } from "./WeekNumberDemo";
 import { WeekPluginDemo } from "./WeekPluginDemo";
 
 export const metadata: Metadata = {
-    title: "Flatpickr - Components",
+    title: "Adorn Jewellery Platform",
 };
 
 const FlatpickrPage = () => {

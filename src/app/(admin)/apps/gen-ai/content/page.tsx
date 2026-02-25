@@ -4,19 +4,19 @@ import { ContentCreationForm } from "./ContentCreationForm";
 import { GeneratedContents } from "./GeneratedContents";
 
 export const metadata: Metadata = {
-    title: "Content Creator",
+    title: "Adorn Jewellery Platform",
 };
 
 const AiCreatorPage = () => {
     return (
         <div className="mt-6 grid grid-cols-1 gap-6 xl:grid-cols-5 2xl:grid-cols-10">
-                <div className="xl:col-span-2 2xl:col-span-3">
-                    <ContentCreationForm />
-                </div>
-                <div className="xl:col-span-3 2xl:col-span-7">
-                    <GeneratedContents />
-                </div>
+            <div className="xl:col-span-2 2xl:col-span-3">
+                <ContentCreationForm />
             </div>
+            <div className="xl:col-span-3 2xl:col-span-7">
+                <GeneratedContents />
+            </div>
+        </div>
     );
 };
 

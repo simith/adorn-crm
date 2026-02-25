@@ -6,7 +6,7 @@ import { Logo } from "@/components/Logo";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
 export const metadata: Metadata = {
-    title: "Forgot Password",
+    title: "Adorn Jewellery Platform",
 };
 
 const ForgotPasswordPage = () => {

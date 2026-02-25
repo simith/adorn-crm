@@ -361,7 +361,7 @@ const CampaignBuilderPage = () => {
                                                 <img
                                                     src={previewImageFailed ? generatedPreviewSrc : previewImageSrc}
                                                     alt={`Preview for model ${selectedModel} and jewellery ${selectedJewellery}`}
-                                                    className={`h-[500px] w-full ${
+                                                    className={`h-[540px] w-full ${
                                                         isModel2Jewellery1Preview
                                                             ? "object-contain object-center"
                                                             : "object-cover object-center"
@@ -378,7 +378,7 @@ const CampaignBuilderPage = () => {
                                             </div>
                                         </>
                                     ) : (
-                                        <div className="h-[500px] rounded-xl border border-dashed border-slate-300 bg-slate-50" />
+                                        <div className="h-[540px] rounded-xl border border-dashed border-slate-300 bg-slate-50" />
                                     )}
                                 </div>
                             </div>

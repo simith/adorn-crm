@@ -10,7 +10,7 @@ import { StepLineChart } from "./StepLineChart";
 import { SyncingLineChart } from "./SyncingLineChart";
 
 export const metadata: Metadata = {
-    title: "Apex Line Charts",
+    title: "Adorn Jewellery Platform",
 };
 
 const ChartPage = () => {

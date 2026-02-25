@@ -4,7 +4,7 @@ import React, { ComponentProps } from "react";
 import { ComponentPageTitle } from "@/components/ComponentPageTitle";
 
 export const metadata: Metadata = {
-    title: "Skeleton - Layouts",
+    title: "Adorn Jewellery Platform",
 };
 
 const ItemSkeleton = ({ className, ...props }: ComponentProps<"div">) => {

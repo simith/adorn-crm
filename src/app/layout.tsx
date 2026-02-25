@@ -6,10 +6,7 @@ import { ConfigProvider } from "@/contexts/config";
 import "@/styles/app.css";
 
 export const metadata: Metadata = {
-    title: {
-        template: "%s - Nexus",
-        default: "",
-    },
+    title: "Adorn Jewellery Platform",
     description: "Modern admin and client dashboards built with DaisyUI. Clean, responsive, and fully customizable.",
     icons: {
         icon: [

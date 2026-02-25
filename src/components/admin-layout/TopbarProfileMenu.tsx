@@ -14,7 +14,7 @@ export const TopbarProfileMenu = () => {
                             </div>
                         </div>
                         <div className="text-start max-sm:hidden">
-                            <p className="text-sm/none">Denish</p>
+                            <p className="text-sm/none">Dinesh</p>
                             <p className="text-base-content/50 mt-0.5 text-xs/none">Team</p>
                         </div>
                     </label>

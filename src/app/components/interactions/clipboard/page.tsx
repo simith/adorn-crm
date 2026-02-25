@@ -6,7 +6,7 @@ import { CommandDemo } from "./CommandDemo";
 import { TextDemo } from "./TextDemo";
 
 export const metadata: Metadata = {
-    title: "Clipboard - Advanced",
+    title: "Adorn Jewellery Platform",
 };
 
 const ClipboardPage = () => {

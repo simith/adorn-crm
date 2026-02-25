@@ -8,7 +8,7 @@ import { TitleDemo } from "./TitleDemo";
 import { UploadDemo } from "./UploadDemo";
 
 export const metadata: Metadata = {
-    title: "FAB - Advanced",
+    title: "Adorn Jewellery Platform",
 };
 
 const FABPage = () => {

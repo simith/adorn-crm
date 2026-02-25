@@ -8,7 +8,7 @@ import { ProgressPasswordDemo } from "./ProgressPasswordDemo";
 import { RulesPasswordDemo } from "./RulesPasswordDemo";
 
 export const metadata: Metadata = {
-    title: "Password Meter - Advanced",
+    title: "Adorn Jewellery Platform",
 };
 
 const PasswordMeterPage = () => {

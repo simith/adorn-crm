@@ -4,7 +4,7 @@ import React from "react";
 import { EditCustomerForm } from "./EditCustomerForm";
 
 export const metadata: Metadata = {
-    title: "Edit Customer",
+    title: "Adorn Jewellery Platform",
 };
 
 const EditCustomerPage = () => {

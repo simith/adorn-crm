@@ -15,7 +15,7 @@ import { MinimalStatsDemo } from "./MinimalStatsDemo";
 import { SelectableStatsDemo } from "./SelectableStatsDemo";
 
 export const metadata: Metadata = {
-    title: "Dashboard Stats - Blocks",
+    title: "Adorn Jewellery Platform",
 };
 
 const StatsPage = () => {

@@ -16,7 +16,7 @@ import { SimpleDemo } from "./SimpleDemo";
 import { SwapDemo } from "./SwapDemo";
 
 export const metadata: Metadata = {
-    title: "Sortable - Advanced",
+    title: "Adorn Jewellery Platform",
 };
 
 const SortablePage = () => {

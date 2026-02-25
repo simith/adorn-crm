@@ -10,7 +10,7 @@ import { RangeColumnChart } from "./RangeColumnChart";
 import { StackedColumnChart } from "./StackedColumnChart";
 
 export const metadata: Metadata = {
-    title: "Apex Column Charts",
+    title: "Adorn Jewellery Platform",
 };
 
 const ChartPage = () => {

@@ -15,7 +15,7 @@ import { StatusFooterDemo } from "./StatusFooterDemo";
 import { SupportFooterDemo } from "./SupportFooterDemo  ";
 
 export const metadata: Metadata = {
-    title: "Footer - Layouts",
+    title: "Adorn Jewellery Platform",
 };
 
 const FooterPage = () => {

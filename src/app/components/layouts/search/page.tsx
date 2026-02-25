@@ -13,7 +13,7 @@ import { SmartSearchDemo } from "./SmartSearchDemo";
 import { SplitSearchDemo } from "./SplitSearchDemo";
 
 export const metadata: Metadata = {
-    title: "Search - Layouts",
+    title: "Adorn Jewellery Platform",
 };
 
 const SearchPage = () => {

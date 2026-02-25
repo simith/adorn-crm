@@ -16,7 +16,7 @@ import { SimpleDemo } from "./SimpleDemo";
 import { SortingDemo } from "./SortingDemo";
 
 export const metadata: Metadata = {
-    title: "Datatables",
+    title: "Adorn Jewellery Platform",
 };
 
 const DataTablesPage = () => {

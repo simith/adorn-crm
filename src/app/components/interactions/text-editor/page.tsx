@@ -8,7 +8,7 @@ import { BubbleDemo } from "./BubbleDemo";
 import { SnowDemo } from "./SnowDemo";
 
 export const metadata: Metadata = {
-    title: "Text Editor - Components",
+    title: "Adorn Jewellery Platform",
 };
 
 const TextEditorPage = () => {

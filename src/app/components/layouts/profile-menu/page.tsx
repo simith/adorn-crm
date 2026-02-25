@@ -14,7 +14,7 @@ import { SwitchAccountMenuDemo } from "./SwitchAccountMenuDemo";
 import { UsageStatsMenuDemo } from "./UsageStatsMenuDemo";
 
 export const metadata: Metadata = {
-    title: "Profile Menu - Layouts",
+    title: "Adorn Jewellery Platform",
 };
 
 const ProfileMenuPage = () => {

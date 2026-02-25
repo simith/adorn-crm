@@ -28,6 +28,7 @@ type UserEvent = {
     sale_amount?: number;
     purchased_items?: string[];
     notes?: string;
+    next_best_action_summary?: string;
     timestamp: string;
     session_id: string;
 };
@@ -86,6 +87,7 @@ type ApiEvent = {
     sale_amount?: number;
     purchased_items?: string[];
     notes?: string;
+    next_best_action_summary?: string;
 };
 
 type ApiSession = {
@@ -187,6 +189,7 @@ function mapApiSessionsToUsers(sessions: ApiSession[]): SessionUser[] {
                     sale_amount: event.sale_amount,
                     purchased_items: event.purchased_items,
                     notes: event.notes,
+                    next_best_action_summary: event.next_best_action_summary,
                     timestamp: event.timestamp,
                     session_id: session.session_id,
                 }))
@@ -287,6 +290,44 @@ function firstName(fullName: string) {
     return fullName.split(" ")[0] || fullName;
 }
 
+function toProfessionalProductCode(rawId?: string) {
+    const value = (rawId || "").trim();
+    if (!value) return "";
+
+    const match = /^([a-zA-Z]+)[_-]?(\d+)$/.exec(value);
+    if (!match) {
+        return value.toUpperCase().replaceAll("_", "-");
+    }
+
+    const [, prefixRaw, numberRaw] = match;
+    const prefix = prefixRaw.toLowerCase();
+    const number = numberRaw.padStart(3, "0");
+    const mappedPrefix =
+        prefix === "necklace"
+            ? "NCK"
+            : prefix === "earring" || prefix === "earing"
+              ? "EAR"
+              : prefix === "ring"
+                ? "RNG"
+                : prefix === "bracelet"
+                  ? "BRC"
+                  : prefix === "pendant"
+                    ? "PND"
+                    : prefix === "mangalsutra"
+                      ? "MGL"
+                      : prefix.slice(0, 3).toUpperCase();
+    return `${mappedPrefix}-${number}`;
+}
+
+function replaceProductIdsInText(text?: string) {
+    const value = (text || "").trim();
+    if (!value) return "";
+
+    return value.replace(/\b([a-zA-Z]+)[_-](\d{1,4})\b/g, (_full, prefix, number) =>
+        toProfessionalProductCode(`${String(prefix)}_${String(number)}`),
+    );
+}
+
 function userStatus(user: SessionUser): SessionStatus {
     if (user.sessions.some((session) => session.status === "active")) {
         return "active";
@@ -304,7 +345,7 @@ function userLastActivity(user: SessionUser) {
 }
 
 function eventSummary(event: UserEvent) {
-    const item = event.jewelry_name || event.jewellery_id || "a jewellery item";
+    const item = event.jewelry_name || toProfessionalProductCode(event.jewellery_id) || "a jewellery item";
 
     if (event.event_type === "start_session") {
         return "Customer started a new browsing session.";
@@ -384,7 +425,7 @@ function buildSessionRecommendation(
     const viewCount = events.filter((event) => event.event_type === "view").length;
     const preferredJewellery =
         [...events].reverse().find((event) => event.jewelry_name || event.jewellery_id)?.jewelry_name ||
-        [...events].reverse().find((event) => event.jewellery_id)?.jewellery_id ||
+        toProfessionalProductCode([...events].reverse().find((event) => event.jewellery_id)?.jewellery_id) ||
         "highlighted item";
     const contactName = firstName(user.name);
 
@@ -567,6 +608,16 @@ export const NextBestActionApp = () => {
         return buildSessionRecommendation(selectedUser, selectedSession, orderedEvents);
     }, [orderedEvents, selectedSession, selectedUser]);
 
+    const sessionEndedSummary = useMemo(() => {
+        return [...orderedEvents]
+            .reverse()
+            .find(
+                (event) =>
+                    (event.event_type === "session_ended" || event.event_type === "session.ended") &&
+                    event.next_best_action_summary,
+            )?.next_best_action_summary;
+    }, [orderedEvents]);
+
     if (loading) {
         return (
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
@@ -728,17 +779,12 @@ export const NextBestActionApp = () => {
                         <div className="min-w-0">
                             <h3 className="truncate text-base font-semibold">{selectedUser?.name || "Unknown User"}</h3>
                             <p className="text-base-content/60 text-sm">
-                                {(selectedUser?.email_id || "N/A") +
-                                    " · " +
-                                    sessionLabelFromTimestamp(selectedSession.started_at)}
+                                {sessionLabelFromTimestamp(selectedSession.started_at)}
                             </p>
                         </div>
                         <span className={`badge ${statusBadge(selectedSession.status)} badge-soft`}>
                             {selectedSession.status}
                         </span>
-                    </div>
-                    <div className="border-base-200 bg-base-100/70 text-base-content/60 border-b px-4 py-2 text-xs">
-                        Events shown in chronological order for selected session
                     </div>
                     <div className="border-base-200 from-base-200/70 to-base-100 border-b bg-gradient-to-r px-4 py-4">
                         <div className="flex flex-wrap items-center justify-between gap-2">
@@ -747,14 +793,18 @@ export const NextBestActionApp = () => {
                                 Confidence {recommendation.confidence}%
                             </span>
                         </div>
+                        {sessionEndedSummary && (
+                            <div className="border-primary/35 ring-primary/15 mt-3 rounded-lg border bg-white p-3 ring-1">
+                                <p className="text-primary text-xs font-semibold tracking-wide uppercase">
+                                    Adorn AI Recommendation
+                                </p>
+                                <p className="text-base-content text-base leading-relaxed font-normal">
+                                    {replaceProductIdsInText(sessionEndedSummary)}
+                                </p>
+                            </div>
+                        )}
                         <h4 className="mt-2 text-lg font-semibold">{recommendation.title}</h4>
                         <p className="text-base-content/70 mt-1 text-sm">{recommendation.summary}</p>
-                        <div className="border-base-300 bg-base-100 mt-3 rounded-lg border p-3">
-                            <p className="text-base-content/60 text-xs font-semibold tracking-wide uppercase">
-                                Commercial Offer
-                            </p>
-                            <p className="mt-1 text-sm">{recommendation.offer}</p>
-                        </div>
                         <div className="border-base-300 bg-base-100 mt-3 rounded-lg border p-3">
                             <p className="text-base-content/60 text-xs font-semibold tracking-wide uppercase">
                                 Suggested Outreach Message
@@ -856,7 +906,10 @@ export const NextBestActionApp = () => {
                                                 {sessionLabelFromTimestamp(selectedSession.started_at)}
                                             </span>
                                             <span className="badge badge-outline badge-sm">
-                                                Jewellery: {event.jewellery_id ?? "N/A"}
+                                                Jewellery:{" "}
+                                                {event.jewellery_id
+                                                    ? toProfessionalProductCode(event.jewellery_id)
+                                                    : "N/A"}
                                             </span>
                                             {event.jewelry_category && (
                                                 <span className="badge badge-outline badge-sm">
@@ -910,7 +963,10 @@ export const NextBestActionApp = () => {
                                                 )}
                                             {event.purchased_items && event.purchased_items.length > 0 && (
                                                 <span className="badge badge-outline badge-sm">
-                                                    Purchased: {event.purchased_items.join(", ")}
+                                                    Purchased:{" "}
+                                                    {event.purchased_items
+                                                        .map((item) => toProfessionalProductCode(item))
+                                                        .join(", ")}
                                                 </span>
                                             )}
                                             <span className="badge badge-outline badge-sm">

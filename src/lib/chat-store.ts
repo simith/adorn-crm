@@ -47,53 +47,436 @@ const CACHE_FILE_PATH = path.join(CACHE_DIR_PATH, "chat-store.json");
 
 export const DEFAULT_CHAT_USER_ID = "cust_rajesh_001";
 
-const DEFAULT_CHAT: ChatApiPayload = {
-    campaign: {
-        name: "Diwali Jewellery Campaign",
-        title: "Elegance That Dazzles",
-        image_link: "/images/jewellery/100.jpg",
+const DEFAULT_CHATS: ChatApiPayload[] = [
+    {
+        campaign: {
+            name: "Festive Gold Days",
+            title: "Diwali Jewellery Offers",
+            image_link: "/images/jewellery/100.jpg",
+        },
+        customer: {
+            user_id: DEFAULT_CHAT_USER_ID,
+            name: "Rajesh Sharma",
+            phone: "+91 98765 32109",
+            last_seen: "2 minutes ago",
+            avatar: "/images/avatars/3.png",
+        },
+        chat: [
+            { sender: "customer", message: "Hi, what is the price of this jewellery set?", time: "4:05 PM" },
+            {
+                sender: "business",
+                message: "Hello Rajesh, this necklace set is priced at Rs 85,000.",
+                time: "4:06 PM",
+            },
+            {
+                sender: "business",
+                message: "For the festive week we have 15% off, so it comes to Rs 72,250.",
+                time: "4:07 PM",
+            },
+            {
+                sender: "customer",
+                message: "Great, is same-day delivery possible in Bangalore?",
+                time: "4:09 PM",
+            },
+            {
+                sender: "business",
+                message: "Yes, same-day delivery is available for orders placed before 6 PM.",
+                time: "4:10 PM",
+            },
+        ],
+        campaign_stats: {
+            responses: 6,
+            views: 5720,
+            sent: 9452,
+            status: "Festive Push",
+        },
     },
-    customer: {
-        user_id: DEFAULT_CHAT_USER_ID,
-        name: "Rajesh Sharma",
-        phone: "+91 98765 32109",
-        last_seen: "just now",
-        avatar: "/images/avatars/3.png",
+    {
+        campaign: {
+            name: "Wedding Collection 2026",
+            title: "Diamond Savings Week",
+            image_link: "/images/jewellery/101.jpg",
+        },
+        customer: {
+            user_id: "cust_aisha_002",
+            name: "Aisha Menon",
+            phone: "+91 99004 11220",
+            last_seen: "5 minutes ago",
+            avatar: "/images/avatars/4.png",
+        },
+        chat: [
+            {
+                sender: "customer",
+                message: "Can you share the current offer on diamond bangles?",
+                time: "3:20 PM",
+            },
+            {
+                sender: "business",
+                message: "Sure, we have up to 12% off on making charges this week.",
+                time: "3:21 PM",
+            },
+            {
+                sender: "customer",
+                message: "What is the approximate price range for bridal pieces?",
+                time: "3:22 PM",
+            },
+            {
+                sender: "business",
+                message: "Bridal diamond bangles start from Rs 1.25 lakh and go up based on carat and design.",
+                time: "3:24 PM",
+            },
+            {
+                sender: "business",
+                message: "If you visit this weekend, we can include a free polishing package too.",
+                time: "3:24 PM",
+            },
+        ],
+        campaign_stats: {
+            responses: 9,
+            views: 4310,
+            sent: 7130,
+            status: "High Intent",
+        },
     },
-    chat: [
-        {
-            sender: "customer",
-            message: "Hi, what is the price of this jewellery set?",
-            time: "3 minutes ago",
+    {
+        campaign: {
+            name: "Akshaya Tritiya Picks",
+            title: "Gold Price Lock Offer",
+            image_link: "/images/jewellery/102.jpg",
         },
-        {
-            sender: "business",
-            message: "Hello Rajesh, thank you for your interest in our jewellery set.",
-            time: "9 minutes ago",
+        customer: {
+            user_id: "cust_vikram_003",
+            name: "Vikram Rao",
+            phone: "+91 98450 78091",
+            last_seen: "7 minutes ago",
+            avatar: "/images/avatars/5.png",
         },
-        {
-            sender: "business",
-            message: "The price of this exclusive jewellery set is Rs 85,000.",
-            time: "just now",
+        chat: [
+            {
+                sender: "customer",
+                message: "I saw the 22K chain in your campaign image. What is the final rate?",
+                time: "2:45 PM",
+            },
+            {
+                sender: "business",
+                message: "Today gold rate is Rs 6,650 per gram and making is 9%.",
+                time: "2:46 PM",
+            },
+            {
+                sender: "customer",
+                message: "Any festival coupon available?",
+                time: "2:47 PM",
+            },
+            {
+                sender: "business",
+                message: "Yes, code FESTIVE5000 gives Rs 5,000 off for bills above Rs 1 lakh.",
+                time: "2:49 PM",
+            },
+        ],
+        campaign_stats: {
+            responses: 4,
+            views: 3900,
+            sent: 6200,
+            status: "Warm",
         },
-        {
-            sender: "business",
-            message: "We have a special offer right now: 15% off, making it Rs 72,250.",
-            time: "just now",
-        },
-        {
-            sender: "customer",
-            message: "Great, that's a good offer. Is the set available for immediate delivery?",
-            time: "3 minutes ago",
-        },
-    ],
-    campaign_stats: {
-        responses: 4,
-        views: 5720,
-        sent: 9452,
-        status: "Best Ag30",
     },
-};
+    {
+        campaign: {
+            name: "Onam Special Sets",
+            title: "Traditional Gold Offer",
+            image_link: "/images/jewellery/best-seller.jpg",
+        },
+        customer: {
+            user_id: "cust_sneha_004",
+            name: "Sneha Iyer",
+            phone: "+91 97890 44551",
+            last_seen: "12 minutes ago",
+            avatar: "/images/avatars/6.png",
+        },
+        chat: [
+            {
+                sender: "customer",
+                message: "Do you have any Onam combo offers on necklace + earrings?",
+                time: "1:30 PM",
+            },
+            {
+                sender: "business",
+                message: "Yes, combo sets have flat 10% off on making charges and 2% cashback.",
+                time: "1:31 PM",
+            },
+            {
+                sender: "customer",
+                message: "Can I reserve one set and pick it up tomorrow?",
+                time: "1:33 PM",
+            },
+            {
+                sender: "business",
+                message: "Absolutely, we can block it for 24 hours with a small token advance.",
+                time: "1:34 PM",
+            },
+        ],
+        campaign_stats: {
+            responses: 5,
+            views: 4870,
+            sent: 7000,
+            status: "Follow-up",
+        },
+    },
+    {
+        campaign: {
+            name: "Weekend Price Drop",
+            title: "Diamond Necklace Deal",
+            image_link: "/images/jewellery/101.jpg",
+        },
+        customer: {
+            user_id: "cust_arjun_005",
+            name: "Arjun Nair",
+            phone: "+91 98950 55672",
+            last_seen: "15 minutes ago",
+            avatar: "/images/avatars/7.png",
+        },
+        chat: [
+            {
+                sender: "customer",
+                message: "What is the offer price for the Diamond Cascade Necklace?",
+                time: "12:15 PM",
+            },
+            {
+                sender: "business",
+                message: "MRP is Rs 45,000 and weekend offer price is Rs 39,999.",
+                time: "12:16 PM",
+            },
+            {
+                sender: "customer",
+                message: "Does that include hallmark and certificate?",
+                time: "12:16 PM",
+            },
+            {
+                sender: "business",
+                message: "Yes, both hallmarking and authenticity certificate are included.",
+                time: "12:17 PM",
+            },
+        ],
+        campaign_stats: {
+            responses: 7,
+            views: 5100,
+            sent: 7800,
+            status: "Offer Live",
+        },
+    },
+    {
+        campaign: {
+            name: "Bridal Fest 2026",
+            title: "Try-On & Save",
+            image_link: "/images/jewellery/102.jpg",
+        },
+        customer: {
+            user_id: "cust_pooja_006",
+            name: "Pooja Verma",
+            phone: "+91 98110 77302",
+            last_seen: "20 minutes ago",
+            avatar: "/images/avatars/8.png",
+        },
+        chat: [
+            {
+                sender: "customer",
+                message: "Can I get bulk discount if I buy necklace and bangles together?",
+                time: "11:05 AM",
+            },
+            {
+                sender: "business",
+                message: "Yes, for bridal combo purchases above Rs 2 lakh we offer 5% additional discount.",
+                time: "11:06 AM",
+            },
+            {
+                sender: "customer",
+                message: "Nice. Can you share festive EMI options too?",
+                time: "11:08 AM",
+            },
+            {
+                sender: "business",
+                message: "No-cost EMI is available for 3 and 6 months through partner banks.",
+                time: "11:09 AM",
+            },
+        ],
+        campaign_stats: {
+            responses: 8,
+            views: 6020,
+            sent: 8200,
+            status: "Pipeline",
+        },
+    },
+    {
+        campaign: {
+            name: "Navratri Glam Edit",
+            title: "Limited Time Gold Bonus",
+            image_link: "/images/jewellery/100.jpg",
+        },
+        customer: {
+            user_id: "cust_karan_007",
+            name: "Karan Mehta",
+            phone: "+91 99200 66410",
+            last_seen: "24 minutes ago",
+            avatar: "/images/avatars/9.png",
+        },
+        chat: [
+            {
+                sender: "customer",
+                message: "Is there any exchange bonus on old gold this Navratri?",
+                time: "10:10 AM",
+            },
+            {
+                sender: "business",
+                message: "Yes, we are offering 4% extra value on old gold exchange till Sunday.",
+                time: "10:11 AM",
+            },
+            {
+                sender: "customer",
+                message: "Perfect. Is appointment needed for valuation?",
+                time: "10:13 AM",
+            },
+            {
+                sender: "business",
+                message: "Walk-ins are welcome, but appointments get priority service.",
+                time: "10:14 AM",
+            },
+        ],
+        campaign_stats: {
+            responses: 3,
+            views: 3500,
+            sent: 5900,
+            status: "New",
+        },
+    },
+    {
+        campaign: {
+            name: "Anniversary Specials",
+            title: "Diamond Pendant Promo",
+            image_link: "/images/jewellery/101.jpg",
+        },
+        customer: {
+            user_id: "cust_meera_008",
+            name: "Meera Nambiar",
+            phone: "+91 97440 00987",
+            last_seen: "28 minutes ago",
+            avatar: "/images/avatars/10.png",
+        },
+        chat: [
+            {
+                sender: "customer",
+                message: "Please confirm the final price for pendant code DP-118.",
+                time: "9:25 AM",
+            },
+            {
+                sender: "business",
+                message: "DP-118 is Rs 58,500 and today we can offer it at Rs 54,900.",
+                time: "9:26 AM",
+            },
+            {
+                sender: "customer",
+                message: "Can I combine this with the festive cashback offer?",
+                time: "9:27 AM",
+            },
+            {
+                sender: "business",
+                message: "Yes, cashback up to Rs 2,000 applies on top of the offer price.",
+                time: "9:29 AM",
+            },
+        ],
+        campaign_stats: {
+            responses: 6,
+            views: 4012,
+            sent: 6660,
+            status: "Offer Sent",
+        },
+    },
+    {
+        campaign: {
+            name: "Daily Gold Deals",
+            title: "Early Bird Price",
+            image_link: "/images/jewellery/102.jpg",
+        },
+        customer: {
+            user_id: "cust_rhea_009",
+            name: "Rhea Joseph",
+            phone: "+91 99617 10345",
+            last_seen: "32 minutes ago",
+            avatar: "/images/avatars/1.png",
+        },
+        chat: [
+            {
+                sender: "customer",
+                message: "Do morning orders get any extra discount?",
+                time: "8:40 AM",
+            },
+            {
+                sender: "business",
+                message: "Yes, early bird orders before 11 AM get 2% off on making charges.",
+                time: "8:41 AM",
+            },
+            {
+                sender: "customer",
+                message: "That sounds good. Please hold the floral ring for me.",
+                time: "8:43 AM",
+            },
+            {
+                sender: "business",
+                message: "Done. We have reserved it in your name until evening.",
+                time: "8:44 AM",
+            },
+        ],
+        campaign_stats: {
+            responses: 4,
+            views: 2875,
+            sent: 4900,
+            status: "Reserved",
+        },
+    },
+    {
+        campaign: {
+            name: "Month-End Festive Sale",
+            title: "Flat Gold Offer",
+            image_link: "/images/jewellery/best-seller.jpg",
+        },
+        customer: {
+            user_id: "cust_fahad_010",
+            name: "Fahad Khan",
+            phone: "+91 98860 99876",
+            last_seen: "36 minutes ago",
+            avatar: "/images/avatars/2.png",
+        },
+        chat: [
+            {
+                sender: "customer",
+                message: "Any month-end festive offer on men's bracelet?",
+                time: "8:05 AM",
+            },
+            {
+                sender: "business",
+                message: "Yes, flat Rs 3,000 off on selected men's bracelets above Rs 40,000.",
+                time: "8:06 AM",
+            },
+            {
+                sender: "customer",
+                message: "Can you send one option under Rs 50,000?",
+                time: "8:07 AM",
+            },
+            {
+                sender: "business",
+                message: "Sure, I have sent a curated option at Rs 47,500 with offer applied.",
+                time: "8:08 AM",
+            },
+        ],
+        campaign_stats: {
+            responses: 5,
+            views: 3200,
+            sent: 5400,
+            status: "Active",
+        },
+    },
+];
+
+const DEFAULT_CHAT: ChatApiPayload = DEFAULT_CHATS[0];
 
 function cloneChat(chat: ChatApiPayload): ChatApiPayload {
     return JSON.parse(JSON.stringify(chat)) as ChatApiPayload;
@@ -108,14 +491,13 @@ function currentTimeLabel() {
 }
 
 function createDefaultStore(): PersistedChatStore {
+    const baseTime = Date.now();
     return {
         version: STORE_VERSION,
-        chats: [
-            {
-                payload: cloneChat(DEFAULT_CHAT),
-                updatedAt: Date.now(),
-            },
-        ],
+        chats: DEFAULT_CHATS.map((chat, index) => ({
+            payload: cloneChat(chat),
+            updatedAt: baseTime - index * 60_000,
+        })),
     };
 }
 
@@ -145,12 +527,39 @@ function normalizeStore(payload: unknown): PersistedChatStore {
     };
 }
 
+function withSeededChats(store: PersistedChatStore): PersistedChatStore {
+    const byUserId = new Map<string, ChatStoreRecord>();
+    for (const record of store.chats) {
+        byUserId.set(record.payload.customer.user_id, record);
+    }
+
+    const baseTime = Date.now();
+    for (const [index, chat] of DEFAULT_CHATS.entries()) {
+        if (!byUserId.has(chat.customer.user_id)) {
+            byUserId.set(chat.customer.user_id, {
+                payload: cloneChat(chat),
+                updatedAt: baseTime - index * 60_000,
+            });
+        }
+    }
+
+    return {
+        version: STORE_VERSION,
+        chats: [...byUserId.values()],
+    };
+}
+
 async function readStore(): Promise<PersistedChatStore> {
     await mkdir(CACHE_DIR_PATH, { recursive: true });
 
     try {
         const raw = await readFile(CACHE_FILE_PATH, "utf-8");
-        return normalizeStore(JSON.parse(raw));
+        const normalized = normalizeStore(JSON.parse(raw));
+        const seeded = withSeededChats(normalized);
+        if (seeded.chats.length !== normalized.chats.length) {
+            await writeStore(seeded);
+        }
+        return seeded;
     } catch (error) {
         const err = error as NodeJS.ErrnoException;
         if (err.code !== "ENOENT") {
@@ -192,6 +601,20 @@ export async function getChatByUserId(userId?: string | null) {
 
     const newest = [...store.chats].sort((a, b) => b.updatedAt - a.updatedAt)[0];
     return newest ? cloneChat(newest.payload) : null;
+}
+
+export async function getAllChats() {
+    const store = await readStore();
+    return [...store.chats]
+        .sort((a, b) => {
+            const aIsDefault = a.payload.customer.user_id === DEFAULT_CHAT_USER_ID;
+            const bIsDefault = b.payload.customer.user_id === DEFAULT_CHAT_USER_ID;
+            if (aIsDefault !== bIsDefault) {
+                return aIsDefault ? -1 : 1;
+            }
+            return b.updatedAt - a.updatedAt;
+        })
+        .map((entry) => cloneChat(entry.payload));
 }
 
 export async function appendIncomingMessage(input: AppendIncomingMessageInput) {

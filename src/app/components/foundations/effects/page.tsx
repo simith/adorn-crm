@@ -4,7 +4,7 @@ import React from "react";
 import { ComponentPageTitle } from "@/components/ComponentPageTitle";
 
 export const metadata: Metadata = {
-    title: "Effects - Layouts",
+    title: "Adorn Jewellery Platform",
 };
 
 const imageFilters = [

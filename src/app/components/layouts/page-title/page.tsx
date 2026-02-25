@@ -12,7 +12,7 @@ import { TaskTitleDemo } from "./TaskTitleDemo";
 import { TopbarWithTitleDemo } from "./TopbarWithTitleDemo";
 
 export const metadata: Metadata = {
-    title: "Page Title - Layouts",
+    title: "Adorn Jewellery Platform",
 };
 
 const Topbar = (

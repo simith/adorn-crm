@@ -10,7 +10,7 @@ import { NegativeValueBarChart } from "./NegativeValueBarChart";
 import { StackedBarChart } from "./StackedBarChart";
 
 export const metadata: Metadata = {
-    title: "Apex Bar Charts",
+    title: "Adorn Jewellery Platform",
 };
 
 const ChartPage = () => {

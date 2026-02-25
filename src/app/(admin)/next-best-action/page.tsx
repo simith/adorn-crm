@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { NextBestActionApp } from "./NextBestActionApp";
 
 export const metadata: Metadata = {
-    title: "Next Best Action",
+    title: "Adorn Jewellery Platform",
 };
 
 const NextBestActionPage = () => {

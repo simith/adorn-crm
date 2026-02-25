@@ -14,7 +14,7 @@ import { SimpleDemo } from "./SimpleDemo";
 import { ThumbsDemo } from "./ThumbsDemo";
 
 export const metadata: Metadata = {
-    title: "Carousel - Swiper",
+    title: "Adorn Jewellery Platform",
 };
 
 const CarouselPage = () => {

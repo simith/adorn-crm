@@ -1,392 +1,388 @@
 {
-  "version": 1,
-  "totalEvents": 34,
-  "sessions": [
-    {
-      "session_id": "sess_bbbba89f3519",
-      "user_name": "Janaki Vijayan",
-      "email_id": "jane@example.com",
-      "mob_number": "+6512345678",
-      "started_at": "2026-02-25T07:54:33.595Z",
-      "last_event_at": "2026-02-25T07:54:34.476Z",
-      "events": [
+    "version": 1,
+    "totalEvents": 34,
+    "sessions": [
         {
-          "event_id": "41b3f0ff-1f55-46ac-8a24-0f4c95ed8176",
-          "event_type": "start_session",
-          "timestamp": "2026-02-25T07:54:33.595Z"
+            "session_id": "sess_bbbba89f3519",
+            "user_name": "Janaki Vijayan",
+            "email_id": "jane@example.com",
+            "mob_number": "+6512345678",
+            "started_at": "2026-02-25T07:54:33.595Z",
+            "last_event_at": "2026-02-25T07:54:34.476Z",
+            "events": [
+                {
+                    "event_id": "41b3f0ff-1f55-46ac-8a24-0f4c95ed8176",
+                    "event_type": "start_session",
+                    "timestamp": "2026-02-25T07:54:33.595Z"
+                },
+                {
+                    "event_id": "cf01a6b6-742a-44fc-b270-13bb0f587584",
+                    "event_type": "jewellery_selected",
+                    "timestamp": "2026-02-25T07:54:34.240Z",
+                    "jewellery_id": "NCK-011",
+                    "jewelry_name": "Diamond Cascade Necklace",
+                    "jewelry_category": "necklace",
+                    "price": 45000,
+                    "image_url": "https://malabar191.malabargoldanddiamonds.com/media/catalog/product/cache/5/image/500x500/9df78eab33525d08d6e5fb8d27136e95/placeholder/default/placeholder-800x800_2_4.jpg"
+                },
+                {
+                    "event_id": "ad0a7ae7-1ba0-4df4-9044-90b512bb0aad",
+                    "event_type": "image_generated",
+                    "timestamp": "2026-02-25T07:54:34.259Z",
+                    "jewellery_id": "NCK-011",
+                    "jewelry_name": "Diamond Cascade Necklace",
+                    "image_url": "https://i.pinimg.com/564x/35/f1/15/35f115d9b47dc754d251284f734dc226.jpg",
+                    "attire_id": "saree_red_silk",
+                    "attire_name": "Red Silk Saree",
+                    "generation_time_ms": 245
+                },
+                {
+                    "event_id": "8d696b64-76f1-4023-868a-74508a2513b4",
+                    "event_type": "image_shared",
+                    "timestamp": "2026-02-25T07:54:34.277Z",
+                    "jewellery_id": "NCK-011",
+                    "jewelry_name": "Diamond Cascade Necklace",
+                    "image_url": "https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=900&q=80",
+                    "channel": "whatsapp",
+                    "destination": "+6512345678",
+                    "jeweler_id": "abharana",
+                    "jeweler_name": "Abharana",
+                    "share_status": "sent",
+                    "message_sid": "SM1234567890abcdef"
+                },
+                {
+                    "event_id": "1cbb1e31-c6e6-4a08-91df-8630aaab9fa6",
+                    "event_type": "session_ended",
+                    "timestamp": "2026-02-25T07:54:34.476Z",
+                    "duration_seconds": 1845,
+                    "items_tried": 8,
+                    "items_shared": 3,
+                    "sale_made": true,
+                    "sale_amount": 125000,
+                    "purchased_items": ["NCK-011", "EAR-005"],
+                    "notes": "Customer preferred gold finish",
+                    "next_best_action_summary": "Session converted successfully with a sale of Rs 1,25,000. Customer engagement remained high across 8 try-ons and 3 shared previews over 31 minutes, with strongest purchase intent around NCK-011, EAR-005. Store note indicates: Customer preferred gold finish. Recommended next action: execute a personalised follow-up within 24 hours with matched add-on suggestions, time-bound festive incentive framing, and assisted checkout support to maximise conversion value."
+                }
+            ]
         },
         {
-          "event_id": "cf01a6b6-742a-44fc-b270-13bb0f587584",
-          "event_type": "jewellery_selected",
-          "timestamp": "2026-02-25T07:54:34.240Z",
-          "jewellery_id": "necklace_11",
-          "jewelry_name": "Diamond Cascade Necklace",
-          "jewelry_category": "necklace",
-          "price": 45000,
-          "image_url": "https://malabar191.malabargoldanddiamonds.com/media/catalog/product/cache/5/image/500x500/9df78eab33525d08d6e5fb8d27136e95/placeholder/default/placeholder-800x800_2_4.jpg"
+            "session_id": "sess_8b8b7a93607e",
+            "user_name": "Jane Doe",
+            "email_id": "jane@example.com",
+            "mob_number": "+6512345678",
+            "started_at": "2026-02-25T07:45:00.943Z",
+            "last_event_at": "2026-02-25T07:45:01.958Z",
+            "events": [
+                {
+                    "event_id": "7b3249c1-55cc-47d9-8409-d26242e9a4b3",
+                    "event_type": "start_session",
+                    "timestamp": "2026-02-25T07:45:00.943Z"
+                },
+                {
+                    "event_id": "6910ac8a-0c70-49ca-9c06-15e0e92f9b2b",
+                    "event_type": "jewellery_selected",
+                    "timestamp": "2026-02-25T07:45:01.564Z",
+                    "jewellery_id": "NCK-011",
+                    "jewelry_name": "Diamond Cascade Necklace",
+                    "jewelry_category": "necklace",
+                    "price": 45000,
+                    "image_url": "https://malabar191.malabargoldanddiamonds.com/media/catalog/product/cache/5/image/500x500/9df78eab33525d08d6e5fb8d27136e95/placeholder/default/placeholder-800x800_2_4.jpg"
+                },
+                {
+                    "event_id": "24602b7c-26fb-4310-aa58-75a5ddf3432c",
+                    "event_type": "image_generated",
+                    "timestamp": "2026-02-25T07:45:01.595Z",
+                    "jewellery_id": "NCK-011",
+                    "jewelry_name": "Diamond Cascade Necklace",
+                    "image_url": "https://i.pinimg.com/564x/35/f1/15/35f115d9b47dc754d251284f734dc226.jpg",
+                    "attire_id": "saree_red_silk",
+                    "attire_name": "Red Silk Saree",
+                    "generation_time_ms": 245
+                },
+                {
+                    "event_id": "1e37d803-ecc3-4fd7-b833-9d723dae0b91",
+                    "event_type": "image_shared",
+                    "timestamp": "2026-02-25T07:45:01.902Z",
+                    "jewellery_id": "NCK-011",
+                    "jewelry_name": "Diamond Cascade Necklace",
+                    "image_url": "https://storage.example.com/images/tryon_abc123.jpg",
+                    "channel": "whatsapp",
+                    "destination": "+6512345678",
+                    "jeweler_id": "abharana",
+                    "jeweler_name": "Abharana",
+                    "share_status": "sent",
+                    "message_sid": "SM1234567890abcdef"
+                },
+                {
+                    "event_id": "807e6fe1-f76a-4199-a27e-ca3836c6c88f",
+                    "event_type": "session_ended",
+                    "timestamp": "2026-02-25T07:45:01.958Z",
+                    "duration_seconds": 1845,
+                    "items_tried": 8,
+                    "items_shared": 3,
+                    "sale_made": true,
+                    "sale_amount": 125000,
+                    "purchased_items": ["NCK-011", "EAR-005"],
+                    "notes": "Customer preferred gold finish",
+                    "next_best_action_summary": "Session converted successfully with a sale of Rs 1,25,000. Customer engagement remained high across 8 try-ons and 3 shared previews over 31 minutes, with strongest purchase intent around NCK-011, EAR-005. Store note indicates: Customer preferred gold finish. Recommended next action: execute a personalised follow-up within 24 hours with matched add-on suggestions, time-bound festive incentive framing, and assisted checkout support to maximise conversion value."
+                }
+            ]
         },
         {
-          "event_id": "ad0a7ae7-1ba0-4df4-9044-90b512bb0aad",
-          "event_type": "image_generated",
-          "timestamp": "2026-02-25T07:54:34.259Z",
-          "jewellery_id": "necklace_11",
-          "jewelry_name": "Diamond Cascade Necklace",
-          "image_url": "https://i.pinimg.com/564x/35/f1/15/35f115d9b47dc754d251284f734dc226.jpg",
-          "attire_id": "saree_red_silk",
-          "attire_name": "Red Silk Saree",
-          "generation_time_ms": 245
+            "session_id": "sess_5225ca1659fa",
+            "user_name": "Jane Doe",
+            "email_id": "jane@example.com",
+            "mob_number": "+6512345678",
+            "started_at": "2026-02-25T07:36:22.309Z",
+            "last_event_at": "2026-02-25T07:36:22.734Z",
+            "events": [
+                {
+                    "event_id": "f6380677-64f1-40d3-850e-9e9f4721dd70",
+                    "event_type": "start_session",
+                    "timestamp": "2026-02-25T07:36:22.309Z"
+                },
+                {
+                    "event_id": "db96398e-8852-4d0a-b111-9f787208ae9a",
+                    "event_type": "jewellery_selected",
+                    "timestamp": "2026-02-25T07:36:22.405Z",
+                    "jewellery_id": "NCK-011",
+                    "jewelry_name": "Diamond Cascade Necklace",
+                    "jewelry_category": "necklace",
+                    "price": 45000,
+                    "image_url": "https://malabar191.malabargoldanddiamonds.com/media/catalog/product/cache/5/image/500x500/9df78eab33525d08d6e5fb8d27136e95/placeholder/default/placeholder-800x800_2_4.jpg"
+                },
+                {
+                    "event_id": "f1851c15-e221-427f-91c9-72ee0e10d0ac",
+                    "event_type": "image_generated",
+                    "timestamp": "2026-02-25T07:36:22.734Z",
+                    "jewellery_id": "NCK-011",
+                    "jewelry_name": "Diamond Cascade Necklace",
+                    "image_url": "https://i.pinimg.com/564x/35/f1/15/35f115d9b47dc754d251284f734dc226.jpg",
+                    "attire_id": "saree_red_silk",
+                    "attire_name": "Red Silk Saree",
+                    "generation_time_ms": 245
+                }
+            ]
         },
         {
-          "event_id": "8d696b64-76f1-4023-868a-74508a2513b4",
-          "event_type": "image_shared",
-          "timestamp": "2026-02-25T07:54:34.277Z",
-          "jewellery_id": "necklace_11",
-          "jewelry_name": "Diamond Cascade Necklace",
-          "image_url": "https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=900&q=80",
-          "channel": "whatsapp",
-          "destination": "+6512345678",
-          "jeweler_id": "abharana",
-          "jeweler_name": "Abharana",
-          "share_status": "sent",
-          "message_sid": "SM1234567890abcdef"
+            "session_id": "sess_b25503c93abc",
+            "user_name": "Jane Doe",
+            "email_id": "jane@example.com",
+            "mob_number": "+6512345678",
+            "started_at": "2026-02-25T07:09:21.331Z",
+            "last_event_at": "2026-02-25T07:09:21.388Z",
+            "events": [
+                {
+                    "event_id": "645c0a11-5681-4ccf-aac0-8c17de24f515",
+                    "event_type": "start_session",
+                    "timestamp": "2026-02-25T07:09:21.331Z"
+                },
+                {
+                    "event_id": "11c4de35-5dff-408b-88e7-8d67ea85ca0a",
+                    "event_type": "image_shared",
+                    "timestamp": "2026-02-25T07:09:21.388Z",
+                    "jewellery_id": "NCK-011",
+                    "jewelry_name": "Diamond Cascade Necklace",
+                    "image_url": "https://i.pinimg.com/564x/35/f1/15/35f115d9b47dc754d251284f734dc226.jpg",
+                    "channel": "whatsapp",
+                    "destination": "+6512345678",
+                    "jeweler_id": "abharana",
+                    "jeweler_name": "Abharana",
+                    "share_status": "sent",
+                    "message_sid": "SM1234567890abcdef"
+                }
+            ]
         },
         {
-          "event_id": "1cbb1e31-c6e6-4a08-91df-8630aaab9fa6",
-          "event_type": "session_ended",
-          "timestamp": "2026-02-25T07:54:34.476Z",
-          "duration_seconds": 1845,
-          "items_tried": 8,
-          "items_shared": 3,
-          "sale_made": true,
-          "sale_amount": 125000,
-          "purchased_items": [
-            "necklace_11",
-            "earring_05"
-          ],
-          "notes": "Customer preferred gold finish"
+            "session_id": "sess_9ffc9090fc80",
+            "user_name": "Jane Doe",
+            "email_id": "jane@example.com",
+            "mob_number": "+6512345678",
+            "started_at": "2026-02-25T06:59:44.291Z",
+            "last_event_at": "2026-02-25T06:59:45.504Z",
+            "events": [
+                {
+                    "event_id": "945a24b6-5e6c-42bd-a0b4-867e892b6618",
+                    "event_type": "start_session",
+                    "timestamp": "2026-02-25T06:59:44.291Z"
+                },
+                {
+                    "event_id": "79e49b2d-e8ad-4cd0-bbff-051921305e9a",
+                    "event_type": "image_shared",
+                    "timestamp": "2026-02-25T06:59:45.504Z",
+                    "jewellery_id": "NCK-011",
+                    "jewelry_name": "Diamond Cascade Necklace",
+                    "image_url": "https://storage.example.com/images/tryon_abc123.jpg",
+                    "channel": "whatsapp",
+                    "destination": "+6512345678",
+                    "jeweler_id": "abharana",
+                    "jeweler_name": "Abharana",
+                    "share_status": "sent",
+                    "message_sid": "SM1234567890abcdef"
+                }
+            ]
+        },
+        {
+            "session_id": "sess_18565c03ac49",
+            "user_name": "Jane Doe",
+            "email_id": "jane@example.com",
+            "mob_number": "+6512345678",
+            "started_at": "2026-02-25T06:41:36.888Z",
+            "last_event_at": "2026-02-25T06:41:37.541Z",
+            "events": [
+                {
+                    "event_id": "93080fac-61df-4ed5-8e4e-74e2cd0c0f81",
+                    "event_type": "start_session",
+                    "timestamp": "2026-02-25T06:41:36.888Z"
+                },
+                {
+                    "event_id": "83bdb232-e3a8-4ab8-9f43-669a28103ca3",
+                    "event_type": "image_generated",
+                    "timestamp": "2026-02-25T06:41:37.541Z",
+                    "jewellery_id": "NCK-011",
+                    "jewelry_name": "Diamond Cascade Necklace",
+                    "image_url": "https://i.pinimg.com/564x/35/f1/15/35f115d9b47dc754d251284f734dc226.jpg",
+                    "attire_id": "saree_red_silk",
+                    "attire_name": "Red Silk Saree",
+                    "generation_time_ms": 245
+                }
+            ]
+        },
+        {
+            "session_id": "sess_45927600b25c",
+            "user_name": "Jane Doe",
+            "email_id": "jane@example.com",
+            "mob_number": "+6512345678",
+            "started_at": "2026-02-25T06:33:47.665Z",
+            "last_event_at": "2026-02-25T06:33:48.719Z",
+            "events": [
+                {
+                    "event_id": "ee9677e0-204c-4480-a2d8-1dd32eab8fb2",
+                    "event_type": "start_session",
+                    "timestamp": "2026-02-25T06:33:47.665Z"
+                },
+                {
+                    "event_id": "6afb22e6-15dd-4326-ad4e-f4f1e8a8416c",
+                    "event_type": "jewellery_selected",
+                    "timestamp": "2026-02-25T06:33:48.719Z",
+                    "jewellery_id": "NCK-011",
+                    "jewelry_name": "Diamond Cascade Necklace",
+                    "jewelry_category": "necklace",
+                    "price": 45000,
+                    "image_url": "https://malabar191.malabargoldanddiamonds.com/media/catalog/product/cache/5/image/500x500/9df78eab33525d08d6e5fb8d27136e95/placeholder/default/placeholder-800x800_2_4.jpg"
+                }
+            ]
+        },
+        {
+            "session_id": "sess_cf69fc262d57",
+            "user_name": "Jane Doe",
+            "email_id": "jane@example.com",
+            "mob_number": "+6512345678",
+            "started_at": "2026-02-25T06:04:01.071Z",
+            "last_event_at": "2026-02-25T06:04:01.071Z",
+            "events": [
+                {
+                    "event_id": "8c707ac2-bc48-417d-8e74-6c2d08487af4",
+                    "event_type": "start_session",
+                    "timestamp": "2026-02-25T06:04:01.071Z"
+                }
+            ]
+        },
+        {
+            "session_id": "sess_seed_02",
+            "user_name": "Nisha Iyer",
+            "email_id": "nisha@example.com",
+            "mob_number": "9876500002",
+            "started_at": "2026-02-23T11:30:00.000Z",
+            "last_event_at": "2026-02-23T11:41:00.000Z",
+            "events": [
+                {
+                    "event_id": "seed_evt_4",
+                    "event_type": "start_session",
+                    "timestamp": "2026-02-23T11:30:00.000Z"
+                },
+                {
+                    "event_id": "seed_evt_5",
+                    "event_type": "view",
+                    "timestamp": "2026-02-23T11:36:00.000Z",
+                    "jewellery_id": "JW-2004"
+                },
+                {
+                    "event_id": "seed_evt_6",
+                    "event_type": "share",
+                    "timestamp": "2026-02-23T11:41:00.000Z"
+                }
+            ]
+        },
+        {
+            "session_id": "sess_5d99edfddb0d",
+            "user_name": "New User 892362",
+            "email_id": "new.user.892362@example.com",
+            "mob_number": "9800892362",
+            "started_at": "2026-02-23T10:34:52.363Z",
+            "last_event_at": "2026-02-23T10:39:52.363Z",
+            "events": [
+                {
+                    "event_id": "a884c4e8-8b13-4f66-b414-d2153764b79d",
+                    "event_type": "start_session",
+                    "timestamp": "2026-02-23T10:34:52.363Z"
+                },
+                {
+                    "event_id": "2412e378-22af-43a1-b1d3-98073c036b4c",
+                    "event_type": "view",
+                    "timestamp": "2026-02-23T10:35:52.363Z",
+                    "jewellery_id": "JW-2000"
+                },
+                {
+                    "event_id": "e8be98d5-7de4-42b4-9b5a-d90ebd8d89d9",
+                    "event_type": "wishlist",
+                    "timestamp": "2026-02-23T10:36:52.363Z"
+                },
+                {
+                    "event_id": "e2d2a246-5c73-4751-a827-6ceca6ae42cf",
+                    "event_type": "add_to_cart",
+                    "timestamp": "2026-02-23T10:37:52.363Z",
+                    "jewellery_id": "JW-2002"
+                },
+                {
+                    "event_id": "0222b228-5907-4f86-a77e-d1210d81d911",
+                    "event_type": "share",
+                    "timestamp": "2026-02-23T10:38:52.363Z"
+                },
+                {
+                    "event_id": "feec2b4a-d67e-4a00-b998-561afaae451c",
+                    "event_type": "purchase",
+                    "timestamp": "2026-02-23T10:39:52.363Z",
+                    "jewellery_id": "JW-2004"
+                }
+            ]
+        },
+        {
+            "session_id": "sess_seed_01",
+            "user_name": "Aarav Menon",
+            "email_id": "aarav@example.com",
+            "mob_number": "9876500001",
+            "started_at": "2026-02-23T10:00:00.000Z",
+            "last_event_at": "2026-02-23T10:11:00.000Z",
+            "events": [
+                {
+                    "event_id": "seed_evt_1",
+                    "event_type": "start_session",
+                    "timestamp": "2026-02-23T10:00:00.000Z"
+                },
+                {
+                    "event_id": "seed_evt_2",
+                    "event_type": "view",
+                    "timestamp": "2026-02-23T10:05:00.000Z",
+                    "jewellery_id": "JW-1001"
+                },
+                {
+                    "event_id": "seed_evt_3",
+                    "event_type": "wishlist",
+                    "timestamp": "2026-02-23T10:11:00.000Z",
+                    "jewellery_id": "JW-1001"
+                }
+            ]
         }
-      ]
-    },
-    {
-      "session_id": "sess_8b8b7a93607e",
-      "user_name": "Jane Doe",
-      "email_id": "jane@example.com",
-      "mob_number": "+6512345678",
-      "started_at": "2026-02-25T07:45:00.943Z",
-      "last_event_at": "2026-02-25T07:45:01.958Z",
-      "events": [
-        {
-          "event_id": "7b3249c1-55cc-47d9-8409-d26242e9a4b3",
-          "event_type": "start_session",
-          "timestamp": "2026-02-25T07:45:00.943Z"
-        },
-        {
-          "event_id": "6910ac8a-0c70-49ca-9c06-15e0e92f9b2b",
-          "event_type": "jewellery_selected",
-          "timestamp": "2026-02-25T07:45:01.564Z",
-          "jewellery_id": "necklace_11",
-          "jewelry_name": "Diamond Cascade Necklace",
-          "jewelry_category": "necklace",
-          "price": 45000,
-          "image_url": "https://malabar191.malabargoldanddiamonds.com/media/catalog/product/cache/5/image/500x500/9df78eab33525d08d6e5fb8d27136e95/placeholder/default/placeholder-800x800_2_4.jpg"
-        },
-        {
-          "event_id": "24602b7c-26fb-4310-aa58-75a5ddf3432c",
-          "event_type": "image_generated",
-          "timestamp": "2026-02-25T07:45:01.595Z",
-          "jewellery_id": "necklace_11",
-          "jewelry_name": "Diamond Cascade Necklace",
-          "image_url": "https://i.pinimg.com/564x/35/f1/15/35f115d9b47dc754d251284f734dc226.jpg",
-          "attire_id": "saree_red_silk",
-          "attire_name": "Red Silk Saree",
-          "generation_time_ms": 245
-        },
-        {
-          "event_id": "1e37d803-ecc3-4fd7-b833-9d723dae0b91",
-          "event_type": "image_shared",
-          "timestamp": "2026-02-25T07:45:01.902Z",
-          "jewellery_id": "necklace_11",
-          "jewelry_name": "Diamond Cascade Necklace",
-          "image_url": "https://storage.example.com/images/tryon_abc123.jpg",
-          "channel": "whatsapp",
-          "destination": "+6512345678",
-          "jeweler_id": "abharana",
-          "jeweler_name": "Abharana",
-          "share_status": "sent",
-          "message_sid": "SM1234567890abcdef"
-        },
-        {
-          "event_id": "807e6fe1-f76a-4199-a27e-ca3836c6c88f",
-          "event_type": "session_ended",
-          "timestamp": "2026-02-25T07:45:01.958Z",
-          "duration_seconds": 1845,
-          "items_tried": 8,
-          "items_shared": 3,
-          "sale_made": true,
-          "sale_amount": 125000,
-          "purchased_items": [
-            "necklace_11",
-            "earring_05"
-          ],
-          "notes": "Customer preferred gold finish"
-        }
-      ]
-    },
-    {
-      "session_id": "sess_5225ca1659fa",
-      "user_name": "Jane Doe",
-      "email_id": "jane@example.com",
-      "mob_number": "+6512345678",
-      "started_at": "2026-02-25T07:36:22.309Z",
-      "last_event_at": "2026-02-25T07:36:22.734Z",
-      "events": [
-        {
-          "event_id": "f6380677-64f1-40d3-850e-9e9f4721dd70",
-          "event_type": "start_session",
-          "timestamp": "2026-02-25T07:36:22.309Z"
-        },
-        {
-          "event_id": "db96398e-8852-4d0a-b111-9f787208ae9a",
-          "event_type": "jewellery_selected",
-          "timestamp": "2026-02-25T07:36:22.405Z",
-          "jewellery_id": "necklace_11",
-          "jewelry_name": "Diamond Cascade Necklace",
-          "jewelry_category": "necklace",
-          "price": 45000,
-          "image_url": "https://malabar191.malabargoldanddiamonds.com/media/catalog/product/cache/5/image/500x500/9df78eab33525d08d6e5fb8d27136e95/placeholder/default/placeholder-800x800_2_4.jpg"
-        },
-        {
-          "event_id": "f1851c15-e221-427f-91c9-72ee0e10d0ac",
-          "event_type": "image_generated",
-          "timestamp": "2026-02-25T07:36:22.734Z",
-          "jewellery_id": "necklace_11",
-          "jewelry_name": "Diamond Cascade Necklace",
-          "image_url": "https://i.pinimg.com/564x/35/f1/15/35f115d9b47dc754d251284f734dc226.jpg",
-          "attire_id": "saree_red_silk",
-          "attire_name": "Red Silk Saree",
-          "generation_time_ms": 245
-        }
-      ]
-    },
-    {
-      "session_id": "sess_b25503c93abc",
-      "user_name": "Jane Doe",
-      "email_id": "jane@example.com",
-      "mob_number": "+6512345678",
-      "started_at": "2026-02-25T07:09:21.331Z",
-      "last_event_at": "2026-02-25T07:09:21.388Z",
-      "events": [
-        {
-          "event_id": "645c0a11-5681-4ccf-aac0-8c17de24f515",
-          "event_type": "start_session",
-          "timestamp": "2026-02-25T07:09:21.331Z"
-        },
-        {
-          "event_id": "11c4de35-5dff-408b-88e7-8d67ea85ca0a",
-          "event_type": "image_shared",
-          "timestamp": "2026-02-25T07:09:21.388Z",
-          "jewellery_id": "necklace_11",
-          "jewelry_name": "Diamond Cascade Necklace",
-          "image_url": "https://i.pinimg.com/564x/35/f1/15/35f115d9b47dc754d251284f734dc226.jpg",
-          "channel": "whatsapp",
-          "destination": "+6512345678",
-          "jeweler_id": "abharana",
-          "jeweler_name": "Abharana",
-          "share_status": "sent",
-          "message_sid": "SM1234567890abcdef"
-        }
-      ]
-    },
-    {
-      "session_id": "sess_9ffc9090fc80",
-      "user_name": "Jane Doe",
-      "email_id": "jane@example.com",
-      "mob_number": "+6512345678",
-      "started_at": "2026-02-25T06:59:44.291Z",
-      "last_event_at": "2026-02-25T06:59:45.504Z",
-      "events": [
-        {
-          "event_id": "945a24b6-5e6c-42bd-a0b4-867e892b6618",
-          "event_type": "start_session",
-          "timestamp": "2026-02-25T06:59:44.291Z"
-        },
-        {
-          "event_id": "79e49b2d-e8ad-4cd0-bbff-051921305e9a",
-          "event_type": "image_shared",
-          "timestamp": "2026-02-25T06:59:45.504Z",
-          "jewellery_id": "necklace_11",
-          "jewelry_name": "Diamond Cascade Necklace",
-          "image_url": "https://storage.example.com/images/tryon_abc123.jpg",
-          "channel": "whatsapp",
-          "destination": "+6512345678",
-          "jeweler_id": "abharana",
-          "jeweler_name": "Abharana",
-          "share_status": "sent",
-          "message_sid": "SM1234567890abcdef"
-        }
-      ]
-    },
-    {
-      "session_id": "sess_18565c03ac49",
-      "user_name": "Jane Doe",
-      "email_id": "jane@example.com",
-      "mob_number": "+6512345678",
-      "started_at": "2026-02-25T06:41:36.888Z",
-      "last_event_at": "2026-02-25T06:41:37.541Z",
-      "events": [
-        {
-          "event_id": "93080fac-61df-4ed5-8e4e-74e2cd0c0f81",
-          "event_type": "start_session",
-          "timestamp": "2026-02-25T06:41:36.888Z"
-        },
-        {
-          "event_id": "83bdb232-e3a8-4ab8-9f43-669a28103ca3",
-          "event_type": "image_generated",
-          "timestamp": "2026-02-25T06:41:37.541Z",
-          "jewellery_id": "necklace_11",
-          "jewelry_name": "Diamond Cascade Necklace",
-          "image_url": "https://i.pinimg.com/564x/35/f1/15/35f115d9b47dc754d251284f734dc226.jpg",
-          "attire_id": "saree_red_silk",
-          "attire_name": "Red Silk Saree",
-          "generation_time_ms": 245
-        }
-      ]
-    },
-    {
-      "session_id": "sess_45927600b25c",
-      "user_name": "Jane Doe",
-      "email_id": "jane@example.com",
-      "mob_number": "+6512345678",
-      "started_at": "2026-02-25T06:33:47.665Z",
-      "last_event_at": "2026-02-25T06:33:48.719Z",
-      "events": [
-        {
-          "event_id": "ee9677e0-204c-4480-a2d8-1dd32eab8fb2",
-          "event_type": "start_session",
-          "timestamp": "2026-02-25T06:33:47.665Z"
-        },
-        {
-          "event_id": "6afb22e6-15dd-4326-ad4e-f4f1e8a8416c",
-          "event_type": "jewellery_selected",
-          "timestamp": "2026-02-25T06:33:48.719Z",
-          "jewellery_id": "necklace_11",
-          "jewelry_name": "Diamond Cascade Necklace",
-          "jewelry_category": "necklace",
-          "price": 45000,
-          "image_url": "https://malabar191.malabargoldanddiamonds.com/media/catalog/product/cache/5/image/500x500/9df78eab33525d08d6e5fb8d27136e95/placeholder/default/placeholder-800x800_2_4.jpg"
-        }
-      ]
-    },
-    {
-      "session_id": "sess_cf69fc262d57",
-      "user_name": "Jane Doe",
-      "email_id": "jane@example.com",
-      "mob_number": "+6512345678",
-      "started_at": "2026-02-25T06:04:01.071Z",
-      "last_event_at": "2026-02-25T06:04:01.071Z",
-      "events": [
-        {
-          "event_id": "8c707ac2-bc48-417d-8e74-6c2d08487af4",
-          "event_type": "start_session",
-          "timestamp": "2026-02-25T06:04:01.071Z"
-        }
-      ]
-    },
-    {
-      "session_id": "sess_seed_02",
-      "user_name": "Nisha Iyer",
-      "email_id": "nisha@example.com",
-      "mob_number": "9876500002",
-      "started_at": "2026-02-23T11:30:00.000Z",
-      "last_event_at": "2026-02-23T11:41:00.000Z",
-      "events": [
-        {
-          "event_id": "seed_evt_4",
-          "event_type": "start_session",
-          "timestamp": "2026-02-23T11:30:00.000Z"
-        },
-        {
-          "event_id": "seed_evt_5",
-          "event_type": "view",
-          "timestamp": "2026-02-23T11:36:00.000Z",
-          "jewellery_id": "JW-2004"
-        },
-        {
-          "event_id": "seed_evt_6",
-          "event_type": "share",
-          "timestamp": "2026-02-23T11:41:00.000Z"
-        }
-      ]
-    },
-    {
-      "session_id": "sess_5d99edfddb0d",
-      "user_name": "New User 892362",
-      "email_id": "new.user.892362@example.com",
-      "mob_number": "9800892362",
-      "started_at": "2026-02-23T10:34:52.363Z",
-      "last_event_at": "2026-02-23T10:39:52.363Z",
-      "events": [
-        {
-          "event_id": "a884c4e8-8b13-4f66-b414-d2153764b79d",
-          "event_type": "start_session",
-          "timestamp": "2026-02-23T10:34:52.363Z"
-        },
-        {
-          "event_id": "2412e378-22af-43a1-b1d3-98073c036b4c",
-          "event_type": "view",
-          "timestamp": "2026-02-23T10:35:52.363Z",
-          "jewellery_id": "JW-2000"
-        },
-        {
-          "event_id": "e8be98d5-7de4-42b4-9b5a-d90ebd8d89d9",
-          "event_type": "wishlist",
-          "timestamp": "2026-02-23T10:36:52.363Z"
-        },
-        {
-          "event_id": "e2d2a246-5c73-4751-a827-6ceca6ae42cf",
-          "event_type": "add_to_cart",
-          "timestamp": "2026-02-23T10:37:52.363Z",
-          "jewellery_id": "JW-2002"
-        },
-        {
-          "event_id": "0222b228-5907-4f86-a77e-d1210d81d911",
-          "event_type": "share",
-          "timestamp": "2026-02-23T10:38:52.363Z"
-        },
-        {
-          "event_id": "feec2b4a-d67e-4a00-b998-561afaae451c",
-          "event_type": "purchase",
-          "timestamp": "2026-02-23T10:39:52.363Z",
-          "jewellery_id": "JW-2004"
-        }
-      ]
-    },
-    {
-      "session_id": "sess_seed_01",
-      "user_name": "Aarav Menon",
-      "email_id": "aarav@example.com",
-      "mob_number": "9876500001",
-      "started_at": "2026-02-23T10:00:00.000Z",
-      "last_event_at": "2026-02-23T10:11:00.000Z",
-      "events": [
-        {
-          "event_id": "seed_evt_1",
-          "event_type": "start_session",
-          "timestamp": "2026-02-23T10:00:00.000Z"
-        },
-        {
-          "event_id": "seed_evt_2",
-          "event_type": "view",
-          "timestamp": "2026-02-23T10:05:00.000Z",
-          "jewellery_id": "JW-1001"
-        },
-        {
-          "event_id": "seed_evt_3",
-          "event_type": "wishlist",
-          "timestamp": "2026-02-23T10:11:00.000Z",
-          "jewellery_id": "JW-1001"
-        }
-      ]
-    }
-  ]
+    ]
 }

@@ -12,7 +12,7 @@ const sessionStartPayload = {
 
 const jewellerySelectedPayload = {
     event_type: "jewellery_selected",
-    jewelry_id: "necklace_11",
+    jewelry_id: "NCK-011",
     jewelry_name: "Diamond Cascade Necklace",
     jewelry_category: "necklace",
     price: 45000.0,
@@ -22,7 +22,7 @@ const jewellerySelectedPayload = {
 
 const imageGeneratedPayload = {
     event_type: "image_generated",
-    jewelry_id: "necklace_11",
+    jewelry_id: "NCK-011",
     jewelry_name: "Diamond Cascade Necklace",
     attire_id: "saree_red_silk",
     attire_name: "Red Silk Saree",
@@ -34,7 +34,7 @@ const imageSharedPayload = {
     event_type: "image_shared",
     channel: "whatsapp",
     destination: "+6512345678",
-    jewelry_id: "necklace_11",
+    jewelry_id: "NCK-011",
     jewelry_name: "Diamond Cascade Necklace",
     jeweler_id: "abharana",
     jeweler_name: "Abharana",
@@ -50,7 +50,7 @@ const sessionEndedPayload = {
     items_shared: 3,
     sale_made: true,
     sale_amount: 125000.0,
-    purchased_items: ["necklace_11", "earring_05"],
+    purchased_items: ["NCK-011", "EAR-005"],
     notes: "Customer preferred gold finish",
 };
 
@@ -209,7 +209,9 @@ async function main() {
                     event?.sale_made === sessionEndedPayload.sale_made &&
                     Number(event?.sale_amount) === sessionEndedPayload.sale_amount &&
                     sameStringArray(event?.purchased_items, sessionEndedPayload.purchased_items) &&
-                    event?.notes === sessionEndedPayload.notes,
+                    event?.notes === sessionEndedPayload.notes &&
+                    typeof event?.next_best_action_summary === "string" &&
+                    event.next_best_action_summary.trim().length > 0,
             ),
         },
     ];

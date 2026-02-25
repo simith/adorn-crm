@@ -24,5 +24,5 @@ export const EmailInputDemo = () => {
         });
     }, [inputRef.current]);
 
-    return <input ref={inputRef} type="text" defaultValue="denish@mail.com" placeholder="Enter something" />;
+    return <input ref={inputRef} type="text" defaultValue="dinesh@mail.com" placeholder="Enter something" />;
 };

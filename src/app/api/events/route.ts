@@ -30,6 +30,7 @@ type SessionEvent = {
     sale_amount?: number;
     purchased_items?: string[];
     notes?: string;
+    next_best_action_summary?: string;
     user_id?: string;
 };
 
@@ -293,6 +294,10 @@ function normalizeEvent(raw: unknown, fallbackTimestamp: string): SessionEvent {
 
     if (typeof payload.notes === "string" && payload.notes.trim()) {
         event.notes = payload.notes.trim();
+    }
+
+    if (typeof payload.next_best_action_summary === "string" && payload.next_best_action_summary.trim()) {
+        event.next_best_action_summary = payload.next_best_action_summary.trim();
     }
 
     if (typeof payload.user_id === "string" && payload.user_id.trim()) {
@@ -582,6 +587,8 @@ export async function POST(request: Request) {
                   .filter(Boolean)
             : [];
         const notes = typeof raw.notes === "string" ? raw.notes.trim() : "";
+        const nextBestActionSummary =
+            typeof raw.next_best_action_summary === "string" ? raw.next_best_action_summary.trim() : "";
         const userId = typeof raw.user_id === "string" ? raw.user_id.trim() : "";
 
         const event: SessionEvent = {
@@ -613,6 +620,7 @@ export async function POST(request: Request) {
             ...(typeof saleAmount === "number" && Number.isFinite(saleAmount) ? { sale_amount: saleAmount } : {}),
             ...(purchasedItems.length > 0 ? { purchased_items: purchasedItems } : {}),
             ...(notes ? { notes } : {}),
+            ...(nextBestActionSummary ? { next_best_action_summary: nextBestActionSummary } : {}),
             ...(userId ? { user_id: userId } : {}),
         };
 
