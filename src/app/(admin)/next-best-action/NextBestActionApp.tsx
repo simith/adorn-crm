@@ -105,23 +105,28 @@ type ApiSessionsResponse = {
     sessions?: ApiSession[];
 };
 
-const jewelleryPlaceholders = [
-    "/images/jewellery/100.jpg",
-    "/images/jewellery/101.jpg",
-    "/images/jewellery/102.jpg",
-    "/images/jewellery/best-seller.jpg",
-];
+// Jewelry image mapping from iPad app asset names to CRM images
+const jewelleryImages: Record<string, string> = {
+    // Chokers from iPad app
+    CHOKER_001: "/images/jewellery/necklaces/CHOKER_001.png",
+    CHOKER_MG_0003: "/images/jewellery/necklaces/CHOKER_MG_0003.png",
+    CHOKER_MG_0005: "/images/jewellery/necklaces/CHOKER_MG_0005.png",
+    CHOKER_MG_0006: "/images/jewellery/necklaces/CHOKER_MG_0006.png",
+    "CHOKER-DIAMOND-001": "/images/jewellery/necklaces/CHOKER-DIAMOND-001.png",
+    "CHOKER-GOLD-001": "/images/jewellery/necklaces/CHOKER-GOLD-001.png",
+    "CHOKER-GOLD-002": "/images/jewellery/necklaces/CHOKER-GOLD-002.png",
+    // Necklaces from iPad app
+    necklace_11: "/images/jewellery/necklaces/necklace_11.png",
+    "NCK-011": "/images/jewellery/necklaces/necklace_11.png",
+};
+
+const jewelleryPlaceholders = Object.values(jewelleryImages);
 
 const avatarPool = [
-    "/images/avatars/1.png",
     "/images/avatars/2.png",
-    "/images/avatars/3.png",
     "/images/avatars/4.png",
-    "/images/avatars/5.png",
     "/images/avatars/6.png",
-    "/images/avatars/7.png",
     "/images/avatars/8.png",
-    "/images/avatars/9.png",
     "/images/avatars/10.png",
 ];
 
@@ -282,7 +287,21 @@ function statusDot(status: SessionStatus) {
 }
 
 function jewelleryImageForEvent(event: UserEvent) {
-    const source = event.jewellery_id || event.id;
+    const jewelryId = event.jewellery_id || "";
+
+    // Try exact match first (e.g., "necklace_7")
+    if (jewelleryImages[jewelryId]) {
+        return jewelleryImages[jewelryId];
+    }
+
+    // Try normalized key (lowercase, replace hyphens with underscores)
+    const normalizedId = jewelryId.toLowerCase().replace(/-/g, "_");
+    if (jewelleryImages[normalizedId]) {
+        return jewelleryImages[normalizedId];
+    }
+
+    // Fallback to hash-based selection from available images
+    const source = jewelryId || event.id;
     return jewelleryPlaceholders[hashString(source) % jewelleryPlaceholders.length];
 }
 
@@ -350,7 +369,7 @@ function eventSummary(event: UserEvent) {
     if (event.event_type === "start_session") {
         return "Customer started a new browsing session.";
     }
-    if (event.event_type === "jewellery_selected" || event.event_type === "jewelry_selected") {
+    if (event.event_type === "jewellery_selected" || event.event_type === "jewelry_selected" || event.event_type === "jewelry.selected") {
         return `Customer selected ${item} for try-on.`;
     }
     if (event.event_type === "image_generated" || event.event_type === "image.generated") {
@@ -389,7 +408,7 @@ function eventSummary(event: UserEvent) {
 }
 
 function eventTypeLabel(eventType: string) {
-    if (eventType === "jewellery_selected" || eventType === "jewelry_selected") {
+    if (eventType === "jewellery_selected" || eventType === "jewelry_selected" || eventType === "jewelry.selected") {
         return "Jewellery Selected";
     }
     if (eventType === "image_generated" || eventType === "image.generated") {
@@ -832,6 +851,7 @@ export const NextBestActionApp = () => {
                                         {(event.event_type === "view" ||
                                             event.event_type === "jewellery_selected" ||
                                             event.event_type === "jewelry_selected" ||
+                                            event.event_type === "jewelry.selected" ||
                                             event.event_type === "image_generated" ||
                                             event.event_type === "image.generated" ||
                                             event.event_type === "image_shared" ||
@@ -847,7 +867,8 @@ export const NextBestActionApp = () => {
                                                         {event.event_type === "view"
                                                             ? "Viewed Jewellery"
                                                             : event.event_type === "jewellery_selected" ||
-                                                                event.event_type === "jewelry_selected"
+                                                                event.event_type === "jewelry_selected" ||
+                                                                event.event_type === "jewelry.selected"
                                                               ? "Jewellery Selected"
                                                               : event.event_type === "image_generated" ||
                                                                   event.event_type === "image.generated"

@@ -428,7 +428,13 @@ export async function POST(request: Request) {
         const body = await request.json().catch(() => null);
         const raw = body && typeof body === "object" ? (body as Record<string, unknown>) : null;
 
+        // Log incoming event
+        console.log("=== INCOMING EVENT ===");
+        console.log("Timestamp:", new Date().toISOString());
+        console.log("Body:", JSON.stringify(raw, null, 2));
+
         if (!raw) {
+            console.error("=== EVENT ERROR: Invalid JSON payload ===");
             return NextResponse.json({ ok: false, error: "Invalid JSON payload." }, { status: 400 });
         }
 
@@ -474,6 +480,14 @@ export async function POST(request: Request) {
             sessionsById.set(sessionId, session);
             totalEvents += 1;
             await persistStore();
+
+            console.log("=== SESSION STARTED ===");
+            console.log("Session ID:", sessionId);
+            console.log("User:", userName);
+            console.log("Email:", emailId);
+            console.log("Phone:", mobNumber);
+            console.log("Total Sessions:", sessionsById.size);
+            console.log("Total Events:", totalEvents);
 
             return NextResponse.json(
                 {
@@ -631,6 +645,18 @@ export async function POST(request: Request) {
         sessionsById.set(sessionId, session);
         totalEvents += 1;
         await persistStore();
+
+        console.log("=== EVENT STORED ===");
+        console.log("Session ID:", sessionId);
+        console.log("Event Type:", eventType);
+        console.log("Event ID:", event.event_id);
+        if (jewelleryId) console.log("Jewelry ID:", jewelleryId);
+        if (jewelryName) console.log("Jewelry Name:", jewelryName);
+        if (imageUrl) console.log("Image URL:", imageUrl);
+        if (channel) console.log("Channel:", channel);
+        if (destination) console.log("Destination:", destination);
+        console.log("Session Event Count:", session.events.length);
+        console.log("Total Events:", totalEvents);
 
         return NextResponse.json({
             ok: true,

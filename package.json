@@ -10,9 +10,9 @@
         "url": "https://withden.dev/"
     },
     "scripts": {
-        "dev": "next dev --webpack",
+        "dev": "next dev --webpack -p 8000",
         "build": "next build",
-        "start": "next start",
+        "start": "next start -p 8000",
         "lint": "eslint .",
         "format": "prettier . --write",
         "events:ingest": "node scripts/ingest-events.mjs",

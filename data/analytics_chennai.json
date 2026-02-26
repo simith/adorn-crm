@@ -3,127 +3,127 @@
     "title": "Most Favorites Items",
     "items": [
       {
-        "name": "Diamond Mangalsutra",
-        "rating": 4,
-        "reviews": 470,
-        "likes": 268000,
-        "interestPercent": 52,
-        "totalSales": 7025,
-        "goalPercent": 91,
-        "imageUrl": "/images/jewellery/100.jpg"
+        "name": "Classic Gold Pendant",
+        "rating": 5,
+        "reviews": 734,
+        "likes": 389000,
+        "interestPercent": 58,
+        "totalSales": 7856,
+        "goalPercent": 92,
+        "imageUrl": "/images/jewellery/necklaces/CHOKER_001.png"
       },
       {
-        "name": "Ruby Bridal Set",
-        "rating": 4,
-        "reviews": 445,
-        "likes": 232000,
-        "interestPercent": 29,
-        "totalSales": 5900,
-        "goalPercent": 78,
-        "imageUrl": "/images/jewellery/101.jpg"
+        "name": "Ranihaar Necklace",
+        "rating": 5,
+        "reviews": 612,
+        "likes": 342000,
+        "interestPercent": 45,
+        "totalSales": 6432,
+        "goalPercent": 87,
+        "imageUrl": "/images/jewellery/necklaces/necklace_11.png"
       },
       {
-        "name": "Pearl Stud Earrings",
+        "name": "Royal Gold Statement",
         "rating": 4,
-        "reviews": 418,
-        "likes": 190000,
-        "interestPercent": 24,
-        "totalSales": 3650,
-        "goalPercent": 88,
-        "imageUrl": "/images/jewellery/102.jpg"
+        "reviews": 523,
+        "likes": 287000,
+        "interestPercent": 36,
+        "totalSales": 5234,
+        "goalPercent": 79,
+        "imageUrl": "/images/jewellery/necklaces/CHOKER-GOLD-001.png"
       }
     ],
     "cta": "View More"
   },
   "dailyTrendingMenus": {
-    "title": "Daily Trending Menus",
-    "subtitle": "Lorem ipsum dolor",
+    "title": "Daily Trending Pieces",
+    "subtitle": "Today's most viewed items",
     "items": [
       {
         "rank": 1,
-        "name": "Diamond Mangalsutra",
-        "price": 5900,
-        "orders": 96
+        "name": "Classic Gold Pendant",
+        "price": 78000,
+        "orders": 112
       },
       {
         "rank": 2,
-        "name": "Ruby Bridal Set",
-        "price": 5200,
-        "orders": 72
+        "name": "Ranihaar Necklace",
+        "price": 325000,
+        "orders": 89
       },
       {
         "rank": 3,
-        "name": "Antique Vanki",
-        "price": 12900,
-        "orders": 64
+        "name": "Diamond Cascade Choker",
+        "price": 245000,
+        "orders": 76
       },
       {
         "rank": 4,
-        "name": "Gold Kada",
-        "price": 7400,
-        "orders": 55
+        "name": "Royal Gold Statement",
+        "price": 215000,
+        "orders": 64
       },
       {
         "rank": 5,
-        "name": "Pearl Stud Earrings",
-        "price": 6100,
-        "orders": 41
+        "name": "Temple Gold Choker",
+        "price": 189000,
+        "orders": 51
       }
     ]
   },
   "salesSummary": {
     "title": "Sales Summary",
-    "subtitle": "Lorem ipsum dolor sit amet, consectetur",
+    "subtitle": "Performance metrics for the current period",
     "period": "Monthly",
     "metrics": [
       {
         "label": "Pieces Sold",
-        "value": 68210
+        "value": 68450
       },
       {
         "label": "Revenue",
-        "value": 925400,
+        "value": 11240000,
         "currency": "INR"
       },
       {
-        "label": "Safe (20%)",
-        "value": 103120,
+        "label": "Profit (18%)",
+        "value": 2023200,
         "currency": "INR"
       }
     ]
   },
   "loyalCustomers": {
     "title": "Loyal Customers",
-    "subtitle": "Lorem ipsum dolor",
+    "subtitle": "Top repeat buyers",
     "customers": [
       {
-        "name": "Kavya Iyer",
-        "orders": 684
+        "name": "Kavitha Rajan",
+        "orders": 756
       },
       {
-        "name": "Rahul N",
-        "orders": 392
+        "name": "Malini Subramanian",
+        "orders": 534
       },
       {
-        "name": "Sneha Kumar",
-        "orders": 142
+        "name": "Padma Narayanan",
+        "orders": 423
       },
       {
-        "name": "Aravind S",
-        "orders": 86
+        "name": "Revathi Kumar",
+        "orders": 312
       }
     ]
   },
   "bestSeller": {
-    "title": "Best seller jewellery",
-    "subtitle": "Lorem ipsum dolor",
+    "title": "Best Seller Jewellery",
+    "subtitle": "This month's champion",
     "item": {
-      "name": "Diamond Mangalsutra",
-      "price": 7025,
-      "likes": 268000,
-      "sales": 6890,
-      "imageUrl": "/images/jewellery/best-seller.jpg"
+      "name": "Classic Gold Pendant",
+      "price": 78000,
+      "likes": 389000,
+      "sales": 7856,
+      "imageUrl": "/images/jewellery/necklaces/CHOKER_001.png"
     }
   },
-  "updatedAt": "2026-02-09T00:00:00.000Z"
+  "updatedAt": "2026-02-26T00:00:00.000Z"
 }

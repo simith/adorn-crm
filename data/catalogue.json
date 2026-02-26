@@ -1,5 +1,45 @@
 [
   {
+    "product_id": "CHOKER_001",
+    "image": "/images/jewellery/necklaces/CHOKER_001.png",
+    "description": "Classic Gold Pendant with delicate chain and timeless pendant design."
+  },
+  {
+    "product_id": "CHOKER_MG_0003",
+    "image": "/images/jewellery/necklaces/CHOKER_MG_0003.png",
+    "description": "Gold Medallion Choker featuring heavy gold medallions with intricate detailing."
+  },
+  {
+    "product_id": "CHOKER_MG_0005",
+    "image": "/images/jewellery/necklaces/CHOKER_MG_0005.png",
+    "description": "Filigree Ball Drop Choker with delicate filigree work and ball drop accents."
+  },
+  {
+    "product_id": "CHOKER_MG_0006",
+    "image": "/images/jewellery/necklaces/CHOKER_MG_0006.png",
+    "description": "Kundan Pearl Choker combining kundan stones with elegant pearl drops."
+  },
+  {
+    "product_id": "CHOKER-DIAMOND-001",
+    "image": "/images/jewellery/necklaces/CHOKER-DIAMOND-001.png",
+    "description": "Diamond Cascade Choker with cascading diamond arrangement and modern design."
+  },
+  {
+    "product_id": "CHOKER-GOLD-001",
+    "image": "/images/jewellery/necklaces/CHOKER-GOLD-001.png",
+    "description": "Royal Gold Statement choker with elaborate gold work and regal presence."
+  },
+  {
+    "product_id": "CHOKER-GOLD-002",
+    "image": "/images/jewellery/necklaces/CHOKER-GOLD-002.png",
+    "description": "Temple Gold Choker featuring traditional temple jewelry craftsmanship."
+  },
+  {
+    "product_id": "NECKLACE-RN-0011",
+    "image": "/images/jewellery/necklaces/necklace_11.png",
+    "description": "Ranihaar Necklace with layered strands and traditional South Indian styling."
+  },
+  {
     "product_id": "NK0034",
     "image": "/images/jewellery/100.jpg",
     "description": "Light Antique Gold Haram with intricate temple detailing and matching earrings."

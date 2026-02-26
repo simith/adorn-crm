@@ -19,6 +19,11 @@ function categoryForProduct(productId: string): CatalogueCategory {
     return "earrings";
   }
 
+  // iPad app jewelry IDs
+  if (code.startsWith("CHOKER") || code.startsWith("NECKLACE")) {
+    return "necklaces_pendants";
+  }
+
   if (code.startsWith("NK") || code.startsWith("ND") || code.startsWith("PD")) {
     return "necklaces_pendants";
   }

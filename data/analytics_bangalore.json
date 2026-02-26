@@ -3,127 +3,127 @@
     "title": "Most Favorites Items",
     "items": [
       {
-        "name": "Emerald Necklace Set",
-        "rating": 4,
-        "reviews": 454,
-        "likes": 256000,
-        "interestPercent": 45,
-        "totalSales": 6732,
-        "goalPercent": 87,
-        "imageUrl": "/images/jewellery/100.jpg"
+        "name": "Diamond Cascade Choker",
+        "rating": 5,
+        "reviews": 892,
+        "likes": 428000,
+        "interestPercent": 62,
+        "totalSales": 8945,
+        "goalPercent": 94,
+        "imageUrl": "/images/jewellery/necklaces/CHOKER-DIAMOND-001.png"
       },
       {
-        "name": "Kundan Bridal Choker",
-        "rating": 4,
-        "reviews": 454,
-        "likes": 256000,
-        "interestPercent": 26,
-        "totalSales": 5721,
-        "goalPercent": 75,
-        "imageUrl": "/images/jewellery/101.jpg"
+        "name": "Royal Gold Statement",
+        "rating": 5,
+        "reviews": 756,
+        "likes": 385000,
+        "interestPercent": 48,
+        "totalSales": 7234,
+        "goalPercent": 89,
+        "imageUrl": "/images/jewellery/necklaces/CHOKER-GOLD-001.png"
       },
       {
-        "name": "Pearl Layered Set",
+        "name": "Filigree Ball Drop Choker",
         "rating": 4,
-        "reviews": 454,
-        "likes": 256000,
-        "interestPercent": 26,
-        "totalSales": 3515,
-        "goalPercent": 90,
-        "imageUrl": "/images/jewellery/102.jpg"
+        "reviews": 623,
+        "likes": 312000,
+        "interestPercent": 38,
+        "totalSales": 5890,
+        "goalPercent": 82,
+        "imageUrl": "/images/jewellery/necklaces/CHOKER_MG_0005.png"
       }
     ],
     "cta": "View More"
   },
   "dailyTrendingMenus": {
-    "title": "Daily Trending Menus",
-    "subtitle": "Lorem ipsum dolor",
+    "title": "Daily Trending Pieces",
+    "subtitle": "Today's most viewed items",
     "items": [
       {
         "rank": 1,
-        "name": "Ruby Stud Earrings",
-        "price": 5600,
-        "orders": 90
+        "name": "Diamond Cascade Choker",
+        "price": 245000,
+        "orders": 127
       },
       {
         "rank": 2,
-        "name": "Emerald Pendant",
-        "price": 4800,
-        "orders": 70
+        "name": "Temple Gold Choker",
+        "price": 189000,
+        "orders": 98
       },
       {
         "rank": 3,
-        "name": "Antique Gold Bangles",
-        "price": 12300,
-        "orders": 60
+        "name": "Kundan Pearl Choker",
+        "price": 156000,
+        "orders": 84
       },
       {
         "rank": 4,
-        "name": "Sapphire Nose Pin",
-        "price": 7200,
-        "orders": 50
+        "name": "Classic Gold Pendant",
+        "price": 78000,
+        "orders": 72
       },
       {
         "rank": 5,
-        "name": "Kundan Bridal Choker",
-        "price": 6300,
-        "orders": 40
+        "name": "Ranihaar Necklace",
+        "price": 325000,
+        "orders": 56
       }
     ]
   },
   "salesSummary": {
     "title": "Sales Summary",
-    "subtitle": "Lorem ipsum dolor sit amet, consectetur",
+    "subtitle": "Performance metrics for the current period",
     "period": "Monthly",
     "metrics": [
       {
         "label": "Pieces Sold",
-        "value": 63876
+        "value": 78542
       },
       {
         "label": "Revenue",
-        "value": 873335,
+        "value": 12850000,
         "currency": "INR"
       },
       {
-        "label": "Safe (20%)",
-        "value": 97126,
+        "label": "Profit (18%)",
+        "value": 2313000,
         "currency": "INR"
       }
     ]
   },
   "loyalCustomers": {
     "title": "Loyal Customers",
-    "subtitle": "Lorem ipsum dolor",
+    "subtitle": "Top repeat buyers",
     "customers": [
       {
+        "name": "Priya Sharma",
+        "orders": 847
+      },
+      {
+        "name": "Lakshmi Venkat",
+        "orders": 523
+      },
+      {
         "name": "Ananya Iyer",
-        "orders": 651
+        "orders": 412
       },
       {
-        "name": "Rohan Gupta",
-        "orders": 356
-      },
-      {
-        "name": "Meera Nair",
-        "orders": 125
-      },
-      {
-        "name": "Kavya Rao",
-        "orders": 78
+        "name": "Meera Krishnan",
+        "orders": 298
       }
     ]
   },
   "bestSeller": {
-    "title": "Best seller jewellery",
-    "subtitle": "Lorem ipsum dolor",
+    "title": "Best Seller Jewellery",
+    "subtitle": "This month's champion",
     "item": {
-      "name": "Kundan Bridal Choker",
-      "price": 6530,
-      "likes": 256000,
-      "sales": 6723,
-      "imageUrl": "/images/jewellery/best-seller.jpg"
+      "name": "Diamond Cascade Choker",
+      "price": 245000,
+      "likes": 428000,
+      "sales": 8945,
+      "imageUrl": "/images/jewellery/necklaces/CHOKER-DIAMOND-001.png"
     }
   },
-  "updatedAt": "2026-02-09T00:00:00.000Z"
+  "updatedAt": "2026-02-26T00:00:00.000Z"
 }

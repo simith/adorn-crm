@@ -3,127 +3,127 @@
     "title": "Most Favorites Items",
     "items": [
       {
-        "name": "Temple Gold Necklace",
-        "rating": 4,
-        "reviews": 410,
-        "likes": 198000,
-        "interestPercent": 38,
-        "totalSales": 5980,
-        "goalPercent": 82,
-        "imageUrl": "/images/jewellery/100.jpg"
+        "name": "Temple Gold Choker",
+        "rating": 5,
+        "reviews": 678,
+        "likes": 356000,
+        "interestPercent": 55,
+        "totalSales": 6234,
+        "goalPercent": 91,
+        "imageUrl": "/images/jewellery/necklaces/CHOKER-GOLD-002.png"
       },
       {
-        "name": "Lakshmi Coin Necklace",
+        "name": "Kundan Pearl Choker",
         "rating": 4,
-        "reviews": 420,
-        "likes": 214000,
-        "interestPercent": 22,
-        "totalSales": 5120,
-        "goalPercent": 71,
-        "imageUrl": "/images/jewellery/101.jpg"
+        "reviews": 542,
+        "likes": 298000,
+        "interestPercent": 42,
+        "totalSales": 5123,
+        "goalPercent": 85,
+        "imageUrl": "/images/jewellery/necklaces/CHOKER_MG_0006.png"
       },
       {
-        "name": "Antique Jhumka Set",
+        "name": "Gold Medallion Choker",
         "rating": 4,
-        "reviews": 395,
-        "likes": 176000,
-        "interestPercent": 19,
-        "totalSales": 3320,
-        "goalPercent": 88,
-        "imageUrl": "/images/jewellery/102.jpg"
+        "reviews": 489,
+        "likes": 267000,
+        "interestPercent": 35,
+        "totalSales": 4567,
+        "goalPercent": 78,
+        "imageUrl": "/images/jewellery/necklaces/CHOKER_MG_0003.png"
       }
     ],
     "cta": "View More"
   },
   "dailyTrendingMenus": {
-    "title": "Daily Trending Menus",
-    "subtitle": "Lorem ipsum dolor",
+    "title": "Daily Trending Pieces",
+    "subtitle": "Today's most viewed items",
     "items": [
       {
         "rank": 1,
-        "name": "Gold Kasu Mala",
-        "price": 5200,
-        "orders": 84
+        "name": "Temple Gold Choker",
+        "price": 189000,
+        "orders": 94
       },
       {
         "rank": 2,
-        "name": "Antique Jhumka Set",
-        "price": 4600,
-        "orders": 66
+        "name": "Kundan Pearl Choker",
+        "price": 156000,
+        "orders": 78
       },
       {
         "rank": 3,
-        "name": "Coral Necklace",
-        "price": 11900,
-        "orders": 58
+        "name": "Classic Gold Pendant",
+        "price": 78000,
+        "orders": 65
       },
       {
         "rank": 4,
-        "name": "Temple Bangles",
-        "price": 6800,
-        "orders": 49
+        "name": "Gold Medallion Choker",
+        "price": 198000,
+        "orders": 52
       },
       {
         "rank": 5,
-        "name": "Lakshmi Coin Necklace",
-        "price": 6100,
-        "orders": 38
+        "name": "Filigree Ball Drop Choker",
+        "price": 145000,
+        "orders": 43
       }
     ]
   },
   "salesSummary": {
     "title": "Sales Summary",
-    "subtitle": "Lorem ipsum dolor sit amet, consectetur",
+    "subtitle": "Performance metrics for the current period",
     "period": "Monthly",
     "metrics": [
       {
         "label": "Pieces Sold",
-        "value": 59210
+        "value": 52340
       },
       {
         "label": "Revenue",
-        "value": 812400,
+        "value": 8920000,
         "currency": "INR"
       },
       {
-        "label": "Safe (20%)",
-        "value": 90230,
+        "label": "Profit (18%)",
+        "value": 1605600,
         "currency": "INR"
       }
     ]
   },
   "loyalCustomers": {
     "title": "Loyal Customers",
-    "subtitle": "Lorem ipsum dolor",
+    "subtitle": "Top repeat buyers",
     "customers": [
       {
-        "name": "Aditi Rao",
-        "orders": 602
+        "name": "Suma Kamath",
+        "orders": 623
       },
       {
-        "name": "Nikhil Das",
-        "orders": 342
+        "name": "Vidya Shetty",
+        "orders": 445
       },
       {
-        "name": "Priya Pai",
-        "orders": 118
+        "name": "Rashmi Pai",
+        "orders": 367
       },
       {
-        "name": "Vivek Shetty",
-        "orders": 74
+        "name": "Deepa Rao",
+        "orders": 234
       }
     ]
   },
   "bestSeller": {
-    "title": "Best seller jewellery",
-    "subtitle": "Lorem ipsum dolor",
+    "title": "Best Seller Jewellery",
+    "subtitle": "This month's champion",
     "item": {
-      "name": "Temple Gold Necklace",
-      "price": 6530,
-      "likes": 214000,
-      "sales": 6412,
-      "imageUrl": "/images/jewellery/best-seller.jpg"
+      "name": "Temple Gold Choker",
+      "price": 189000,
+      "likes": 356000,
+      "sales": 6234,
+      "imageUrl": "/images/jewellery/necklaces/CHOKER-GOLD-002.png"
     }
   },
-  "updatedAt": "2026-02-09T00:00:00.000Z"
+  "updatedAt": "2026-02-26T00:00:00.000Z"
 }

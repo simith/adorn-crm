@@ -88,7 +88,7 @@ function asStringArray(value: unknown) {
 
 function summarizeEventType(eventType: string) {
     if (eventType === "start_session") return "session_start";
-    if (eventType === "jewellery_selected" || eventType === "jewelry_selected") return "jewellery_selected";
+    if (eventType === "jewellery_selected" || eventType === "jewelry_selected" || eventType === "jewelry.selected") return "jewellery_selected";
     if (eventType === "image_generated" || eventType === "image.generated") return "image_generated";
     if (eventType === "image_shared" || eventType === "image.shared") return "image_shared";
     if (eventType === "session_ended" || eventType === "session.ended") return "session_ended";
@@ -361,7 +361,7 @@ export async function POST(request: Request) {
             return response;
         }
 
-        if (eventType === "jewellery_selected" || eventType === "jewelry_selected") {
+        if (eventType === "jewellery_selected" || eventType === "jewelry_selected" || eventType === "jewelry.selected") {
             const jewelryId = asTrimmedString(body.jewelry_id);
             const jewelryName = asTrimmedString(body.jewelry_name);
             const jewelryCategory = asTrimmedString(body.jewelry_category);
@@ -737,14 +737,12 @@ export async function POST(request: Request) {
                 itemsTried == null ||
                 itemsShared == null ||
                 saleMade == null ||
-                saleAmount == null ||
-                purchasedItems.length === 0 ||
-                !notes
+                saleAmount == null
             ) {
                 return NextResponse.json(
                     {
                         ok: false,
-                        error: "event_type 'session_ended' requires duration_seconds, items_tried, items_shared, sale_made, sale_amount, purchased_items, and notes.",
+                        error: "event_type 'session_ended' requires duration_seconds, items_tried, items_shared, sale_made, and sale_amount.",
                     },
                     { status: 400 },
                 );
