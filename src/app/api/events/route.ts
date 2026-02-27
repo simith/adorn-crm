@@ -1,7 +1,7 @@
 import { randomUUID } from "crypto";
-import { mkdir, readFile, writeFile } from "fs/promises";
 import { NextResponse } from "next/server";
-import path from "path";
+
+import { supabase } from "@/lib/supabase";
 
 export const dynamic = "force-dynamic";
 
@@ -44,75 +44,22 @@ type SessionRecord = {
     events: SessionEvent[];
 };
 
-type PersistedStore = {
-    version: number;
-    totalEvents: number;
-    sessions: SessionRecord[];
+type SupabaseEventRow = {
+    event_id: string;
+    session_id: string;
+    event_type: string;
+    timestamp: string;
+    payload: Record<string, unknown>;
 };
 
-const CACHE_RELATIVE_PATH = "cache/sessions.json";
-const CACHE_DIR_PATH = path.join(process.cwd(), "cache");
-const CACHE_FILE_PATH = path.join(process.cwd(), CACHE_RELATIVE_PATH);
-
-const DEFAULT_SESSIONS: SessionRecord[] = [
-    {
-        session_id: "sess_seed_01",
-        user_name: "Aarav Menon",
-        email_id: "aarav@example.com",
-        mob_number: "9876500001",
-        started_at: "2026-02-23T10:00:00.000Z",
-        last_event_at: "2026-02-23T10:11:00.000Z",
-        events: [
-            {
-                event_id: "seed_evt_1",
-                event_type: "start_session",
-                timestamp: "2026-02-23T10:00:00.000Z",
-            },
-            {
-                event_id: "seed_evt_2",
-                event_type: "view",
-                jewellery_id: "JW-1001",
-                timestamp: "2026-02-23T10:05:00.000Z",
-            },
-            {
-                event_id: "seed_evt_3",
-                event_type: "wishlist",
-                jewellery_id: "JW-1001",
-                timestamp: "2026-02-23T10:11:00.000Z",
-            },
-        ],
-    },
-    {
-        session_id: "sess_seed_02",
-        user_name: "Nisha Iyer",
-        email_id: "nisha@example.com",
-        mob_number: "9876500002",
-        started_at: "2026-02-23T11:30:00.000Z",
-        last_event_at: "2026-02-23T11:41:00.000Z",
-        events: [
-            {
-                event_id: "seed_evt_4",
-                event_type: "start_session",
-                timestamp: "2026-02-23T11:30:00.000Z",
-            },
-            {
-                event_id: "seed_evt_5",
-                event_type: "view",
-                jewellery_id: "JW-2004",
-                timestamp: "2026-02-23T11:36:00.000Z",
-            },
-            {
-                event_id: "seed_evt_6",
-                event_type: "share",
-                timestamp: "2026-02-23T11:41:00.000Z",
-            },
-        ],
-    },
-];
-
-let sessionsById = new Map<string, SessionRecord>();
-let totalEvents = 0;
-let hydratePromise: Promise<void> | null = null;
+type SupabaseSessionRow = {
+    session_id: string;
+    user_name: string;
+    email_id: string;
+    mob_number: string;
+    started_at: string;
+    last_event_at: string;
+};
 
 function toEpoch(timestamp: string) {
     return new Date(timestamp).getTime();
@@ -141,294 +88,126 @@ function parseTimestamp(value: unknown) {
     return new Date().toISOString();
 }
 
-function countTotalEvents(sessions: SessionRecord[]) {
-    return sessions.reduce((count, session) => count + session.events.length, 0);
-}
-
-function normalizeEvent(raw: unknown, fallbackTimestamp: string): SessionEvent {
-    const payload = raw && typeof raw === "object" ? (raw as Record<string, unknown>) : {};
-    const eventType =
-        typeof payload.event_type === "string" && payload.event_type.trim() ? payload.event_type.trim() : "view";
-    const timestamp = parseTimestamp(payload.timestamp ?? fallbackTimestamp);
-    const event: SessionEvent = {
-        event_id:
-            typeof payload.event_id === "string" && payload.event_id.trim() ? payload.event_id.trim() : randomUUID(),
-        event_type: eventType,
-        timestamp,
-    };
-
-    const jewelleryIdRaw =
-        typeof payload.jewellery_id === "string" && payload.jewellery_id.trim()
-            ? payload.jewellery_id.trim()
-            : typeof payload.jewelry_id === "string" && payload.jewelry_id.trim()
-              ? payload.jewelry_id.trim()
-              : "";
-    if (jewelleryIdRaw) {
-        event.jewellery_id = jewelleryIdRaw;
-    }
-
-    if (typeof payload.jewelry_name === "string" && payload.jewelry_name.trim()) {
-        event.jewelry_name = payload.jewelry_name.trim();
-    }
-
-    if (typeof payload.jewelry_category === "string" && payload.jewelry_category.trim()) {
-        event.jewelry_category = payload.jewelry_category.trim();
-    }
-
-    const priceRaw = payload.price;
-    if (typeof priceRaw === "number" && Number.isFinite(priceRaw)) {
-        event.price = priceRaw;
-    } else if (typeof priceRaw === "string" && priceRaw.trim()) {
-        const parsed = Number(priceRaw);
-        if (Number.isFinite(parsed)) {
-            event.price = parsed;
-        }
-    }
-
-    if (typeof payload.image_url === "string" && payload.image_url.trim()) {
-        event.image_url = payload.image_url.trim();
-    }
-
-    if (typeof payload.channel === "string" && payload.channel.trim()) {
-        event.channel = payload.channel.trim();
-    }
-
-    if (typeof payload.destination === "string" && payload.destination.trim()) {
-        event.destination = payload.destination.trim();
-    }
-
-    if (typeof payload.jeweler_id === "string" && payload.jeweler_id.trim()) {
-        event.jeweler_id = payload.jeweler_id.trim();
-    }
-
-    if (typeof payload.jeweler_name === "string" && payload.jeweler_name.trim()) {
-        event.jeweler_name = payload.jeweler_name.trim();
-    }
-
-    if (typeof payload.share_status === "string" && payload.share_status.trim()) {
-        event.share_status = payload.share_status.trim();
-    }
-
-    if (typeof payload.message_sid === "string" && payload.message_sid.trim()) {
-        event.message_sid = payload.message_sid.trim();
-    }
-
-    if (typeof payload.attire_id === "string" && payload.attire_id.trim()) {
-        event.attire_id = payload.attire_id.trim();
-    }
-
-    if (typeof payload.attire_name === "string" && payload.attire_name.trim()) {
-        event.attire_name = payload.attire_name.trim();
-    }
-
-    const generationTimeRaw = payload.generation_time_ms;
-    if (typeof generationTimeRaw === "number" && Number.isFinite(generationTimeRaw)) {
-        event.generation_time_ms = generationTimeRaw;
-    } else if (typeof generationTimeRaw === "string" && generationTimeRaw.trim()) {
-        const parsed = Number(generationTimeRaw);
-        if (Number.isFinite(parsed)) {
-            event.generation_time_ms = parsed;
-        }
-    }
-
-    const durationSecondsRaw = payload.duration_seconds;
-    if (typeof durationSecondsRaw === "number" && Number.isFinite(durationSecondsRaw)) {
-        event.duration_seconds = durationSecondsRaw;
-    } else if (typeof durationSecondsRaw === "string" && durationSecondsRaw.trim()) {
-        const parsed = Number(durationSecondsRaw);
-        if (Number.isFinite(parsed)) {
-            event.duration_seconds = parsed;
-        }
-    }
-
-    const itemsTriedRaw = payload.items_tried;
-    if (typeof itemsTriedRaw === "number" && Number.isFinite(itemsTriedRaw)) {
-        event.items_tried = itemsTriedRaw;
-    } else if (typeof itemsTriedRaw === "string" && itemsTriedRaw.trim()) {
-        const parsed = Number(itemsTriedRaw);
-        if (Number.isFinite(parsed)) {
-            event.items_tried = parsed;
-        }
-    }
-
-    const itemsSharedRaw = payload.items_shared;
-    if (typeof itemsSharedRaw === "number" && Number.isFinite(itemsSharedRaw)) {
-        event.items_shared = itemsSharedRaw;
-    } else if (typeof itemsSharedRaw === "string" && itemsSharedRaw.trim()) {
-        const parsed = Number(itemsSharedRaw);
-        if (Number.isFinite(parsed)) {
-            event.items_shared = parsed;
-        }
-    }
-
-    if (typeof payload.sale_made === "boolean") {
-        event.sale_made = payload.sale_made;
-    } else if (typeof payload.sale_made === "string" && payload.sale_made.trim()) {
-        const normalized = payload.sale_made.trim().toLowerCase();
-        if (normalized === "true") {
-            event.sale_made = true;
-        } else if (normalized === "false") {
-            event.sale_made = false;
-        }
-    }
-
-    const saleAmountRaw = payload.sale_amount;
-    if (typeof saleAmountRaw === "number" && Number.isFinite(saleAmountRaw)) {
-        event.sale_amount = saleAmountRaw;
-    } else if (typeof saleAmountRaw === "string" && saleAmountRaw.trim()) {
-        const parsed = Number(saleAmountRaw);
-        if (Number.isFinite(parsed)) {
-            event.sale_amount = parsed;
-        }
-    }
-
-    if (Array.isArray(payload.purchased_items)) {
-        const purchasedItems = payload.purchased_items
-            .filter((item): item is string => typeof item === "string")
-            .map((item) => item.trim())
-            .filter(Boolean);
-        if (purchasedItems.length > 0) {
-            event.purchased_items = purchasedItems;
-        }
-    }
-
-    if (typeof payload.notes === "string" && payload.notes.trim()) {
-        event.notes = payload.notes.trim();
-    }
-
-    if (typeof payload.next_best_action_summary === "string" && payload.next_best_action_summary.trim()) {
-        event.next_best_action_summary = payload.next_best_action_summary.trim();
-    }
-
-    if (typeof payload.user_id === "string" && payload.user_id.trim()) {
-        event.user_id = payload.user_id.trim();
-    }
-
-    return event;
-}
-
-function normalizeSession(raw: unknown, index = 0): SessionRecord {
-    const payload = raw && typeof raw === "object" ? (raw as Record<string, unknown>) : {};
-    const startedAt = parseTimestamp(payload.started_at);
-
-    const parsedEvents = Array.isArray(payload.events)
-        ? payload.events.map((event) => normalizeEvent(event, startedAt))
-        : [];
-
-    const events =
-        parsedEvents.length > 0
-            ? parsedEvents.sort(compareTimestampAsc)
-            : [
-                  {
-                      event_id: randomUUID(),
-                      event_type: "start_session",
-                      timestamp: startedAt,
-                  },
-              ];
-
-    return {
-        session_id:
-            typeof payload.session_id === "string" && payload.session_id.trim()
-                ? payload.session_id.trim()
-                : `sess_seed_${String(index + 1).padStart(2, "0")}`,
-        user_name:
-            typeof payload.user_name === "string" && payload.user_name.trim()
-                ? payload.user_name.trim()
-                : `User ${index + 1}`,
-        email_id:
-            typeof payload.email_id === "string" && payload.email_id.trim()
-                ? payload.email_id.trim()
-                : `user${index + 1}@example.com`,
-        mob_number:
-            typeof payload.mob_number === "string" && payload.mob_number.trim()
-                ? payload.mob_number.trim()
-                : `90000000${String(index + 1).padStart(2, "0")}`,
-        started_at: startedAt,
-        last_event_at: events[events.length - 1]?.timestamp || startedAt,
-        events,
-    };
-}
-
-function sessionsFromPayload(payload: unknown) {
-    if (Array.isArray(payload)) {
-        return payload.map((session, index) => normalizeSession(session, index));
-    }
-
-    if (payload && typeof payload === "object" && Array.isArray((payload as { sessions?: unknown[] }).sessions)) {
-        return (payload as { sessions: unknown[] }).sessions.map((session, index) => normalizeSession(session, index));
-    }
-
-    return [];
-}
-
-function sortedSessionsForResponse() {
-    return [...sessionsById.values()]
-        .map((session) => normalizeSession(session))
-        .sort((a, b) => toEpoch(b.last_event_at) - toEpoch(a.last_event_at));
-}
-
-function serializeStore(): PersistedStore {
-    return {
-        version: 1,
-        totalEvents,
-        sessions: sortedSessionsForResponse(),
-    };
-}
-
-async function persistStore() {
-    await mkdir(CACHE_DIR_PATH, { recursive: true });
-    await writeFile(CACHE_FILE_PATH, JSON.stringify(serializeStore(), null, 2), "utf-8");
-}
-
-async function hydrateStore() {
-    if (hydratePromise) {
-        return hydratePromise;
-    }
-
-    hydratePromise = (async () => {
-        await mkdir(CACHE_DIR_PATH, { recursive: true });
-
-        try {
-            const raw = await readFile(CACHE_FILE_PATH, "utf-8");
-            const parsed = JSON.parse(raw) as PersistedStore;
-            const sessions = sessionsFromPayload(parsed);
-
-            if (sessions.length > 0) {
-                sessionsById = new Map(sessions.map((session) => [session.session_id, session]));
-                totalEvents =
-                    typeof parsed.totalEvents === "number" && Number.isFinite(parsed.totalEvents)
-                        ? parsed.totalEvents
-                        : countTotalEvents(sessions);
-                return;
-            }
-        } catch (error) {
-            const err = error as NodeJS.ErrnoException;
-            if (err.code !== "ENOENT") {
-                console.warn("Failed to read cache file. Reinitializing from mock data.", err.message);
-            }
-        }
-
-        const mockSessions = DEFAULT_SESSIONS.map((session, index) => normalizeSession(session, index));
-        sessionsById = new Map(mockSessions.map((session) => [session.session_id, session]));
-        totalEvents = countTotalEvents(mockSessions);
-        await persistStore();
-    })();
-
-    return hydratePromise;
-}
-
 function createSessionId() {
     return `sess_${randomUUID().replace(/-/g, "").slice(0, 12)}`;
 }
 
+function eventToPayload(event: SessionEvent): Record<string, unknown> {
+    const { event_id: _id, event_type: _type, timestamp: _ts, ...rest } = event;
+    return rest;
+}
+
+function eventRowToSessionEvent(row: SupabaseEventRow): SessionEvent {
+    return {
+        event_id: row.event_id,
+        event_type: row.event_type,
+        timestamp: row.timestamp,
+        ...(row.payload as Record<string, unknown>),
+    };
+}
+
+function sessionRowToRecord(row: SupabaseSessionRow, eventRows: SupabaseEventRow[]): SessionRecord {
+    const events = eventRows
+        .filter((e) => e.session_id === row.session_id)
+        .map(eventRowToSessionEvent)
+        .sort(compareTimestampAsc);
+
+    return {
+        session_id: row.session_id,
+        user_name: row.user_name,
+        email_id: row.email_id,
+        mob_number: row.mob_number,
+        started_at: row.started_at,
+        last_event_at: row.last_event_at,
+        events,
+    };
+}
+
+// --- Supabase write helpers ---
+
+async function insertSession(session: {
+    session_id: string;
+    user_name: string;
+    email_id: string;
+    mob_number: string;
+    started_at: string;
+    last_event_at: string;
+}) {
+    const { error } = await supabase.from("sessions").insert(session);
+    if (error) throw new Error(`[Supabase] session insert failed: ${error.message}`);
+}
+
+async function insertEvent(sessionId: string, event: SessionEvent) {
+    const { error } = await supabase.from("session_events").insert({
+        event_id: event.event_id,
+        session_id: sessionId,
+        event_type: event.event_type,
+        timestamp: event.timestamp,
+        payload: eventToPayload(event),
+    });
+    if (error) throw new Error(`[Supabase] event insert failed: ${error.message}`);
+}
+
+async function updateSessionLastEvent(sessionId: string, lastEventAt: string) {
+    const { error } = await supabase
+        .from("sessions")
+        .update({ last_event_at: lastEventAt })
+        .eq("session_id", sessionId);
+    if (error) throw new Error(`[Supabase] session update failed: ${error.message}`);
+}
+
+// --- Supabase read helpers ---
+
+async function fetchSessionFromSupabase(sessionId: string): Promise<SessionRecord | null> {
+    const { data: sessionRow, error: sessionErr } = await supabase
+        .from("sessions")
+        .select("*")
+        .eq("session_id", sessionId)
+        .single();
+
+    if (sessionErr || !sessionRow) return null;
+
+    const { data: eventRows, error: eventsErr } = await supabase
+        .from("session_events")
+        .select("*")
+        .eq("session_id", sessionId)
+        .order("timestamp", { ascending: true });
+
+    if (eventsErr) return null;
+
+    return sessionRowToRecord(sessionRow as SupabaseSessionRow, (eventRows || []) as SupabaseEventRow[]);
+}
+
+async function fetchAllSessionsFromSupabase(): Promise<{ sessions: SessionRecord[]; totalEvents: number }> {
+    const { data: sessionRows, error: sessionErr } = await supabase
+        .from("sessions")
+        .select("*")
+        .order("last_event_at", { ascending: false });
+
+    if (sessionErr) throw new Error(`[Supabase] sessions fetch failed: ${sessionErr.message}`);
+
+    const { data: eventRows, error: eventsErr } = await supabase
+        .from("session_events")
+        .select("*")
+        .order("timestamp", { ascending: true });
+
+    if (eventsErr) throw new Error(`[Supabase] events fetch failed: ${eventsErr.message}`);
+
+    const typedEvents = (eventRows || []) as SupabaseEventRow[];
+    const sessions = ((sessionRows || []) as SupabaseSessionRow[]).map((row) =>
+        sessionRowToRecord(row, typedEvents),
+    );
+
+    return { sessions, totalEvents: typedEvents.length };
+}
+
+// --- POST handler ---
+
 export async function POST(request: Request) {
     try {
-        await hydrateStore();
-
         const body = await request.json().catch(() => null);
         const raw = body && typeof body === "object" ? (body as Record<string, unknown>) : null;
 
-        // Log incoming event
         console.log("=== INCOMING EVENT ===");
         console.log("Timestamp:", new Date().toISOString());
         console.log("Body:", JSON.stringify(raw, null, 2));
@@ -467,37 +246,31 @@ export async function POST(request: Request) {
                 timestamp,
             };
 
-            const session: SessionRecord = {
+            await insertSession({
                 session_id: sessionId,
                 user_name: userName,
                 email_id: emailId,
                 mob_number: mobNumber,
                 started_at: timestamp,
                 last_event_at: timestamp,
-                events: [startEvent],
-            };
-
-            sessionsById.set(sessionId, session);
-            totalEvents += 1;
-            await persistStore();
+            });
+            await insertEvent(sessionId, startEvent);
 
             console.log("=== SESSION STARTED ===");
             console.log("Session ID:", sessionId);
             console.log("User:", userName);
-            console.log("Email:", emailId);
-            console.log("Phone:", mobNumber);
-            console.log("Total Sessions:", sessionsById.size);
-            console.log("Total Events:", totalEvents);
+
+            const session = await fetchSessionFromSupabase(sessionId);
+            const allData = await fetchAllSessionsFromSupabase();
 
             return NextResponse.json(
                 {
                     ok: true,
                     message: "Session started",
                     session_id: sessionId,
-                    session: normalizeSession(session),
-                    totalSessions: sessionsById.size,
-                    totalEvents,
-                    cacheFile: CACHE_RELATIVE_PATH,
+                    session,
+                    totalSessions: allData.sessions.length,
+                    totalEvents: allData.totalEvents,
                 },
                 { status: 201 },
             );
@@ -514,8 +287,9 @@ export async function POST(request: Request) {
             );
         }
 
-        const session = sessionsById.get(sessionId);
-        if (!session) {
+        // Verify session exists
+        const existingSession = await fetchSessionFromSupabase(sessionId);
+        if (!existingSession) {
             return NextResponse.json(
                 {
                     ok: false,
@@ -638,41 +412,34 @@ export async function POST(request: Request) {
             ...(userId ? { user_id: userId } : {}),
         };
 
-        session.events.push(event);
-        session.events.sort(compareTimestampAsc);
-        session.last_event_at = session.events[session.events.length - 1]?.timestamp || session.last_event_at;
+        await insertEvent(sessionId, event);
 
-        sessionsById.set(sessionId, session);
-        totalEvents += 1;
-        await persistStore();
+        // Update last_event_at to the latest event timestamp
+        const newLastEventAt =
+            toEpoch(timestamp) > toEpoch(existingSession.last_event_at) ? timestamp : existingSession.last_event_at;
+        await updateSessionLastEvent(sessionId, newLastEventAt);
 
         console.log("=== EVENT STORED ===");
         console.log("Session ID:", sessionId);
         console.log("Event Type:", eventType);
         console.log("Event ID:", event.event_id);
-        if (jewelleryId) console.log("Jewelry ID:", jewelleryId);
-        if (jewelryName) console.log("Jewelry Name:", jewelryName);
-        if (imageUrl) console.log("Image URL:", imageUrl);
-        if (channel) console.log("Channel:", channel);
-        if (destination) console.log("Destination:", destination);
-        console.log("Session Event Count:", session.events.length);
-        console.log("Total Events:", totalEvents);
+
+        const updatedSession = await fetchSessionFromSupabase(sessionId);
 
         return NextResponse.json({
             ok: true,
             message: "Event stored in session",
             session_id: sessionId,
             event,
-            sessionEventCount: session.events.length,
-            totalEvents,
-            cacheFile: CACHE_RELATIVE_PATH,
+            sessionEventCount: updatedSession?.events.length ?? 0,
         });
     } catch (error) {
         const details = error instanceof Error ? error.message : String(error);
+        console.error("=== EVENT ERROR ===", details);
         return NextResponse.json(
             {
                 ok: false,
-                error: "Failed to process /api_events POST request.",
+                error: "Failed to process event.",
                 details,
             },
             { status: 500 },
@@ -680,42 +447,49 @@ export async function POST(request: Request) {
     }
 }
 
+// --- GET handler ---
+
 export async function GET(request: Request) {
-    await hydrateStore();
+    try {
+        const { searchParams } = new URL(request.url);
+        const sessionId = searchParams.get("session_id")?.trim();
 
-    const { searchParams } = new URL(request.url);
-    const sessionId = searchParams.get("session_id")?.trim();
+        if (sessionId) {
+            const session = await fetchSessionFromSupabase(sessionId);
+            if (!session) {
+                return NextResponse.json(
+                    { ok: false, error: `Session not found for session_id: ${sessionId}` },
+                    { status: 404 },
+                );
+            }
 
-    if (sessionId) {
-        const session = sessionsById.get(sessionId);
-        if (!session) {
-            return NextResponse.json(
-                {
-                    ok: false,
-                    error: `Session not found for session_id: ${sessionId}`,
-                },
-                { status: 404 },
-            );
+            const response = NextResponse.json({
+                ok: true,
+                session,
+            });
+            response.headers.set("Cache-Control", "no-store, max-age=0");
+            return response;
         }
 
+        const allData = await fetchAllSessionsFromSupabase();
         const response = NextResponse.json({
             ok: true,
-            session: normalizeSession(session),
-            totalSessions: sessionsById.size,
-            totalEvents,
-            cacheFile: CACHE_RELATIVE_PATH,
+            totalSessions: allData.sessions.length,
+            totalEvents: allData.totalEvents,
+            sessions: allData.sessions,
         });
         response.headers.set("Cache-Control", "no-store, max-age=0");
         return response;
+    } catch (error) {
+        const details = error instanceof Error ? error.message : String(error);
+        console.error("=== GET ERROR ===", details);
+        return NextResponse.json(
+            {
+                ok: false,
+                error: "Failed to fetch sessions.",
+                details,
+            },
+            { status: 500 },
+        );
     }
-
-    const response = NextResponse.json({
-        ok: true,
-        totalSessions: sessionsById.size,
-        totalEvents,
-        sessions: sortedSessionsForResponse(),
-        cacheFile: CACHE_RELATIVE_PATH,
-    });
-    response.headers.set("Cache-Control", "no-store, max-age=0");
-    return response;
 }

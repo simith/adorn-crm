@@ -1,0 +1,2 @@
+// Redirect to /api/tryon/send-tryon — keeps old iPad paths working
+export { POST, OPTIONS } from "@/app/api/tryon/send-tryon/route";

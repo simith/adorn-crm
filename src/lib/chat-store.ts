@@ -2,6 +2,8 @@ import { randomUUID } from "crypto";
 import { mkdir, readFile, writeFile } from "fs/promises";
 import path from "path";
 
+import { supabase } from "@/lib/supabase";
+
 export type ChatSender = "customer" | "business";
 
 export type ChatApiMessage = {
@@ -635,6 +637,53 @@ export async function appendRetailerMessage(input: AppendRetailerMessageInput) {
     });
 }
 
+// --- Supabase dual-write helpers (fire-and-forget) ---
+
+async function persistChatMessageToSupabase(msg: ChatApiMessage & { user_id: string }) {
+    try {
+        const { error } = await supabase.from("chat_messages").upsert(
+            {
+                message_id: msg.message_id,
+                user_id: msg.user_id,
+                sender: msg.sender,
+                message: msg.message,
+                image_url: msg.image_url || null,
+                time_label: msg.time,
+            },
+            { onConflict: "message_id" },
+        );
+        if (error) console.warn("[Supabase] chat message upsert failed:", error.message);
+    } catch (err) {
+        console.warn("[Supabase] chat message upsert error:", err);
+    }
+}
+
+async function persistChatCustomerToSupabase(payload: ChatApiPayload) {
+    try {
+        const { customer, campaign, campaign_stats } = payload;
+        const { error } = await supabase.from("chat_customers").upsert(
+            {
+                user_id: customer.user_id,
+                name: customer.name,
+                phone: customer.phone,
+                last_seen: customer.last_seen,
+                avatar: customer.avatar || null,
+                campaign_name: campaign.name,
+                campaign_title: campaign.title,
+                campaign_image: campaign.image_link,
+                stats_responses: campaign_stats.responses,
+                stats_views: campaign_stats.views,
+                stats_sent: campaign_stats.sent,
+                stats_status: campaign_stats.status,
+            },
+            { onConflict: "user_id" },
+        );
+        if (error) console.warn("[Supabase] chat customer upsert failed:", error.message);
+    } catch (err) {
+        console.warn("[Supabase] chat customer upsert error:", err);
+    }
+}
+
 async function appendMessage(input: AppendIncomingMessageInput & { sender: ChatSender }) {
     const userId = input.userId.trim();
     const text = input.text?.trim() || "";
@@ -667,6 +716,11 @@ async function appendMessage(input: AppendIncomingMessageInput & { sender: ChatS
     record.updatedAt = Date.now();
 
     await writeStore(store);
+
+    // Dual-write to Supabase (non-blocking)
+    persistChatMessageToSupabase({ ...nextMessage, user_id: userId }).then(() =>
+        persistChatCustomerToSupabase(record!.payload),
+    );
 
     return cloneChat(record.payload);
 }
