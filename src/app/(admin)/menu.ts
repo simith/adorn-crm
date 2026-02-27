@@ -19,6 +19,12 @@ export const adminMenuItems: ISidebarMenuItem[] = [
         url: "/analytics",
     },
     {
+        id: "next-best-action",
+        icon: "lucide--list-checks",
+        label: "Next Best Action",
+        url: "/next-best-action",
+    },
+    {
         id: "campaigns",
         icon: "lucide--megaphone",
         label: "Campaigns",
@@ -46,12 +52,6 @@ export const adminMenuItems: ISidebarMenuItem[] = [
         icon: "lucide--user-plus",
         label: "Leads",
         url: "/leads",
-    },
-    {
-        id: "next-best-action",
-        icon: "lucide--list-checks",
-        label: "Next Best Action",
-        url: "/next-best-action",
     },
     {
         id: "catalogue",
