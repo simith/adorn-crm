@@ -1,6 +1,8 @@
 import Link from "next/link";
 import React from "react";
 
+import { SignOutButton } from "./SignOutButton";
+
 export const TopbarProfileMenu = () => {
     return (
         <div>
@@ -106,10 +108,7 @@ export const TopbarProfileMenu = () => {
                                     </li>
 
                                     <li>
-                                        <Link className="text-error hover:bg-error/10" href="/auth/login">
-                                            <span className="iconify lucide--log-out size-4.5" />
-                                            <span>Sign Out</span>
-                                        </Link>
+                                        <SignOutButton />
                                     </li>
                                 </ul>
                             </div>

@@ -4,11 +4,13 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
+import { createSupabaseBrowserClient } from "@/lib/supabase-browser";
+
 export const LoginAuth = () => {
     const router = useRouter();
     const [showPassword, setShowPassword] = useState(false);
-    const [email, setEmail] = useState("malabar_gold_marketing@adorn.com");
-    const [password, setPassword] = useState("adorn");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
 
@@ -17,30 +19,19 @@ export const LoginAuth = () => {
         setError(null);
         setLoading(true);
         try {
-            const res = await fetch("/api/auth/login", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email, password }),
+            const supabase = createSupabaseBrowserClient();
+            const { error: authError } = await supabase.auth.signInWithPassword({
+                email,
+                password,
             });
-            const data = await res.json().catch(() => ({}));
-            if (!res.ok) {
-                setError(data.error ?? "Login failed");
+
+            if (authError) {
+                setError(authError.message);
                 return;
             }
-            if (data.ok && data.user) {
-                if (typeof window !== "undefined") {
-                    sessionStorage.setItem("user", JSON.stringify(data.user));
-                    if (data.session) {
-                        sessionStorage.setItem("session", JSON.stringify(data.session));
-                    }
-                    if (data.dashboard) {
-                        sessionStorage.setItem("dashboard", JSON.stringify(data.dashboard));
-                    }
-                }
-                router.push("/dashboard");
-                return;
-            }
-            setError("Invalid response");
+
+            router.push("/dashboard");
+            router.refresh();
         } catch {
             setError("Network error. Please try again.");
         } finally {
