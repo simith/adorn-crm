@@ -96,8 +96,9 @@ function renderMainSvg(combinationId: string, modelId: string, jewelleryId: stri
 `;
 }
 
-export async function GET(_request: Request, { params }: { params: { imageId: string } }) {
-  const imageId = decodeURIComponent(params.imageId ?? "");
+export async function GET(_request: Request, { params }: { params: Promise<{ imageId: string }> }) {
+  const { imageId: rawImageId } = await params;
+  const imageId = decodeURIComponent(rawImageId ?? "");
   if (!imageId) {
     return new NextResponse("Missing image id", { status: 400 });
   }
