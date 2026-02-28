@@ -9,8 +9,8 @@ import { ChatMessageList } from "./components/ChatMessageList";
 
 type ChatApiResponse = {
     campaign: { name: string; title: string; image_link: string };
-    customer: { name: string; phone: string; last_seen: string; avatar?: string };
-    chat: Array<{ sender: string; message: string; time: string; type?: string; image?: string }>;
+    customer: { name: string; phone: string; last_seen: string; avatar?: string; user_id: string };
+    chat: Array<{ sender: string; message: string; time: string; type?: string; image?: string; image_url?: string }>;
     campaign_stats: { responses: number; views: number; sent: number; status: string };
 };
 
