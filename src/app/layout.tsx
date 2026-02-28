@@ -1,5 +1,5 @@
 import { type Metadata } from "next";
-import { type ReactNode } from "react";
+import { Suspense, type ReactNode } from "react";
 
 import { BranchProvider } from "@/contexts/branch";
 import { ConfigProvider } from "@/contexts/config";
@@ -11,11 +11,11 @@ export const metadata: Metadata = {
     icons: {
         icon: [
             {
-                url: "/images/favicon-adorn-jewellers.svg",
+                url: "/images/logo/abharan-logo.svg",
                 type: "image/svg+xml",
             },
         ],
-        shortcut: [{ url: "/images/favicon-adorn-jewellers.svg", type: "image/svg+xml" }],
+        shortcut: [{ url: "/images/logo/abharan-logo.svg", type: "image/svg+xml" }],
     },
 };
 
@@ -30,7 +30,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             </head>
             <body>
                 <ConfigProvider>
-                    <BranchProvider>{children}</BranchProvider>
+                    <Suspense>
+                        <BranchProvider>{children}</BranchProvider>
+                    </Suspense>
                 </ConfigProvider>
             </body>
         </html>
