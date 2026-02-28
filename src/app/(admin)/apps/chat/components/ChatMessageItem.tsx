@@ -8,6 +8,8 @@ export type IChatMessageItem = {
     sender: "me" | "other";
     imageUrl?: string;
     status?: MessageStatus;
+    type?: "text" | "image";
+    image?: string;
 };
 
 const TickIcon = ({ status }: { status?: MessageStatus }) => {
@@ -28,7 +30,7 @@ const TickIcon = ({ status }: { status?: MessageStatus }) => {
 
 export const ChatMessageItem = ({ chat, message }: { chat: IChatItem; message: IChatMessageItem }) => {
     const isMe = message.sender === "me";
-    const hasText = Boolean(message.message?.trim());
+    const isImage = message.type === "image";
 
     return (
         <div>
@@ -42,27 +44,33 @@ export const ChatMessageItem = ({ chat, message }: { chat: IChatItem; message: I
                         />
                     </div>
                 </div>
-                <div
-                    className={`chat-bubble max-w-[85%] text-sm ${
-                        isMe
-                            ? "border border-[#b8e6b0] bg-[#d9fdd3] text-gray-900"
-                            : "border border-gray-200 bg-white text-gray-900 shadow-sm"
-                    }`}>
-                    {message.imageUrl && (
+                {isImage ? (
+                    <div className="chat-bubble bg-transparent border-0 shadow-none p-0 max-w-[280px]">
                         <img
-                            src={message.imageUrl}
-                            alt="Message attachment"
-                            className={`mb-2 w-full rounded-lg object-cover ${hasText ? "max-h-72" : "max-h-80"}`}
-                            loading="lazy"
+                            src={message.image}
+                            alt="Campaign"
+                            className="rounded-lg shadow-md"
                         />
-                    )}
-                    {hasText && <p className="break-words">{message.message}</p>}
-                    <div className="mt-0.5 flex flex-nowrap items-center justify-end gap-1.5">
-                        <span className="shrink-0 text-[11px] text-gray-600">{message.sendAt}</span>
-                        {isMe && <TickIcon status={message.status ?? "sent"} />}
+                        <div className="mt-1 flex items-center justify-end gap-1">
+                            <span className="text-gray-600 text-[11px]">{message.sendAt}</span>
+                            {isMe && <TickIcon status={message.status ?? "sent"} />}
+                        </div>
                     </div>
-                </div>
-                {!isMe && <div className="chat-footer text-xs text-gray-600">{message.sendAt}</div>}
+                ) : (
+                    <div
+                        className={`chat-bubble text-sm max-w-[85%] ${
+                            isMe
+                                ? "bg-[#d9fdd3] text-gray-900 border border-[#b8e6b0]"
+                                : "bg-white text-gray-900 border border-gray-200 shadow-sm"
+                        }`}>
+                        <p className="break-words">{message.message}</p>
+                        <div className="mt-0.5 flex flex-nowrap items-center justify-end gap-1.5">
+                            <span className="text-gray-600 text-[11px] shrink-0">{message.sendAt}</span>
+                            {isMe && <TickIcon status={message.status ?? "sent"} />}
+                        </div>
+                    </div>
+                )}
+                {!isMe && !isImage && <div className="chat-footer text-gray-600 text-xs">{message.sendAt}</div>}
             </div>
         </div>
     );

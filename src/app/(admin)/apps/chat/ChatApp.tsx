@@ -9,8 +9,8 @@ import { ChatMessageList } from "./components/ChatMessageList";
 
 type ChatApiResponse = {
     campaign: { name: string; title: string; image_link: string };
-    customer: { user_id: string; name: string; phone: string; last_seen: string; avatar?: string };
-    chat: Array<{ sender: string; message: string; time: string; image_url?: string }>;
+    customer: { name: string; phone: string; last_seen: string; avatar?: string };
+    chat: Array<{ sender: string; message: string; time: string; type?: string; image?: string }>;
     campaign_stats: { responses: number; views: number; sent: number; status: string };
 };
 
@@ -30,6 +30,8 @@ function mapApiChatToItem(data: ChatApiResponse): IChatItem {
         imageUrl: c.image_url,
         sender: c.sender === "customer" ? "other" : "me",
         status: "read",
+        type: c.type as "text" | "image" | undefined,
+        image: c.image,
     }));
     return {
         id: chatIdFromUserId(data.customer.user_id),
