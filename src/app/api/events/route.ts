@@ -32,6 +32,9 @@ type SessionEvent = {
     notes?: string;
     next_best_action_summary?: string;
     user_id?: string;
+    budget_range?: string;
+    budget_amount?: number;
+    jewelry_interests?: string[];
 };
 
 type SessionRecord = {
@@ -239,11 +242,29 @@ export async function POST(request: Request) {
                 );
             }
 
+            const budgetRange = typeof raw.budget_range === "string" ? raw.budget_range.trim() : "";
+            const rawBudgetAmount = raw.budget_amount;
+            const budgetAmount =
+                typeof rawBudgetAmount === "number" && Number.isFinite(rawBudgetAmount)
+                    ? rawBudgetAmount
+                    : typeof rawBudgetAmount === "string" && rawBudgetAmount.trim()
+                      ? Number(rawBudgetAmount)
+                      : null;
+            const jewelryInterests = Array.isArray(raw.jewelry_interests)
+                ? raw.jewelry_interests
+                      .filter((item): item is string => typeof item === "string")
+                      .map((item) => item.trim().toLowerCase())
+                      .filter(Boolean)
+                : [];
+
             const sessionId = createSessionId();
             const startEvent: SessionEvent = {
                 event_id: randomUUID(),
                 event_type: "session.start",
                 timestamp,
+                ...(budgetRange ? { budget_range: budgetRange } : {}),
+                ...(typeof budgetAmount === "number" && Number.isFinite(budgetAmount) ? { budget_amount: budgetAmount } : {}),
+                ...(jewelryInterests.length > 0 ? { jewelry_interests: jewelryInterests } : {}),
             };
 
             await insertSession({

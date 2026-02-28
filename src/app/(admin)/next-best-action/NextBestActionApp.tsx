@@ -29,6 +29,9 @@ type UserEvent = {
     purchased_items?: string[];
     notes?: string;
     next_best_action_summary?: string;
+    budget_range?: string;
+    budget_amount?: number;
+    jewelry_interests?: string[];
     timestamp: string;
     session_id: string;
 };
@@ -88,6 +91,9 @@ type ApiEvent = {
     purchased_items?: string[];
     notes?: string;
     next_best_action_summary?: string;
+    budget_range?: string;
+    budget_amount?: number;
+    jewelry_interests?: string[];
 };
 
 type ApiSession = {
@@ -195,6 +201,9 @@ function mapApiSessionsToUsers(sessions: ApiSession[]): SessionUser[] {
                     purchased_items: event.purchased_items,
                     notes: event.notes,
                     next_best_action_summary: event.next_best_action_summary,
+                    budget_range: event.budget_range,
+                    budget_amount: event.budget_amount,
+                    jewelry_interests: event.jewelry_interests,
                     timestamp: event.timestamp,
                     session_id: session.session_id,
                 }))
@@ -252,6 +261,43 @@ function formatAbsoluteTime(timestamp: string) {
         hour: "numeric",
         minute: "2-digit",
     });
+}
+
+function formatBudgetPart(part: string) {
+    const lower = part.toLowerCase();
+    if (lower.endsWith("l")) return `₹${lower.slice(0, -1)}L`;
+    if (lower.endsWith("k")) return `₹${lower.slice(0, -1)}K`;
+    return `₹${lower}`;
+}
+
+function formatBudgetRange(range: string) {
+    return range.split("_").map(formatBudgetPart).join(" – ");
+}
+
+function formatRupees(amount: number) {
+    return `₹${amount.toLocaleString("en-IN")}`;
+}
+
+const interestConfig: Record<string, { label: string; icon: string; color: string }> = {
+    necklace:  { label: "Necklace",  icon: "lucide--gem",     color: "badge-warning" },
+    necklaces: { label: "Necklaces", icon: "lucide--gem",     color: "badge-warning" },
+    earrings:  { label: "Earrings",  icon: "lucide--sparkles", color: "badge-secondary" },
+    rings:     { label: "Rings",     icon: "lucide--circle",  color: "badge-info" },
+    ring:      { label: "Ring",      icon: "lucide--circle",  color: "badge-info" },
+    bracelet:  { label: "Bracelet",  icon: "lucide--link",    color: "badge-accent" },
+    bracelets: { label: "Bracelets", icon: "lucide--link",    color: "badge-accent" },
+    bangles:   { label: "Bangles",   icon: "lucide--circle-dashed", color: "badge-primary" },
+    pendant:   { label: "Pendant",   icon: "lucide--diamond", color: "badge-success" },
+    pendants:  { label: "Pendants",  icon: "lucide--diamond", color: "badge-success" },
+};
+
+type BudgetOutcome = "upsell" | "on-budget" | "under-budget" | null;
+
+function getBudgetOutcome(saleAmount: number, budgetAmount: number): BudgetOutcome {
+    const ratio = saleAmount / budgetAmount;
+    if (ratio > 1.1) return "upsell";
+    if (ratio >= 0.85) return "on-budget";
+    return "under-budget";
 }
 
 function dayOrdinal(day: number) {
@@ -843,6 +889,20 @@ export const NextBestActionApp = () => {
                                 const isSessionBoundary = isSessionStart || isSessionEnd;
 
                                 if (isSessionBoundary) {
+                                    const startEvent = orderedEvents.find((e: UserEvent) => e.event_type === "session.start");
+                                    const budgetFromStart = startEvent?.budget_amount;
+                                    const saleVsBudgetOutcome =
+                                        isSessionEnd &&
+                                        event.sale_made &&
+                                        typeof event.sale_amount === "number" &&
+                                        typeof budgetFromStart === "number"
+                                            ? getBudgetOutcome(event.sale_amount, budgetFromStart)
+                                            : null;
+                                    const budgetPct =
+                                        saleVsBudgetOutcome && typeof event.sale_amount === "number" && typeof budgetFromStart === "number"
+                                            ? Math.abs(Math.round(((event.sale_amount - budgetFromStart) / budgetFromStart) * 100))
+                                            : 0;
+
                                     return (
                                         <li key={event.id} className="ms-1 mb-5">
                                             <span className={`absolute -start-2 mt-1.5 size-4 rounded-full border-2 border-base-100 flex items-center justify-center ${isSessionStart ? "bg-success" : "bg-error"}`}>
@@ -861,6 +921,41 @@ export const NextBestActionApp = () => {
                                                     </span>
                                                 </div>
                                                 <p className="text-base-content/70 mt-1 text-sm">{eventSummary(event)}</p>
+
+                                                {/* Session Start: jewelry interests + budget */}
+                                                {isSessionStart && (
+                                                    <>
+                                                        {event.jewelry_interests && event.jewelry_interests.length > 0 && (
+                                                            <div className="mt-3">
+                                                                <p className="text-base-content/50 mb-1.5 text-xs font-semibold tracking-wide uppercase">Interested In</p>
+                                                                <div className="flex flex-wrap gap-1.5">
+                                                                    {event.jewelry_interests.map((interest: string) => {
+                                                                        const cfg = interestConfig[interest];
+                                                                        return (
+                                                                            <span key={interest} className={`badge badge-sm badge-soft ${cfg?.color ?? "badge-neutral"}`}>
+                                                                                {cfg && <span className={`iconify size-3 mr-0.5 ${cfg.icon}`} />}
+                                                                                {cfg?.label ?? interest}
+                                                                            </span>
+                                                                        );
+                                                                    })}
+                                                                </div>
+                                                            </div>
+                                                        )}
+                                                        {(event.budget_range || typeof event.budget_amount === "number") && (
+                                                            <div className="mt-2 flex flex-wrap items-center gap-2">
+                                                                <p className="text-base-content/50 text-xs font-semibold tracking-wide uppercase">Budget</p>
+                                                                {event.budget_range && (
+                                                                    <span className="badge badge-sm badge-outline">{formatBudgetRange(event.budget_range)}</span>
+                                                                )}
+                                                                {typeof event.budget_amount === "number" && (
+                                                                    <span className="badge badge-sm badge-success badge-soft font-semibold">{formatRupees(event.budget_amount)}</span>
+                                                                )}
+                                                            </div>
+                                                        )}
+                                                    </>
+                                                )}
+
+                                                {/* Session End: duration/stats + budget vs sale outcome */}
                                                 {isSessionEnd && typeof event.duration_seconds === "number" && (
                                                     <div className="mt-2 flex flex-wrap gap-2">
                                                         <span className="badge badge-sm badge-outline">Duration: {Math.round(event.duration_seconds / 60)} min</span>
@@ -868,6 +963,34 @@ export const NextBestActionApp = () => {
                                                         {typeof event.items_shared === "number" && <span className="badge badge-sm badge-outline">Items shared: {event.items_shared}</span>}
                                                         {event.sale_made && <span className="badge badge-sm badge-success">Sale made</span>}
                                                         {event.sale_made === false && <span className="badge badge-sm badge-warning">No sale</span>}
+                                                    </div>
+                                                )}
+                                                {isSessionEnd && saleVsBudgetOutcome && (
+                                                    <div className="border-base-200 mt-3 flex flex-wrap items-center gap-2 border-t pt-2">
+                                                        <span className="text-base-content/50 text-xs font-semibold tracking-wide uppercase">
+                                                            Budget {formatRupees(budgetFromStart!)}
+                                                        </span>
+                                                        {saleVsBudgetOutcome === "upsell" && (
+                                                            <span className="badge badge-sm badge-success font-semibold">
+                                                                <span className="iconify lucide--trending-up size-3 mr-0.5" />
+                                                                Upsold +{budgetPct}%
+                                                            </span>
+                                                        )}
+                                                        {saleVsBudgetOutcome === "on-budget" && (
+                                                            <span className="badge badge-sm badge-info">
+                                                                <span className="iconify lucide--check size-3 mr-0.5" />
+                                                                On Budget
+                                                            </span>
+                                                        )}
+                                                        {saleVsBudgetOutcome === "under-budget" && (
+                                                            <span className="badge badge-sm badge-warning">
+                                                                <span className="iconify lucide--trending-down size-3 mr-0.5" />
+                                                                Under Budget -{budgetPct}%
+                                                            </span>
+                                                        )}
+                                                        {typeof event.sale_amount === "number" && (
+                                                            <span className="badge badge-sm badge-outline font-semibold">Sold {formatRupees(event.sale_amount)}</span>
+                                                        )}
                                                     </div>
                                                 )}
                                                 {isSessionEnd && event.notes && (
