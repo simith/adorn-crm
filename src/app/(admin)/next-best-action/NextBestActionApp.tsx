@@ -837,7 +837,51 @@ export const NextBestActionApp = () => {
                     </div>
                     <div className="bg-base-100 px-4 py-4">
                         <ol className="border-base-200 relative border-s ps-5">
-                            {orderedEvents.map((event) => (
+                            {orderedEvents.map((event) => {
+                                const isSessionStart = event.event_type === "session.start";
+                                const isSessionEnd = event.event_type === "session_ended" || event.event_type === "session.ended";
+                                const isSessionBoundary = isSessionStart || isSessionEnd;
+
+                                if (isSessionBoundary) {
+                                    return (
+                                        <li key={event.id} className="ms-1 mb-5">
+                                            <span className={`absolute -start-2 mt-1.5 size-4 rounded-full border-2 border-base-100 flex items-center justify-center ${isSessionStart ? "bg-success" : "bg-error"}`}>
+                                                <span className={`iconify size-2.5 text-white ${isSessionStart ? "lucide--play" : "lucide--square"}`} />
+                                            </span>
+                                            <div className={`rounded-lg border-2 p-4 ${isSessionStart ? "border-success/30 bg-success/5" : "border-error/30 bg-error/5"}`}>
+                                                <div className="flex flex-wrap items-center justify-between gap-2">
+                                                    <div className="flex items-center gap-2">
+                                                        <span className={`iconify size-5 ${isSessionStart ? "lucide--log-in text-success" : "lucide--log-out text-error"}`} />
+                                                        <p className={`text-base font-semibold ${isSessionStart ? "text-success" : "text-error"}`}>
+                                                            {isSessionStart ? "Session Started" : "Session Ended"}
+                                                        </p>
+                                                    </div>
+                                                    <span className="text-base-content/60 text-xs">
+                                                        {formatRelativeTime(event.timestamp)}
+                                                    </span>
+                                                </div>
+                                                <p className="text-base-content/70 mt-1 text-sm">{eventSummary(event)}</p>
+                                                {isSessionEnd && typeof event.duration_seconds === "number" && (
+                                                    <div className="mt-2 flex flex-wrap gap-2">
+                                                        <span className="badge badge-sm badge-outline">Duration: {Math.round(event.duration_seconds / 60)} min</span>
+                                                        {typeof event.items_tried === "number" && <span className="badge badge-sm badge-outline">Items tried: {event.items_tried}</span>}
+                                                        {typeof event.items_shared === "number" && <span className="badge badge-sm badge-outline">Items shared: {event.items_shared}</span>}
+                                                        {event.sale_made && <span className="badge badge-sm badge-success">Sale made</span>}
+                                                        {event.sale_made === false && <span className="badge badge-sm badge-warning">No sale</span>}
+                                                    </div>
+                                                )}
+                                                {isSessionEnd && event.notes && (
+                                                    <div className="border-base-200 bg-base-50 mt-3 rounded-lg border p-2">
+                                                        <p className="text-base-content/60 text-xs font-semibold tracking-wide uppercase">Session Notes</p>
+                                                        <p className="mt-1 text-sm">{event.notes}</p>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </li>
+                                    );
+                                }
+
+                                return (
                                 <li key={event.id} className="ms-1 mb-5">
                                     <span className="border-base-100 bg-primary absolute -start-1.5 mt-2 size-3 rounded-full border-2" />
                                     <div className="border-base-200 bg-base-100 rounded-lg border p-3">
@@ -996,7 +1040,8 @@ export const NextBestActionApp = () => {
                                         </div>
                                     </div>
                                 </li>
-                            ))}
+                                );
+                            })}
                             {orderedEvents.length === 0 && (
                                 <li className="ms-1">
                                     <div className="border-base-300 bg-base-100 text-base-content/60 rounded-lg border border-dashed p-4 text-sm">
