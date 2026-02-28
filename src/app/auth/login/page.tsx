@@ -18,7 +18,7 @@ const LoginPage = () => {
             <div className="border-base-200/70 bg-base-100/90 mx-auto mt-8 max-w-xl rounded-3xl border p-6 shadow-xl backdrop-blur md:mt-12 md:p-8 lg:p-10">
                 <div className="flex items-center justify-center">
                     <Link href="/auth/login" aria-label="Adorn login">
-                        <img src="/images/favicon-adorn-jewellers.svg" alt="Adorn Jewellery" className="h-12 w-12" />
+                        <img src="/images/logo/abharan-logo.svg" alt="Abharan Jewellers" className="h-16" />
                     </Link>
                 </div>
                 <h3 className="mt-8 text-center text-xl font-semibold md:mt-10">Login</h3>
