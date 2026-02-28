@@ -14,7 +14,6 @@ import type {
 import { getDefaultSalesPerformanceFilters } from "@/lib/sales-performance";
 
 import { ApexChart } from "./ApexChart";
-import { MultiSelectFilter } from "./MultiSelectFilter";
 import { SalesChartCard } from "./SalesChartCard";
 import { SalesKpiCard } from "./SalesKpiCard";
 import { SalesPerformanceSkeleton } from "./SalesPerformanceSkeleton";
@@ -232,46 +231,52 @@ function buildTrendChart(points: SalesPerformanceResponse["trends"][TrendGranula
     return { options, series };
 }
 
-function buildRadarChart(rows: SalesRepRow[]) {
-    const candidates = rows.slice(0, 5);
-    const maxUnits = Math.max(...candidates.map((row) => row.unitsSold), 1);
-    const maxConversion = Math.max(...candidates.map((row) => row.conversionRate), 1);
-    const maxItems = Math.max(...candidates.map((row) => row.avgItemsPerOrder), 1);
-    const maxTryOns = Math.max(...candidates.map((row) => row.tryOnsAssisted), 1);
-    const maxRating = Math.max(...candidates.map((row) => row.customerRating), 1);
+function buildComparisonBarChart(rows: SalesRepRow[]) {
+    const candidates = [...rows].sort((left, right) => right.ordersClosed - left.ordersClosed).slice(0, 5);
 
-    const series: NonNullable<ApexOptions["series"]> = candidates.map((row) => ({
-        name: row.name,
-        data: [
-            Math.round((row.unitsSold / maxUnits) * 100),
-            Math.round((row.conversionRate / maxConversion) * 100),
-            Math.round((row.avgItemsPerOrder / maxItems) * 100),
-            Math.round((row.tryOnsAssisted / maxTryOns) * 100),
-            Math.round((row.customerRating / maxRating) * 100),
-        ],
-    }));
+    const series: NonNullable<ApexOptions["series"]> = [
+        {
+            name: "Assisted Sales",
+            data: candidates.map((row) => ({ x: row.name, y: row.ordersClosed })),
+        },
+    ];
 
     const options: ApexOptions = {
         chart: {
-            type: "radar",
+            type: "bar",
             toolbar: { show: false },
             background: "transparent",
         },
-        xaxis: {
-            categories: ["Units Sold", "Conversion Rate", "Avg Items / Order", "Try-Ons Assisted", "Customer Rating"],
+        colors: ["#0f766e"],
+        plotOptions: {
+            bar: {
+                horizontal: true,
+                barHeight: "62%",
+                borderRadius: 8,
+            },
         },
-        colors: ["#b68a3c", "#2563eb", "#0f766e", "#c2410c", "#7c3aed"],
-        stroke: { width: 2 },
-        fill: { opacity: 0.15 },
-        markers: { size: 4 },
-        yaxis: { show: false, max: 100 },
+        dataLabels: { enabled: false },
+        xaxis: {
+            labels: {
+                formatter: (value) => `${Math.round(Number(value))}`,
+            },
+        },
+        yaxis: {
+            labels: { style: { fontSize: "12px" } },
+        },
+        grid: {
+            borderColor: "rgba(148, 163, 184, 0.18)",
+            strokeDashArray: 4,
+        },
         tooltip: {
             shared: false,
             intersect: true,
+            y: {
+                formatter: (value) => `${Math.round(value)} sales`,
+            },
         },
         legend: {
-            position: "bottom",
-            fontSize: "12px",
+            show: false,
         },
     };
 
@@ -342,7 +347,6 @@ export const SalesPerformanceDashboard = () => {
     const [sortKey, setSortKey] = useState<keyof SalesRepRow>("unitsSold");
     const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc");
     const requestRef = useRef(0);
-    const filtersRef = useRef(defaultFilters);
 
     const fetchDashboard = useCallback(async (nextFilters: SalesPerformanceApiFilters, showLoader: boolean) => {
         const requestId = requestRef.current + 1;
@@ -358,7 +362,6 @@ export const SalesPerformanceDashboard = () => {
 
             const payload = (await response.json()) as SalesPerformanceResponse;
             if (requestRef.current !== requestId) return;
-            filtersRef.current = payload.filters.applied;
             setFilters(payload.filters.applied);
             setData(payload);
         } catch (fetchError) {
@@ -372,16 +375,6 @@ export const SalesPerformanceDashboard = () => {
     useEffect(() => {
         void fetchDashboard(defaultFilters, false);
     }, [fetchDashboard]);
-
-    const updateFilters = useCallback(
-        (updater: Partial<SalesPerformanceApiFilters> | ((current: SalesPerformanceApiFilters) => SalesPerformanceApiFilters)) => {
-            const next = typeof updater === "function" ? updater(filtersRef.current) : { ...filtersRef.current, ...updater };
-            filtersRef.current = next;
-            setFilters(next);
-            void fetchDashboard(next, true);
-        },
-        [fetchDashboard],
-    );
 
     const leaderboardRows = useMemo(() => {
         if (!data) return [];
@@ -405,7 +398,7 @@ export const SalesPerformanceDashboard = () => {
     const leaderboardChart = useMemo(() => buildLeaderboardChart(leaderboardRows, leaderboardMetric), [leaderboardRows, leaderboardMetric]);
     const categoryChart = useMemo(() => (data ? buildCategoryChart(data.categories.items, categoryMode) : null), [data, categoryMode]);
     const trendChart = useMemo(() => (data ? buildTrendChart(data.trends[trendGranularity]) : null), [data, trendGranularity]);
-    const radarChart = useMemo(() => (data ? buildRadarChart(data.radar.reps) : null), [data]);
+    const comparisonChart = useMemo(() => (data ? buildComparisonBarChart(data.radar.reps) : null), [data]);
     const topPerformer = leaderboardRows[0];
 
     const exportCsv = useCallback(() => {
@@ -468,6 +461,9 @@ export const SalesPerformanceDashboard = () => {
                         <p className="mt-2 max-w-2xl text-sm text-base-content/65">
                             Monitor units sold, conversion, category demand, and salesperson performance in one place.
                         </p>
+                        <p className="mt-2 text-sm text-base-content/50">
+                            Reporting window: {filters.startDate} to {filters.endDate}
+                        </p>
                     </div>
                     <div className="flex flex-wrap items-center gap-3">
                         {topPerformer ? (
@@ -481,74 +477,18 @@ export const SalesPerformanceDashboard = () => {
                         </button>
                     </div>
                 </div>
-                <div className="grid grid-cols-1 gap-4 rounded-2xl border border-base-300 bg-base-100 p-4 shadow-sm md:grid-cols-2 xl:grid-cols-5">
-                    <label className="flex min-h-[72px] flex-col justify-between rounded-xl border border-base-300 bg-base-100 px-4 py-3">
-                        <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-base-content/45">Start Date</span>
-                        <input
-                            type="date"
-                            className="mt-2 block h-6 w-full bg-transparent text-sm leading-6 outline-none [color-scheme:light]"
-                            value={filters.startDate}
-                            onChange={(event) => updateFilters({ startDate: event.target.value })}
-                        />
-                    </label>
-                    <label className="flex min-h-[72px] flex-col justify-between rounded-xl border border-base-300 bg-base-100 px-4 py-3">
-                        <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-base-content/45">End Date</span>
-                        <input
-                            type="date"
-                            className="mt-2 block h-6 w-full bg-transparent text-sm leading-6 outline-none [color-scheme:light]"
-                            value={filters.endDate}
-                            onChange={(event) => updateFilters({ endDate: event.target.value })}
-                        />
-                    </label>
-                    <MultiSelectFilter label="Salesperson" options={data.filters.options.salespeople} value={filters.salespeople} onChange={(value) => updateFilters({ salespeople: value })} />
-                    <label className="flex min-h-[72px] flex-col justify-between rounded-xl border border-base-300 bg-base-100 px-4 py-3">
-                        <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-base-content/45">Branch</span>
-                        <select className="mt-2 block h-6 w-full bg-transparent text-sm leading-6 outline-none" value={filters.region} onChange={(event) => updateFilters({ region: event.target.value })}>
-                            {data.filters.options.regions.map((option) => (
-                                <option key={option} value={option}>
-                                    {option}
-                                </option>
-                            ))}
-                        </select>
-                    </label>
-                    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-1">
-                        <label className="flex min-h-[72px] flex-col justify-between rounded-xl border border-base-300 bg-base-100 px-4 py-3">
-                            <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-base-content/45">Jewellery Category</span>
-                            <select className="mt-2 block h-6 w-full bg-transparent text-sm leading-6 outline-none" value={filters.category} onChange={(event) => updateFilters({ category: event.target.value })}>
-                                {data.filters.options.categories.map((option) => (
-                                    <option key={option} value={option}>
-                                        {option}
-                                    </option>
-                                ))}
-                            </select>
-                        </label>
-                        <label className="flex min-h-[72px] flex-col justify-between rounded-xl border border-base-300 bg-base-100 px-4 py-3">
-                            <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-base-content/45">Campaign</span>
-                            <select className="mt-2 block h-6 w-full bg-transparent text-sm leading-6 outline-none" value={filters.campaign} onChange={(event) => updateFilters({ campaign: event.target.value })}>
-                                {data.filters.options.campaigns.map((option) => (
-                                    <option key={option} value={option}>
-                                        {option}
-                                    </option>
-                                ))}
-                            </select>
-                        </label>
-                    </div>
-                </div>
             </section>
 
             {loading && data ? (
-                <div className="rounded-[24px] border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">Refreshing dashboard for the selected filters.</div>
+                <div className="rounded-[24px] border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">Refreshing dashboard.</div>
             ) : null}
             {error && data ? <div className="rounded-[24px] border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">{error}</div> : null}
 
             {data.heatmap.rows.length === 0 ? (
                 <section className="rounded-[28px] border border-base-200 bg-base-100 p-10 text-center shadow-sm">
-                    <p className="text-xs font-semibold uppercase tracking-[0.24em] text-base-content/45">No matching results</p>
-                    <h2 className="mt-3 text-2xl font-semibold text-base-content">No sales activity for the selected filters</h2>
-                    <p className="mt-2 text-sm text-base-content/65">Try broadening the date range, clearing salesperson filters, or resetting the category focus.</p>
-                    <button type="button" className="btn btn-sm mt-5 rounded-full border-0 bg-base-content text-base-100" onClick={() => updateFilters(() => defaultFilters)}>
-                        Reset Filters
-                    </button>
+                    <p className="text-xs font-semibold uppercase tracking-[0.24em] text-base-content/45">No data</p>
+                    <h2 className="mt-3 text-2xl font-semibold text-base-content">No sales activity in the current reporting window</h2>
+                    <p className="mt-2 text-sm text-base-content/65">Try again later or update the default reporting range in the dashboard configuration.</p>
                 </section>
             ) : (
                 <>
@@ -597,8 +537,8 @@ export const SalesPerformanceDashboard = () => {
                             {trendChart ? <ApexChart type="line" height={320} options={trendChart.options} series={trendChart.series} /> : null}
                         </SalesChartCard>
 
-                        <SalesChartCard title="Top salesperson comparison" description="Compare the leading reps across five core metrics." className="xl:col-span-5">
-                            {radarChart ? <ApexChart type="radar" height={330} options={radarChart.options} series={radarChart.series} /> : null}
+                        <SalesChartCard title="Top salesperson comparison" description="See how many virtual try-on assisted sales each leading salesperson closed." className="xl:col-span-5">
+                            {comparisonChart ? <ApexChart type="bar" height={330} options={comparisonChart.options} series={comparisonChart.series} /> : null}
                         </SalesChartCard>
 
                         <SalesChartCard title="Top performers" description="Quick summary of the current leaders." className="xl:col-span-7">

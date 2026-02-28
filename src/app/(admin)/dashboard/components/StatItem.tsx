@@ -3,38 +3,32 @@ export type IStatItem = {
     amount: string;
     percent: number;
     icon: string;
-    selected?: boolean;
 };
 
-export const StatItem = ({ title, percent, amount, icon, selected = false }: IStatItem) => {
+export const StatItem = ({ title, percent, amount, icon }: IStatItem) => {
+    const positive = percent >= 0;
+
     return (
-        <div
-            className={`card bg-base-100 shadow-sm ${selected && "from-primary shadow-primary/10 to-primary/85 text-primary-content bg-linear-to-tr shadow-md"}`}>
-            <div className="card-body gap-2 p-4 2xl:p-5">
-                <div className="flex items-center gap-3">
-                    <div
-                        className={`bg-base-200 rounded-box flex items-center p-1.5 ${selected && "bg-primary-content/15"}`}>
+        <article className="rounded-2xl border border-base-200 bg-base-100 shadow-sm">
+            <div className="space-y-4 p-5">
+                <div className="flex items-center justify-between gap-3">
+                    <div className="bg-base-200 rounded-xl flex size-10 items-center justify-center">
                         <span className={`iconify size-4.5 ${icon}`} />
                     </div>
-                    <p className="line-clamp-1 font-medium max-2xl:text-sm">{title}</p>
+                    <span
+                        className={`badge badge-sm border-0 px-2.5 ${
+                            positive ? "bg-emerald-100 text-emerald-700" : "bg-rose-100 text-rose-700"
+                        }`}>
+                        {positive ? "+" : ""}
+                        {percent}%
+                    </span>
                 </div>
-                <div className="mt-5 mb-0.5 flex items-center gap-2 text-sm 2xl:gap-3">
-                    <p className="text-lg leading-0 font-medium 2xl:text-2xl">{amount}</p>
-                    {percent > 0 ? (
-                        <div
-                            className={`badge badge-soft badge-success badge-sm gap-0.5 px-1.5 ${selected && "!bg-primary-content/15 !text-primary-content !border-transparent"}`}>
-                            <span className="iconify lucide--arrow-up size-3" />
-                            {percent}%
-                        </div>
-                    ) : (
-                        <div
-                            className={`badge badge-soft badge-error badge-sm gap-0.5 px-1.5 ${selected && "!bg-primary-content/15 !text-primary-content !border-transparent"}`}>
-                            <span className="iconify lucide--arrow-down size-3" />
-                            {percent}%
-                        </div>
-                    )}
+                <div>
+                    <p className="text-sm font-medium text-base-content/65">{title}</p>
+                    <p className="mt-2 text-3xl font-semibold tracking-tight text-base-content">{amount}</p>
+                    <p className="mt-1 text-xs text-base-content/45">vs previous period</p>
                 </div>
             </div>
-        </div>
+        </article>
     );
 };

@@ -79,7 +79,6 @@ export const BranchProvider = ({ children }: { children: ReactNode }) => {
         }
         const fromUrl = branchFromUrl(searchParams);
         if (fromUrl) {
-            setBranchState(fromUrl);
             try {
                 sessionStorage.setItem(BRANCH_STORAGE_KEY, fromUrl);
             } catch {
@@ -105,7 +104,9 @@ export const BranchProvider = ({ children }: { children: ReactNode }) => {
         [pathname, router, searchParams, onCampaignsPage]
     );
 
-    const value = useMemo(() => ({ branch, setBranch }), [branch, setBranch]);
+    const effectiveBranch = onCampaignsPage ? branch : branchFromUrl(searchParams) ?? branch;
+
+    const value = useMemo(() => ({ branch: effectiveBranch, setBranch }), [effectiveBranch, setBranch]);
 
     return <BranchContext.Provider value={value}>{children}</BranchContext.Provider>;
 };
