@@ -26,9 +26,18 @@ const TickIcon = ({ status }: { status?: MessageStatus }) => {
     );
 };
 
+function resolveImagePath(value?: string) {
+    if (!value) {
+        return undefined;
+    }
+
+    return value.startsWith("public/") ? `/${value.slice("public/".length)}` : value;
+}
+
 export const ChatMessageItem = ({ chat, message }: { chat: IChatItem; message: IChatMessageItem }) => {
     const isMe = message.sender === "me";
     const hasText = Boolean(message.message?.trim());
+    const imageSrc = resolveImagePath(message.imageUrl);
 
     return (
         <div>
@@ -48,9 +57,9 @@ export const ChatMessageItem = ({ chat, message }: { chat: IChatItem; message: I
                             ? "border border-[#b8e6b0] bg-[#d9fdd3] text-gray-900"
                             : "border border-gray-200 bg-white text-gray-900 shadow-sm"
                     }`}>
-                    {message.imageUrl && (
+                    {imageSrc && (
                         <img
-                            src={message.imageUrl}
+                            src={imageSrc}
                             alt="Message attachment"
                             className={`mb-2 w-full rounded-lg object-cover ${hasText ? "max-h-72" : "max-h-80"}`}
                             loading="lazy"

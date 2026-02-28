@@ -2,13 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-import { useBranch } from "@/contexts/branch";
-
-type MonthlyTarget = {
-    percent: number;
-    cta: string;
-    note: string;
-};
+import { tryOnConversion } from "./virtualTryOnData";
 
 /** Animated counter that counts up from 0 to target value */
 const AnimatedNumber = ({ target, duration = 800 }: { target: number; duration?: number }) => {
@@ -37,35 +31,13 @@ const AnimatedNumber = ({ target, duration = 800 }: { target: number; duration?:
 };
 
 export const GoalStatusCard = () => {
-    const { branch } = useBranch();
-    const [target, setTarget] = useState<MonthlyTarget | null>(null);
     const [animatedPercent, setAnimatedPercent] = useState(0);
 
     useEffect(() => {
-        const params = new URLSearchParams({ name: branch });
-        fetch(`/api/branch?${params}`)
-            .then((res) => res.json())
-            .then((body) => {
-                if (body.data?.monthlyTarget) {
-                    setTarget(body.data.monthlyTarget);
-                    // Trigger animation after data loads
-                    requestAnimationFrame(() => {
-                        setAnimatedPercent(body.data.monthlyTarget.percent);
-                    });
-                }
-            })
-            .catch(() => setTarget(null));
-    }, [branch]);
-
-    if (!target) {
-        return (
-            <div className="card bg-base-100 shadow-sm">
-                <div className="card-body gap-2 p-4">
-                    <p className="text-base-content/60 text-sm">Loading target data…</p>
-                </div>
-            </div>
-        );
-    }
+        requestAnimationFrame(() => {
+            setAnimatedPercent(tryOnConversion.percent);
+        });
+    }, []);
 
     const circumference = 2 * Math.PI * 40;
     const strokeDashoffset = circumference - (animatedPercent / 100) * circumference;
@@ -73,19 +45,11 @@ export const GoalStatusCard = () => {
     return (
         <div className="card bg-base-100 shadow-sm">
             <div className="card-body gap-4 p-5">
-                <p className="text-base-content text-lg font-bold">Monthly Target</p>
+                <p className="text-base-content text-lg font-bold">Try-On Conversion</p>
                 <div className="flex justify-center py-2">
                     <div className="relative flex items-center justify-center">
                         <svg className="h-32 w-32 -rotate-90" viewBox="0 0 100 100">
-                            <circle
-                                cx="50"
-                                cy="50"
-                                r="40"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="8"
-                                className="text-base-200"
-                            />
+                            <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" strokeWidth="8" className="text-base-200" />
                             <circle
                                 cx="50"
                                 cy="50"
@@ -101,13 +65,13 @@ export const GoalStatusCard = () => {
                         </svg>
                         <div className="absolute flex flex-col items-center">
                             <span className="text-2xl font-bold">
-                                <AnimatedNumber target={target.percent} />
+                                <AnimatedNumber target={tryOnConversion.percent} />
                             </span>
                         </div>
                     </div>
                 </div>
-                <p className="text-base-content/60 text-sm text-left mb-2">{target.note}</p>
-                <button className="btn btn-primary btn-soft w-full">{target.cta}</button>
+                <p className="mb-2 text-left text-sm text-base-content/60">{tryOnConversion.note}</p>
+                <button className="btn btn-primary btn-soft w-full">{tryOnConversion.cta}</button>
             </div>
         </div>
     );

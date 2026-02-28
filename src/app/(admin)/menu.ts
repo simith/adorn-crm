@@ -19,6 +19,12 @@ export const adminMenuItems: ISidebarMenuItem[] = [
         url: "/analytics",
     },
     {
+        id: "sales-performance",
+        icon: "lucide--chart-column-big",
+        label: "Sales Performance",
+        url: "/sales-performance",
+    },
+    {
         id: "next-best-action",
         icon: "lucide--list-checks",
         label: "Next Best Action",

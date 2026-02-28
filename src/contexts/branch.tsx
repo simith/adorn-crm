@@ -7,8 +7,21 @@ const BRANCH_STORAGE_KEY = "__ADORN_BRANCH__";
 
 export const BRANCH_OPTIONS = [
     { id: "Bangalore", label: "Bangalore" },
-    { id: "Mangalore", label: "Mangalore" },
-    { id: "Chennai", label: "Chennai" },
+    { id: "Mangaluru", label: "Mangaluru" },
+    { id: "Udupi", label: "Udupi" },
+    { id: "Shivamogga", label: "Shivamogga" },
+    { id: "Karkala", label: "Karkala" },
+    { id: "Kundapur", label: "Kundapur" },
+    { id: "Hebri", label: "Hebri" },
+    { id: "Byndoor", label: "Byndoor" },
+    { id: "Brahmavar", label: "Brahmavar" },
+    { id: "Chikmagalur", label: "Chikmagalur" },
+    { id: "Padubidri", label: "Padubidri" },
+    { id: "Kumta", label: "Kumta" },
+    { id: "Belthangady", label: "Belthangady" },
+    { id: "Sagara", label: "Sagara" },
+    { id: "Thirthahalli", label: "Thirthahalli" },
+    { id: "Panaji", label: "Panaji" },
     { id: "All", label: "All" },
 ] as const;
 

@@ -6,11 +6,24 @@ export const dynamic = "force-dynamic";
 
 const BRANCH_FILES: Record<string, string> = {
     Bangalore: "branch_bangalore.json",
-    Mangalore: "branch_mangalore.json",
-    Chennai: "branch_chennai.json",
+    Mangaluru: "branch_mangalore.json",
+    Udupi: "branch_mangalore.json",
+    Shivamogga: "branch_bangalore.json",
+    Karkala: "branch_mangalore.json",
+    Kundapur: "branch_mangalore.json",
+    Hebri: "branch_mangalore.json",
+    Byndoor: "branch_mangalore.json",
+    Brahmavar: "branch_mangalore.json",
+    Chikmagalur: "branch_bangalore.json",
+    Padubidri: "branch_mangalore.json",
+    Kumta: "branch_mangalore.json",
+    Belthangady: "branch_mangalore.json",
+    Sagara: "branch_bangalore.json",
+    Thirthahalli: "branch_bangalore.json",
+    Panaji: "branch_mangalore.json",
 };
 
-const BRANCH_ORDER = ["Bangalore", "Mangalore", "Chennai"] as const;
+const BRANCH_ORDER = ["Bangalore", "Mangaluru", "Udupi"] as const;
 
 async function readBranchFile(filename: string) {
     const filePath = path.join(process.cwd(), "data", filename);

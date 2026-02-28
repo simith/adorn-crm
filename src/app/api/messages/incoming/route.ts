@@ -12,6 +12,22 @@ function asTrimmedString(value: unknown) {
     return value.trim();
 }
 
+function normalizeImageUrl(value: string) {
+    if (!value) {
+        return undefined;
+    }
+
+    if (value.startsWith("public/")) {
+        return `/${value.slice("public/".length)}`;
+    }
+
+    if (value.startsWith("/")) {
+        return value;
+    }
+
+    return new URL(value).toString();
+}
+
 export async function POST(request: Request) {
     let payload: unknown;
 
@@ -37,9 +53,9 @@ export async function POST(request: Request) {
     let imageUrl: string | undefined;
     if (imageUrlRaw) {
         try {
-            imageUrl = new URL(imageUrlRaw).toString();
+            imageUrl = normalizeImageUrl(imageUrlRaw);
         } catch {
-            return NextResponse.json({ ok: false, error: "image_url must be a valid URL" }, { status: 400 });
+            return NextResponse.json({ ok: false, error: "image_url must be a valid URL or public asset path" }, { status: 400 });
         }
     }
 

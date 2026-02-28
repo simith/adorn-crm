@@ -2,16 +2,18 @@ const incomingEndpoint = process.env.MESSAGES_INCOMING_API_URL || "http://localh
 const chatEndpoint = process.env.CHAT_API_URL || "http://localhost:3000/api/chat";
 const userId = process.env.USER_ID || "cust_rajesh_001";
 const text = process.env.MESSAGE_TEXT || "Sharing this necklace design. Do you have this in stock?";
-const imageUrl =
-    process.env.IMAGE_URL ||
-    "https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=900&q=80";
+const imageUrl = process.env.IMAGE_URL || "public/images/messages/akshaya.png";
 
 function normalizeUrl(value) {
     if (!value) return "";
+    const trimmed = String(value).trim();
+    if (trimmed.startsWith("public/")) {
+        return `/${trimmed.slice("public/".length)}`;
+    }
     try {
-        return new URL(value).toString();
+        return new URL(trimmed).toString();
     } catch {
-        return String(value).trim();
+        return trimmed;
     }
 }
 
