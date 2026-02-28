@@ -87,7 +87,7 @@ function asStringArray(value: unknown) {
 }
 
 function summarizeEventType(eventType: string) {
-    if (eventType === "start_session") return "session_start";
+    if (eventType === "session.start") return "session.start";
     if (eventType === "jewellery_selected" || eventType === "jewelry_selected" || eventType === "jewelry.selected") return "jewellery_selected";
     if (eventType === "image_generated" || eventType === "image.generated") return "image_generated";
     if (eventType === "image_shared" || eventType === "image.shared") return "image_shared";
@@ -297,7 +297,7 @@ export async function POST(request: Request) {
 
         const apiEventsUrl = new URL("/api_events", request.url);
 
-        if (eventType === "session_start") {
+        if (eventType === "session.start") {
             if (!customerName || !customerPhone || !customerEmail || !jewelerId || !jewelerName) {
                 return NextResponse.json(
                     {
@@ -309,7 +309,7 @@ export async function POST(request: Request) {
             }
 
             const mappedPayload = {
-                event_type: "start_session",
+                event_type: "session.start",
                 user_name: customerName,
                 email_id: customerEmail,
                 mob_number: customerPhone,
@@ -882,7 +882,7 @@ export async function POST(request: Request) {
         return NextResponse.json(
             {
                 ok: false,
-                error: "Unsupported event_type. Supported: session_start, jewellery_selected, image_generated, image_shared, session_ended.",
+                error: "Unsupported event_type. Supported: session.start, jewellery_selected, image_generated, image_shared, session_ended.",
             },
             { status: 400 },
         );

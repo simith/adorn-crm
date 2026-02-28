@@ -224,7 +224,7 @@ export async function POST(request: Request) {
             return NextResponse.json({ ok: false, error: "event_type is required." }, { status: 400 });
         }
 
-        if (eventType === "start_session") {
+        if (eventType === "session.start") {
             const userName = typeof raw.user_name === "string" ? raw.user_name.trim() : "";
             const emailId = typeof raw.email_id === "string" ? raw.email_id.trim() : "";
             const mobNumber = typeof raw.mob_number === "string" ? raw.mob_number.trim() : "";
@@ -233,7 +233,7 @@ export async function POST(request: Request) {
                 return NextResponse.json(
                     {
                         ok: false,
-                        error: "start_session requires user_name, email_id, and mob_number.",
+                        error: "session.start requires user_name, email_id, and mob_number.",
                     },
                     { status: 400 },
                 );
@@ -242,7 +242,7 @@ export async function POST(request: Request) {
             const sessionId = createSessionId();
             const startEvent: SessionEvent = {
                 event_id: randomUUID(),
-                event_type: "start_session",
+                event_type: "session.start",
                 timestamp,
             };
 
@@ -281,7 +281,7 @@ export async function POST(request: Request) {
             return NextResponse.json(
                 {
                     ok: false,
-                    error: "session_id is required for non start_session events.",
+                    error: "session_id is required for non session.start events.",
                 },
                 { status: 400 },
             );

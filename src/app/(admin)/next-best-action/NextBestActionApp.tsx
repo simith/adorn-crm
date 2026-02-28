@@ -366,7 +366,7 @@ function userLastActivity(user: SessionUser) {
 function eventSummary(event: UserEvent) {
     const item = event.jewelry_name || toProfessionalProductCode(event.jewellery_id) || "a jewellery item";
 
-    if (event.event_type === "start_session") {
+    if (event.event_type === "session.start") {
         return "Customer started a new browsing session.";
     }
     if (event.event_type === "jewellery_selected" || event.event_type === "jewelry_selected" || event.event_type === "jewelry.selected") {
@@ -659,7 +659,7 @@ export const NextBestActionApp = () => {
             <div className="border-base-300 bg-base-100 rounded-lg border border-dashed p-8 text-center">
                 <p className="text-lg font-semibold">No session data found</p>
                 <p className="text-base-content/60 mt-1 text-sm">
-                    Start a session via `/api_events` with `event_type: "start_session"` to populate this page.
+                    Start a session via `/api_events` with `event_type: "session.start"` to populate this page.
                 </p>
             </div>
         );
