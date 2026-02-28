@@ -1,7 +1,7 @@
 import { randomUUID } from "crypto";
 import { NextResponse } from "next/server";
 
-import { supabase } from "@/lib/supabase";
+import { getSupabase } from "@/lib/supabase";
 
 export const dynamic = "force-dynamic";
 
@@ -133,12 +133,12 @@ async function insertSession(session: {
     started_at: string;
     last_event_at: string;
 }) {
-    const { error } = await supabase.from("sessions").insert(session);
+    const { error } = await getSupabase().from("sessions").insert(session);
     if (error) throw new Error(`[Supabase] session insert failed: ${error.message}`);
 }
 
 async function insertEvent(sessionId: string, event: SessionEvent) {
-    const { error } = await supabase.from("session_events").insert({
+    const { error } = await getSupabase().from("session_events").insert({
         event_id: event.event_id,
         session_id: sessionId,
         event_type: event.event_type,
@@ -149,7 +149,7 @@ async function insertEvent(sessionId: string, event: SessionEvent) {
 }
 
 async function updateSessionLastEvent(sessionId: string, lastEventAt: string) {
-    const { error } = await supabase
+    const { error } = await getSupabase()
         .from("sessions")
         .update({ last_event_at: lastEventAt })
         .eq("session_id", sessionId);
@@ -159,7 +159,7 @@ async function updateSessionLastEvent(sessionId: string, lastEventAt: string) {
 // --- Supabase read helpers ---
 
 async function fetchSessionFromSupabase(sessionId: string): Promise<SessionRecord | null> {
-    const { data: sessionRow, error: sessionErr } = await supabase
+    const { data: sessionRow, error: sessionErr } = await getSupabase()
         .from("sessions")
         .select("*")
         .eq("session_id", sessionId)
@@ -167,7 +167,7 @@ async function fetchSessionFromSupabase(sessionId: string): Promise<SessionRecor
 
     if (sessionErr || !sessionRow) return null;
 
-    const { data: eventRows, error: eventsErr } = await supabase
+    const { data: eventRows, error: eventsErr } = await getSupabase()
         .from("session_events")
         .select("*")
         .eq("session_id", sessionId)
@@ -179,14 +179,14 @@ async function fetchSessionFromSupabase(sessionId: string): Promise<SessionRecor
 }
 
 async function fetchAllSessionsFromSupabase(): Promise<{ sessions: SessionRecord[]; totalEvents: number }> {
-    const { data: sessionRows, error: sessionErr } = await supabase
+    const { data: sessionRows, error: sessionErr } = await getSupabase()
         .from("sessions")
         .select("*")
         .order("last_event_at", { ascending: false });
 
     if (sessionErr) throw new Error(`[Supabase] sessions fetch failed: ${sessionErr.message}`);
 
-    const { data: eventRows, error: eventsErr } = await supabase
+    const { data: eventRows, error: eventsErr } = await getSupabase()
         .from("session_events")
         .select("*")
         .order("timestamp", { ascending: true });

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-import { supabase } from "@/lib/supabase";
+import { getSupabase } from "@/lib/supabase";
 
 const CORS_HEADERS = {
     "Access-Control-Allow-Origin": "*",
@@ -11,7 +11,7 @@ const CORS_HEADERS = {
 export async function GET() {
     try {
         // Fetch images from session_events that have an image_url in payload
-        const { data: eventRows, error } = await supabase
+        const { data: eventRows, error } = await getSupabase()
             .from("session_events")
             .select("event_id, session_id, event_type, timestamp, payload")
             .not("payload->image_url", "is", null)

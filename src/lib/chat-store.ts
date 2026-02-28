@@ -2,7 +2,7 @@ import { randomUUID } from "crypto";
 import { mkdir, readFile, writeFile } from "fs/promises";
 import path from "path";
 
-import { supabase } from "@/lib/supabase";
+import { getSupabase } from "@/lib/supabase";
 
 export type ChatSender = "customer" | "business";
 
@@ -641,7 +641,7 @@ export async function appendRetailerMessage(input: AppendRetailerMessageInput) {
 
 async function persistChatMessageToSupabase(msg: ChatApiMessage & { user_id: string }) {
     try {
-        const { error } = await supabase.from("chat_messages").upsert(
+        const { error } = await getSupabase().from("chat_messages").upsert(
             {
                 message_id: msg.message_id,
                 user_id: msg.user_id,
@@ -661,7 +661,7 @@ async function persistChatMessageToSupabase(msg: ChatApiMessage & { user_id: str
 async function persistChatCustomerToSupabase(payload: ChatApiPayload) {
     try {
         const { customer, campaign, campaign_stats } = payload;
-        const { error } = await supabase.from("chat_customers").upsert(
+        const { error } = await getSupabase().from("chat_customers").upsert(
             {
                 user_id: customer.user_id,
                 name: customer.name,
