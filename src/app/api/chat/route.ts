@@ -15,6 +15,7 @@ const CHAT_RESPONSE = {
         phone: "+91 98765 32109",
         last_seen: "just now",
         avatar: "/images/avatars/3.png",
+        user_id: "rajesh.sharma@example.com",
     },
     chat: [
         {
