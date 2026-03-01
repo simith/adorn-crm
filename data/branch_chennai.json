@@ -3,32 +3,32 @@
     {
       "id": "revenue",
       "title": "Revenue",
-      "value": 2710,
+      "value": 3560000,
       "currency": "INR",
-      "changePercent": 3.9,
-      "comparison": "Compare to last year (2019)"
+      "changePercent": 15.2,
+      "comparison": "Compare to last year (2025)"
     },
     {
       "id": "sales",
       "title": "Sales",
-      "value": 7155,
+      "value": 3950000,
       "currency": "INR",
-      "changePercent": 9.1,
-      "comparison": "Compare to last year (2019)"
+      "changePercent": 11.7,
+      "comparison": "Compare to last year (2025)"
     },
     {
       "id": "costs",
       "title": "Costs",
-      "value": 8120,
+      "value": 2740000,
       "currency": "INR",
-      "changePercent": 0.4,
-      "comparison": "Compare to last year (2019)"
+      "changePercent": 1.9,
+      "comparison": "Compare to last year (2025)"
     }
   ],
   "monthlyTarget": {
     "percent": 92,
     "cta": "Learn More",
-    "note": "You need abit more effort to hit monthly target"
+    "note": "You need a bit more effort to hit monthly target"
   },
   "activeMembers": {
     "count": 18610,
@@ -70,39 +70,39 @@
   "latestTransactions": [
     {
       "customer": "Vishal Kumar",
-      "date": "8 May 2020",
-      "amount": 144.0,
+      "date": "28 Feb 2026",
+      "amount": 134000,
       "currency": "INR",
       "status": "Approved"
     },
     {
       "customer": "Srilatha M",
-      "date": "6 May 2020",
-      "amount": 338.0,
+      "date": "27 Feb 2026",
+      "amount": 92500,
       "currency": "INR",
       "status": "Approved"
     },
     {
       "customer": "Arun Raj",
-      "date": "1 May 2020",
-      "amount": 560.0,
+      "date": "26 Feb 2026",
+      "amount": 218000,
       "currency": "INR",
       "status": "Pending"
     },
     {
       "customer": "Meera K",
-      "date": "28 April 2020",
-      "amount": 892.0,
+      "date": "25 Feb 2026",
+      "amount": 71200,
       "currency": "INR",
       "status": "Rejected"
     },
     {
       "customer": "Joseph Paul",
-      "date": "28 April 2020",
-      "amount": 265.0,
+      "date": "24 Feb 2026",
+      "amount": 345000,
       "currency": "INR",
       "status": "Approved"
     }
   ],
-  "updatedAt": "2026-02-09T00:00:00.000Z"
+  "updatedAt": "2026-03-01T00:00:00.000Z"
 }

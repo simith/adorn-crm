@@ -3,32 +3,32 @@
     {
       "id": "revenue",
       "title": "Revenue",
-      "value": 2454,
+      "value": 3820000,
       "currency": "INR",
-      "changePercent": -11.4,
-      "comparison": "Compare to last year (2019)"
+      "changePercent": 12.4,
+      "comparison": "Compare to last year (2025)"
     },
     {
       "id": "sales",
       "title": "Sales",
-      "value": 6982,
+      "value": 4250000,
       "currency": "INR",
-      "changePercent": 8.2,
-      "comparison": "Compare to last year (2019)"
+      "changePercent": 9.8,
+      "comparison": "Compare to last year (2025)"
     },
     {
       "id": "costs",
       "title": "Costs",
-      "value": 8310,
+      "value": 2890000,
       "currency": "INR",
-      "changePercent": 0.7,
-      "comparison": "Compare to last year (2019)"
+      "changePercent": 3.2,
+      "comparison": "Compare to last year (2025)"
     }
   ],
   "monthlyTarget": {
     "percent": 87,
     "cta": "Learn More",
-    "note": "You need abit more effort to hit monthly target"
+    "note": "You need a bit more effort to hit monthly target"
   },
   "activeMembers": {
     "count": 17329,
@@ -70,39 +70,39 @@
   "latestTransactions": [
     {
       "customer": "Arjun Mehta",
-      "date": "8 May 2020",
-      "amount": 137.0,
+      "date": "28 Feb 2026",
+      "amount": 148500,
       "currency": "INR",
       "status": "Approved"
     },
     {
       "customer": "Priya Sharma",
-      "date": "6 May 2020",
-      "amount": 322.0,
+      "date": "27 Feb 2026",
+      "amount": 87200,
       "currency": "INR",
       "status": "Approved"
     },
     {
       "customer": "Neha Kapoor",
-      "date": "1 May 2020",
-      "amount": 543.0,
+      "date": "26 Feb 2026",
+      "amount": 235000,
       "currency": "INR",
       "status": "Pending"
     },
     {
       "customer": "Vikram Reddy",
-      "date": "28 April 2020",
-      "amount": 876.0,
+      "date": "25 Feb 2026",
+      "amount": 62400,
       "currency": "INR",
       "status": "Rejected"
     },
     {
       "customer": "Amit Kulkarni",
-      "date": "28 April 2020",
-      "amount": 241.0,
+      "date": "24 Feb 2026",
+      "amount": 315000,
       "currency": "INR",
       "status": "Approved"
     }
   ],
-  "updatedAt": "2026-02-09T00:00:00.000Z"
+  "updatedAt": "2026-03-01T00:00:00.000Z"
 }

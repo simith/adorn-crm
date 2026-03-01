@@ -3,32 +3,32 @@
     {
       "id": "revenue",
       "title": "Revenue",
-      "value": 2185,
+      "value": 3240000,
       "currency": "INR",
-      "changePercent": -6.2,
-      "comparison": "Compare to last year (2019)"
+      "changePercent": 8.6,
+      "comparison": "Compare to last year (2025)"
     },
     {
       "id": "sales",
       "title": "Sales",
-      "value": 6420,
+      "value": 3680000,
       "currency": "INR",
-      "changePercent": 5.4,
-      "comparison": "Compare to last year (2019)"
+      "changePercent": 6.1,
+      "comparison": "Compare to last year (2025)"
     },
     {
       "id": "costs",
       "title": "Costs",
-      "value": 7895,
+      "value": 2520000,
       "currency": "INR",
-      "changePercent": 1.1,
-      "comparison": "Compare to last year (2019)"
+      "changePercent": 2.8,
+      "comparison": "Compare to last year (2025)"
     }
   ],
   "monthlyTarget": {
     "percent": 81,
     "cta": "Learn More",
-    "note": "You need abit more effort to hit monthly target"
+    "note": "You need a bit more effort to hit monthly target"
   },
   "activeMembers": {
     "count": 15942,
@@ -70,39 +70,39 @@
   "latestTransactions": [
     {
       "customer": "Sanjay Rao",
-      "date": "8 May 2020",
-      "amount": 126.0,
+      "date": "28 Feb 2026",
+      "amount": 112000,
       "currency": "INR",
       "status": "Approved"
     },
     {
       "customer": "Meera Kulkarni",
-      "date": "6 May 2020",
-      "amount": 318.0,
+      "date": "27 Feb 2026",
+      "amount": 76500,
       "currency": "INR",
       "status": "Approved"
     },
     {
       "customer": "Kiran Shetty",
-      "date": "1 May 2020",
-      "amount": 508.0,
+      "date": "26 Feb 2026",
+      "amount": 198000,
       "currency": "INR",
       "status": "Pending"
     },
     {
       "customer": "Devika R",
-      "date": "28 April 2020",
-      "amount": 842.0,
+      "date": "25 Feb 2026",
+      "amount": 54800,
       "currency": "INR",
       "status": "Rejected"
     },
     {
       "customer": "Arun Pillai",
-      "date": "28 April 2020",
-      "amount": 229.0,
+      "date": "24 Feb 2026",
+      "amount": 287500,
       "currency": "INR",
       "status": "Approved"
     }
   ],
-  "updatedAt": "2026-02-09T00:00:00.000Z"
+  "updatedAt": "2026-03-01T00:00:00.000Z"
 }
