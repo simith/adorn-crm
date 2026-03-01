@@ -48,6 +48,12 @@ export const adminMenuItems: ISidebarMenuItem[] = [
         url: "/apps/chat",
     },
     {
+        id: "sales-performance",
+        icon: "lucide--chart-column-big",
+        label: "Sales Performance",
+        url: "/sales-performance",
+    },
+    {
         id: "catalogue",
         icon: "lucide--library",
         label: "Catalogue",

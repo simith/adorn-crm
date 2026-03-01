@@ -29,15 +29,15 @@ export const SalesMetricCard = () => {
         <div className="card bg-base-100 shadow-sm">
             <div className="card-body">
                 <div className="flex items-center justify-between">
-                    <span className="text-lg font-bold">Unique Visitors</span>
+                    <span className="text-lg font-bold">Try-On Sessions & Conversions</span>
                     <div className="flex items-center gap-4">
                         <div className="flex items-center gap-2">
-                            <span className="size-2 rounded-full bg-blue-500" />
-                            <span className="text-base-content/60 text-sm">Session Duration</span>
+                            <span className="size-2 rounded-full bg-[#1f7a5a]" />
+                            <span className="text-base-content/60 text-sm">Try-On Sessions</span>
                         </div>
                         <div className="flex items-center gap-2">
-                            <span className="size-2 rounded-full bg-emerald-400" />
-                            <span className="text-base-content/60 text-sm">Page Views</span>
+                            <span className="size-2 rounded-full bg-[#c58b2a]" />
+                            <span className="text-base-content/60 text-sm">Conversions</span>
                         </div>
                     </div>
                 </div>

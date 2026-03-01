@@ -19,7 +19,7 @@ export const UniqueVisitorsChart = ({ data }: { data: UniqueVisitorsData }) => {
     const chartOptions: ApexOptions = {
         chart: {
             height: 250,
-            type: "line",
+            type: "bar",
             background: "transparent",
             toolbar: {
                 show: false,
@@ -28,16 +28,24 @@ export const UniqueVisitorsChart = ({ data }: { data: UniqueVisitorsData }) => {
                 enabled: true,
             },
         },
-        stroke: {
-            curve: "straight",
-            width: 2,
+        plotOptions: {
+            bar: {
+                horizontal: false,
+                columnWidth: "52%",
+                borderRadius: 6,
+            },
         },
-        colors: ["#3b82f6", "#34d399"], // blue-500, emerald-400
+        colors: ["#1f7a5a", "#c58b2a"],
         dataLabels: {
             enabled: false,
         },
         legend: {
-            show: false,
+            show: true,
+            position: "top",
+            horizontalAlign: "right",
+            labels: {
+                colors: "#6b7280",
+            },
         },
         series: data.series.map((s) => ({
             name: s.name,
@@ -59,10 +67,15 @@ export const UniqueVisitorsChart = ({ data }: { data: UniqueVisitorsData }) => {
             },
         },
         yaxis: {
-            show: false,
+            labels: {
+                style: {
+                    colors: "#9ca3af",
+                    fontSize: "12px",
+                },
+            },
         },
         grid: {
-            show: false,
+            borderColor: "#f1f5f9",
             padding: {
                 left: 0,
                 right: 0,
@@ -79,7 +92,7 @@ export const UniqueVisitorsChart = ({ data }: { data: UniqueVisitorsData }) => {
         <ApexCharts
             options={chartOptions}
             height={chartOptions.chart?.height}
-            type="line"
+            type="bar"
             series={chartOptions.series}
         />
     );

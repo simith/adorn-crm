@@ -37,12 +37,12 @@
   "uniqueVisitors": {
     "series": [
       {
-        "name": "Session Duration",
+        "name": "Try-On Sessions",
         "values": [42, 49, 36, 27, 31, 26, 23, 19, 11, 12, 15, 12]
       },
       {
-        "name": "Page Views",
-        "values": [29, 38, 57, 44, 19, 21, 30, 33, 32, 47, 29, 31]
+        "name": "Conversions",
+        "values": [16, 19, 14, 11, 12, 10, 9, 7, 5, 5, 6, 5]
       }
     ],
     "labels": [
