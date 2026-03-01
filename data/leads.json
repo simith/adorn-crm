@@ -14,7 +14,7 @@
         "joinedOn": "Jan 05, 2024",
         "lastVisited": "Apr 23, 2024",
         "totalSpend": 124500,
-        "city": "Mumbai"
+        "city": "Udupi"
       },
       {
         "customer": "Ravi Kapoor",
@@ -22,7 +22,7 @@
         "joinedOn": "Jan 12, 2024",
         "lastVisited": "Apr 22, 2024",
         "totalSpend": 98200,
-        "city": "Delhi"
+        "city": "Mangaluru"
       },
       {
         "customer": "Meera Patel",
@@ -30,7 +30,7 @@
         "joinedOn": "Feb 01, 2024",
         "lastVisited": "Apr 21, 2024",
         "totalSpend": 67500,
-        "city": "Bangalore"
+        "city": "Shivamogga"
       },
       {
         "customer": "Anil Verma",
@@ -38,7 +38,7 @@
         "joinedOn": "Feb 07, 2024",
         "lastVisited": "Apr 20, 2024",
         "totalSpend": 75250,
-        "city": "Kolkata"
+        "city": "Kundapura"
       },
       {
         "customer": "Preeti Sinha",
@@ -46,7 +46,7 @@
         "joinedOn": "Feb 18, 2024",
         "lastVisited": "Apr 19, 2024",
         "totalSpend": 95400,
-        "city": "Ahmedabad"
+        "city": "Kumta"
       },
       {
         "customer": "Neha Malhotra",
@@ -54,7 +54,7 @@
         "joinedOn": "Mar 02, 2024",
         "lastVisited": "Apr 19, 2024",
         "totalSpend": 110350,
-        "city": "Jaipur"
+        "city": "Panaji"
       },
       {
         "customer": "Rohit Joshi",
@@ -62,7 +62,7 @@
         "joinedOn": "Mar 05, 2024",
         "lastVisited": "Apr 18, 2024",
         "totalSpend": 62100,
-        "city": "Chennai"
+        "city": "Sagara"
       },
       {
         "customer": "Pooja Chawla",
@@ -70,7 +70,7 @@
         "joinedOn": "Mar 12, 2024",
         "lastVisited": "Apr 17, 2024",
         "totalSpend": 43500,
-        "city": "Pune"
+        "city": "Chikkamagaluru"
       },
       {
         "customer": "Devika Menon",
@@ -78,7 +78,7 @@
         "joinedOn": "Mar 19, 2024",
         "lastVisited": "Apr 16, 2024",
         "totalSpend": 158700,
-        "city": "Kochi"
+        "city": "Hebri"
       },
       {
         "customer": "Arjun Mehta",
@@ -86,7 +86,7 @@
         "joinedOn": "Mar 26, 2024",
         "lastVisited": "Apr 16, 2024",
         "totalSpend": 186000,
-        "city": "Mumbai"
+        "city": "Karkala"
       },
       {
         "customer": "Naina Sethi",
@@ -94,7 +94,7 @@
         "joinedOn": "Apr 01, 2024",
         "lastVisited": "Apr 15, 2024",
         "totalSpend": 143000,
-        "city": "Delhi"
+        "city": "Belthangady"
       },
       {
         "customer": "Irfan Khan",
@@ -102,7 +102,7 @@
         "joinedOn": "Apr 06, 2024",
         "lastVisited": "Apr 15, 2024",
         "totalSpend": 84800,
-        "city": "Lucknow"
+        "city": "Udupi"
       }
     ]
   }

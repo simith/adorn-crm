@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
-import { readFile } from "fs/promises";
-import path from "path";
+
+import { DEFAULT_BRANCH_ID } from "@/lib/branch-config";
+import { getBranchDashboardData } from "@/lib/branch-mock-data";
 
 export async function POST(request: Request) {
     const body = await request.json().catch(() => null);
@@ -16,9 +17,7 @@ export async function POST(request: Request) {
         return NextResponse.json({ ok: false, error: "Email and password required" }, { status: 400 });
     }
 
-    const dashboardPath = path.join(process.cwd(), "data", "branch_bangalore.json");
-    const dashboardRaw = await readFile(dashboardPath, "utf-8");
-    const dashboard = JSON.parse(dashboardRaw);
+    const dashboard = await getBranchDashboardData(DEFAULT_BRANCH_ID);
 
     return NextResponse.json({
         ok: true,

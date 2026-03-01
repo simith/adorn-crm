@@ -1,25 +1,13 @@
 import { NextResponse } from "next/server";
-import { readFile } from "fs/promises";
-import path from "path";
+
+import { ALL_BRANCH_ID, DEFAULT_BRANCH_ID, isBranchId } from "@/lib/branch-config";
+import { getAllAnalyticsData, getAnalyticsData } from "@/lib/branch-mock-data";
 
 export const dynamic = "force-dynamic";
 
-const BRANCH_FILES: Record<string, string> = {
-    Bangalore: "analytics_bangalore.json",
-    Mangalore: "analytics_mangalore.json",
-    Chennai: "analytics_chennai.json",
-};
-
-const BRANCH_ORDER = ["Bangalore", "Mangalore", "Chennai"] as const;
-
-async function readAnalyticsFile(filename: string) {
-    const filePath = path.join(process.cwd(), "data", filename);
-    const raw = await readFile(filePath, "utf-8");
-    return JSON.parse(raw);
-}
-
 function aggregateAllAnalyticsData(allData: any[]) {
     const base = allData[0];
+    const branchCount = Math.max(allData.length, 1);
 
     return {
         favorites: {
@@ -28,17 +16,17 @@ function aggregateAllAnalyticsData(allData: any[]) {
                 ...item,
                 reviews: allData.reduce((sum, data) => sum + (data.favorites?.items?.[index]?.reviews || 0), 0),
                 likes: allData.reduce((sum, data) => sum + (data.favorites?.items?.[index]?.likes || 0), 0),
-                interestPercent: allData.reduce(
-                    (sum, data) => sum + (data.favorites?.items?.[index]?.interestPercent || 0),
-                    0
+                interestPercent: Math.round(
+                    allData.reduce((sum, data) => sum + (data.favorites?.items?.[index]?.interestPercent || 0), 0) /
+                        branchCount
                 ),
                 totalSales: allData.reduce(
                     (sum, data) => sum + (data.favorites?.items?.[index]?.totalSales || 0),
                     0
                 ),
-                goalPercent: allData.reduce(
-                    (sum, data) => sum + (data.favorites?.items?.[index]?.goalPercent || 0),
-                    0
+                goalPercent: Math.round(
+                    allData.reduce((sum, data) => sum + (data.favorites?.items?.[index]?.goalPercent || 0), 0) /
+                        branchCount
                 ),
             })),
         },
@@ -46,9 +34,9 @@ function aggregateAllAnalyticsData(allData: any[]) {
             ...base.dailyTrendingMenus,
             items: base.dailyTrendingMenus.items.map((item: any, index: number) => ({
                 ...item,
-                price: allData.reduce(
-                    (sum, data) => sum + (data.dailyTrendingMenus?.items?.[index]?.price || 0),
-                    0
+                price: Math.round(
+                    allData.reduce((sum, data) => sum + (data.dailyTrendingMenus?.items?.[index]?.price || 0), 0) /
+                        branchCount
                 ),
                 orders: allData.reduce(
                     (sum, data) => sum + (data.dailyTrendingMenus?.items?.[index]?.orders || 0),
@@ -80,7 +68,9 @@ function aggregateAllAnalyticsData(allData: any[]) {
             ...base.bestSeller,
             item: {
                 ...base.bestSeller.item,
-                price: allData.reduce((sum, data) => sum + (data.bestSeller?.item?.price || 0), 0),
+                price: Math.round(
+                    allData.reduce((sum, data) => sum + (data.bestSeller?.item?.price || 0), 0) / branchCount
+                ),
                 likes: allData.reduce((sum, data) => sum + (data.bestSeller?.item?.likes || 0), 0),
                 sales: allData.reduce((sum, data) => sum + (data.bestSeller?.item?.sales || 0), 0),
             },
@@ -91,17 +81,15 @@ function aggregateAllAnalyticsData(allData: any[]) {
 
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
-    const branch = searchParams.get("name") || "Bangalore";
+    const requestedBranch = searchParams.get("name") || DEFAULT_BRANCH_ID;
+    const branch = isBranchId(requestedBranch) ? requestedBranch : DEFAULT_BRANCH_ID;
     let data;
 
-    if (branch === "All") {
-        const allData = await Promise.all(
-            BRANCH_ORDER.map((name) => readAnalyticsFile(BRANCH_FILES[name]))
-        );
+    if (branch === ALL_BRANCH_ID) {
+        const allData = await getAllAnalyticsData();
         data = aggregateAllAnalyticsData(allData);
     } else {
-        const filename = BRANCH_FILES[branch] || BRANCH_FILES.Bangalore;
-        data = await readAnalyticsFile(filename);
+        data = await getAnalyticsData(branch);
     }
 
     const response = NextResponse.json({ branch, data });

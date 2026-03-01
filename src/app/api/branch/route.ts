@@ -1,42 +1,34 @@
 import { NextResponse } from "next/server";
-import { readFile } from "fs/promises";
-import path from "path";
+
+import { ALL_BRANCH_ID, DEFAULT_BRANCH_ID, isBranchId } from "@/lib/branch-config";
+import { getAllBranchDashboardData, getBranchDashboardData } from "@/lib/branch-mock-data";
 
 export const dynamic = "force-dynamic";
 
-const BRANCH_FILES: Record<string, string> = {
-    Bangalore: "branch_bangalore.json",
-    Mangalore: "branch_mangalore.json",
-    Chennai: "branch_chennai.json",
-};
-
-const BRANCH_ORDER = ["Bangalore", "Mangalore", "Chennai"] as const;
-
-async function readBranchFile(filename: string) {
-    const filePath = path.join(process.cwd(), "data", filename);
-    const raw = await readFile(filePath, "utf-8");
-    return JSON.parse(raw);
-}
-
 function aggregateAllBranchData(allData: any[]) {
     const base = allData[0];
+    const branchCount = Math.max(allData.length, 1);
 
     return {
         kpis: base.kpis.map((kpi: any, index: number) => ({
             ...kpi,
             value: allData.reduce((sum, item) => sum + (item.kpis[index]?.value || 0), 0),
             changePercent: Number(
-                allData.reduce((sum, item) => sum + (item.kpis[index]?.changePercent || 0), 0).toFixed(1)
+                (
+                    allData.reduce((sum, item) => sum + (item.kpis[index]?.changePercent || 0), 0) / branchCount
+                ).toFixed(1)
             ),
         })),
         monthlyTarget: {
             ...base.monthlyTarget,
-            percent: allData.reduce((sum, item) => sum + (item.monthlyTarget?.percent || 0), 0),
+            percent: Math.round(allData.reduce((sum, item) => sum + (item.monthlyTarget?.percent || 0), 0) / branchCount),
         },
         activeMembers: {
             count: allData.reduce((sum, item) => sum + (item.activeMembers?.count || 0), 0),
             changePercent: Number(
-                allData.reduce((sum, item) => sum + (item.activeMembers?.changePercent || 0), 0).toFixed(1)
+                (
+                    allData.reduce((sum, item) => sum + (item.activeMembers?.changePercent || 0), 0) / branchCount
+                ).toFixed(1)
             ),
         },
         uniqueVisitors: {
@@ -67,17 +59,15 @@ function aggregateAllBranchData(allData: any[]) {
 
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
-    const branch = searchParams.get("name") || "Bangalore";
+    const requestedBranch = searchParams.get("name") || DEFAULT_BRANCH_ID;
+    const branch = isBranchId(requestedBranch) ? requestedBranch : DEFAULT_BRANCH_ID;
     let data;
 
-    if (branch === "All") {
-        const allData = await Promise.all(
-            BRANCH_ORDER.map((name) => readBranchFile(BRANCH_FILES[name]))
-        );
+    if (branch === ALL_BRANCH_ID) {
+        const allData = await getAllBranchDashboardData();
         data = aggregateAllBranchData(allData);
     } else {
-        const filename = BRANCH_FILES[branch] || BRANCH_FILES.Bangalore;
-        data = await readBranchFile(filename);
+        data = await getBranchDashboardData(branch);
     }
 
     const response = NextResponse.json({ branch, data });

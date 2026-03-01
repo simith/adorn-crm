@@ -3,32 +3,27 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useState } from "react";
 
+import { BRANCH_OPTIONS, DEFAULT_BRANCH_ID, isBranchId, type BranchId } from "@/lib/branch-config";
+
+export { BRANCH_OPTIONS, type BranchId } from "@/lib/branch-config";
+
 const BRANCH_STORAGE_KEY = "__ADORN_BRANCH__";
 
-export const BRANCH_OPTIONS = [
-    { id: "Bangalore", label: "Bangalore" },
-    { id: "Mangalore", label: "Mangalore" },
-    { id: "Chennai", label: "Chennai" },
-    { id: "All", label: "All" },
-] as const;
-
-export type BranchId = (typeof BRANCH_OPTIONS)[number]["id"];
-
 function getStoredBranch(): BranchId {
-    if (typeof window === "undefined") return "Bangalore";
+    if (typeof window === "undefined") return DEFAULT_BRANCH_ID;
     try {
-        const stored = sessionStorage.getItem(BRANCH_STORAGE_KEY);
-        if (stored && BRANCH_OPTIONS.some((b) => b.id === stored)) return stored as BranchId;
+        const stored = sessionStorage.getItem(BRANCH_STORAGE_KEY) || "";
+        if (isBranchId(stored)) return stored;
     } catch {
         // ignore
     }
-    return "Bangalore";
+    return DEFAULT_BRANCH_ID;
 }
 
 function branchFromUrl(searchParams: URLSearchParams | null): BranchId | null {
     if (!searchParams) return null;
-    const b = searchParams.get("branch");
-    if (b && BRANCH_OPTIONS.some((o) => o.id === b)) return b as BranchId;
+    const branch = searchParams.get("branch") || "";
+    if (isBranchId(branch)) return branch;
     return null;
 }
 
