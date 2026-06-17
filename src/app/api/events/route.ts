@@ -14,6 +14,7 @@ type SessionEvent = {
     jewelry_category?: string;
     price?: number;
     image_url?: string;
+    jewelry_image_url?: string;
     attire_id?: string;
     attire_name?: string;
     generation_time_ms?: number;
@@ -35,6 +36,8 @@ type SessionEvent = {
     budget_range?: string;
     budget_amount?: number;
     jewelry_interests?: string[];
+    s3_key?: string;
+    s3_key_adorned?: string;
 };
 
 type SessionRecord = {
@@ -182,26 +185,20 @@ async function fetchSessionFromSupabase(sessionId: string): Promise<SessionRecor
 }
 
 async function fetchAllSessionsFromSupabase(): Promise<{ sessions: SessionRecord[]; totalEvents: number }> {
-    const { data: sessionRows, error: sessionErr } = await getSupabase()
+    const { data: rows, error } = await getSupabase()
         .from("sessions")
-        .select("*")
+        .select("*, session_events(*)")
         .order("last_event_at", { ascending: false });
 
-    if (sessionErr) throw new Error(`[Supabase] sessions fetch failed: ${sessionErr.message}`);
+    if (error) throw new Error(`[Supabase] sessions fetch failed: ${error.message}`);
 
-    const { data: eventRows, error: eventsErr } = await getSupabase()
-        .from("session_events")
-        .select("*")
-        .order("timestamp", { ascending: true });
+    const sessions = ((rows || []) as (SupabaseSessionRow & { session_events: SupabaseEventRow[] })[]).map((row) => {
+        const eventRows = (row.session_events || []) as SupabaseEventRow[];
+        return sessionRowToRecord(row, eventRows);
+    });
 
-    if (eventsErr) throw new Error(`[Supabase] events fetch failed: ${eventsErr.message}`);
-
-    const typedEvents = (eventRows || []) as SupabaseEventRow[];
-    const sessions = ((sessionRows || []) as SupabaseSessionRow[]).map((row) =>
-        sessionRowToRecord(row, typedEvents),
-    );
-
-    return { sessions, totalEvents: typedEvents.length };
+    const totalEvents = sessions.reduce((sum, s) => sum + s.events.length, 0);
+    return { sessions, totalEvents };
 }
 
 // --- POST handler ---
@@ -232,11 +229,11 @@ export async function POST(request: Request) {
             const emailId = typeof raw.email_id === "string" ? raw.email_id.trim() : "";
             const mobNumber = typeof raw.mob_number === "string" ? raw.mob_number.trim() : "";
 
-            if (!userName || !emailId || !mobNumber) {
+            if (!userName || !emailId) {
                 return NextResponse.json(
                     {
                         ok: false,
-                        error: "session.start requires user_name, email_id, and mob_number.",
+                        error: "session.start requires user_name and email_id.",
                     },
                     { status: 400 },
                 );
@@ -399,6 +396,8 @@ export async function POST(request: Request) {
         const nextBestActionSummary =
             typeof raw.next_best_action_summary === "string" ? raw.next_best_action_summary.trim() : "";
         const userId = typeof raw.user_id === "string" ? raw.user_id.trim() : "";
+        const s3Key        = typeof raw.s3_key         === "string" ? raw.s3_key.trim()         : "";
+        const s3KeyAdorned = typeof raw.s3_key_adorned === "string" ? raw.s3_key_adorned.trim() : "";
 
         const event: SessionEvent = {
             event_id: randomUUID(),
@@ -431,6 +430,8 @@ export async function POST(request: Request) {
             ...(notes ? { notes } : {}),
             ...(nextBestActionSummary ? { next_best_action_summary: nextBestActionSummary } : {}),
             ...(userId ? { user_id: userId } : {}),
+            ...(s3Key        ? { s3_key:         s3Key        } : {}),
+            ...(s3KeyAdorned ? { s3_key_adorned: s3KeyAdorned } : {}),
         };
 
         await insertEvent(sessionId, event);

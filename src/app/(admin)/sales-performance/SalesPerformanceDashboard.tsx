@@ -50,7 +50,7 @@ function chartBaseOptions(): ApexOptions {
         chart: {
             fontFamily: "inherit",
             toolbar: { show: false },
-            animations: { easing: "easeinout", speed: 550 },
+            animations: { speed: 550 },
         },
         legend: {
             position: "top",

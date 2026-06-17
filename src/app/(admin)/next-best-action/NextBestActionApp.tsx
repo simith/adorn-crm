@@ -12,6 +12,8 @@ type UserEvent = {
     jewelry_category?: string;
     price?: number;
     image_url?: string;
+    s3_key?: string;
+    s3_key_adorned?: string;
     attire_id?: string;
     attire_name?: string;
     generation_time_ms?: number;
@@ -74,6 +76,8 @@ type ApiEvent = {
     jewelry_category?: string;
     price?: number;
     image_url?: string;
+    s3_key?: string;
+    s3_key_adorned?: string;
     attire_id?: string;
     attire_name?: string;
     generation_time_ms?: number;
@@ -184,6 +188,8 @@ function mapApiSessionsToUsers(sessions: ApiSession[]): SessionUser[] {
                     jewelry_category: event.jewelry_category,
                     price: event.price,
                     image_url: event.image_url,
+                    s3_key: event.s3_key,
+                    s3_key_adorned: event.s3_key_adorned,
                     attire_id: event.attire_id,
                     attire_name: event.attire_name,
                     generation_time_ms: event.generation_time_ms,
@@ -434,6 +440,12 @@ function eventSummary(event: UserEvent) {
         }
         return "Session ended without a sale.";
     }
+    if (event.event_type === "photo.captured") {
+        return "Customer captured their photo for virtual try-on.";
+    }
+    if (event.event_type === "photo.retake") {
+        return "Customer chose to retake their photo.";
+    }
     if (event.event_type === "view") {
         return `Customer viewed ${item}.`;
     }
@@ -466,8 +478,14 @@ function eventTypeLabel(eventType: string) {
     if (eventType === "session_ended" || eventType === "session.ended") {
         return "Session Ended";
     }
+    if (eventType === "photo.captured") {
+        return "Photo Captured";
+    }
+    if (eventType === "photo.retake") {
+        return "Photo Retake";
+    }
 
-    return eventType.replaceAll("_", " ");
+    return eventType.replaceAll("_", " ").replaceAll(".", " ");
 }
 
 function buildSessionRecommendation(
@@ -553,6 +571,11 @@ export const NextBestActionApp = () => {
     const [selectedSessionId, setSelectedSessionId] = useState("");
     const [search, setSearch] = useState("");
     const [showActiveList, setShowActiveList] = useState(false);
+    const [zoomedImages, setZoomedImages] = useState<
+        | { mode: "single"; key: string }
+        | { mode: "compare"; before: string; beforeLabel: string; after: string; afterLabel: string }
+        | null
+    >(null);
 
     useEffect(() => {
         let active = true;
@@ -574,15 +597,8 @@ export const NextBestActionApp = () => {
 
                 setUsers(mappedUsers);
                 const firstUser = mappedUsers[0];
-                setSelectedUserId((current) =>
-                    mappedUsers.some((user) => user.id === current) ? current : firstUser?.id || "",
-                );
-                setSelectedSessionId((current) => {
-                    const sessionStillExists = mappedUsers.some((user) =>
-                        user.sessions.some((session) => session.id === current),
-                    );
-                    return sessionStillExists ? current : firstUser?.sessions[0]?.id || "";
-                });
+                setSelectedUserId(firstUser?.id || "");
+                setSelectedSessionId(firstUser?.sessions[0]?.id || "");
             } catch (fetchError) {
                 if (!active) return;
                 setError(fetchError instanceof Error ? fetchError.message : "Failed to load sessions");
@@ -590,9 +606,7 @@ export const NextBestActionApp = () => {
                 setSelectedUserId("");
                 setSelectedSessionId("");
             } finally {
-                if (active) {
-                    setLoading(false);
-                }
+                if (active) setLoading(false);
             }
         }
 
@@ -652,7 +666,7 @@ export const NextBestActionApp = () => {
         emptySession;
 
     const orderedEvents = useMemo(
-        () => [...selectedSession.events].sort((a, b) => toEpoch(a.timestamp) - toEpoch(b.timestamp)),
+        () => [...selectedSession.events].sort((a, b) => toEpoch(b.timestamp) - toEpoch(a.timestamp)),
         [selectedSession],
     );
 
@@ -712,6 +726,48 @@ export const NextBestActionApp = () => {
     }
 
     return (
+        <>
+        {zoomedImages && (
+            <div
+                className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm cursor-pointer"
+                onClick={() => setZoomedImages(null)}>
+                <div
+                    className="relative cursor-default"
+                    onClick={(e) => e.stopPropagation()}>
+                    <button
+                        className="absolute -top-3 -right-3 z-10 btn btn-circle btn-xs btn-neutral shadow-lg"
+                        onClick={() => setZoomedImages(null)}>
+                        <span className="iconify lucide--x size-3" />
+                    </button>
+                    {zoomedImages.mode === "compare" ? (
+                        <div className="flex items-end gap-6 p-2">
+                            <div className="flex flex-col items-center gap-2">
+                                <img
+                                    src={`/api/s3-image?key=${encodeURIComponent(zoomedImages.before)}`}
+                                    alt={zoomedImages.beforeLabel}
+                                    className="max-h-[75vh] max-w-[38vw] rounded-xl shadow-2xl object-contain"
+                                />
+                                <span className="text-white/80 text-sm font-medium tracking-wide">{zoomedImages.beforeLabel}</span>
+                            </div>
+                            <div className="flex flex-col items-center gap-2">
+                                <img
+                                    src={`/api/s3-image?key=${encodeURIComponent(zoomedImages.after)}`}
+                                    alt={zoomedImages.afterLabel}
+                                    className="max-h-[75vh] max-w-[38vw] rounded-xl shadow-2xl object-contain"
+                                />
+                                <span className="text-white/80 text-sm font-medium tracking-wide">{zoomedImages.afterLabel}</span>
+                            </div>
+                        </div>
+                    ) : (
+                        <img
+                            src={`/api/s3-image?key=${encodeURIComponent(zoomedImages.key)}`}
+                            alt="Preview"
+                            className="max-h-[80vh] max-w-[60vw] rounded-xl shadow-2xl object-contain"
+                        />
+                    )}
+                </div>
+            </div>
+        )}
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
             <div className="lg:col-span-5 xl:col-span-4 2xl:col-span-3">
                 <div className="card bg-base-100 h-full overflow-hidden border border-gray-200 shadow-sm">
@@ -1015,12 +1071,103 @@ export const NextBestActionApp = () => {
                                             </span>
                                         </div>
                                         <p className="text-base-content/70 mt-1 text-sm">{eventSummary(event)}</p>
+                                        {/* Try-on result — full-width portrait card */}
+                                        {(event.event_type === "image_generated" ||
+                                            event.event_type === "image.generated") && (() => {
+                                            const canCompare = !!(event.s3_key && event.s3_key_adorned);
+                                            const openPopup = () => {
+                                                if (canCompare) {
+                                                    setZoomedImages({ mode: "compare", before: event.s3_key!, beforeLabel: "Before", after: event.s3_key_adorned!, afterLabel: "With Jewellery" });
+                                                } else if (event.s3_key) {
+                                                    setZoomedImages({ mode: "single", key: event.s3_key });
+                                                } else if (event.s3_key_adorned) {
+                                                    setZoomedImages({ mode: "single", key: event.s3_key_adorned });
+                                                }
+                                            };
+                                            return (
+                                            <div className="border-primary/20 bg-primary/5 mt-3 rounded-lg border overflow-hidden p-3">
+                                                <div className="flex gap-2 items-start">
+                                                    {/* Attire-only result */}
+                                                    {event.s3_key ? (
+                                                        <div className="flex flex-col items-center gap-1 shrink-0">
+                                                            <button
+                                                                className="cursor-zoom-in focus:outline-none"
+                                                                onClick={openPopup}>
+                                                                <img
+                                                                    src={`/api/s3-image?key=${encodeURIComponent(event.s3_key)}`}
+                                                                    alt="Attire result"
+                                                                    className="h-28 w-auto rounded-md object-contain hover:ring-2 hover:ring-primary/40 transition-all"
+                                                                />
+                                                            </button>
+                                                            <span className="text-base-content/50 text-[10px]">Before</span>
+                                                        </div>
+                                                    ) : (
+                                                        <div className="flex flex-col items-center gap-1 shrink-0">
+                                                            <div className="bg-base-200 flex h-28 w-20 items-center justify-center rounded-md">
+                                                                <span className="text-base-content/40 text-xs text-center px-1">No image</span>
+                                                            </div>
+                                                            <span className="text-base-content/50 text-[10px]">Before</span>
+                                                        </div>
+                                                    )}
+                                                    {/* Adorned composite (attire + jewelry) */}
+                                                    {event.s3_key_adorned ? (
+                                                        <div className="flex flex-col items-center gap-1 shrink-0">
+                                                            <button
+                                                                className="cursor-zoom-in focus:outline-none"
+                                                                onClick={openPopup}>
+                                                                <img
+                                                                    src={`/api/s3-image?key=${encodeURIComponent(event.s3_key_adorned)}`}
+                                                                    alt="Attire with jewellery"
+                                                                    className="h-28 w-auto rounded-md object-contain hover:ring-2 hover:ring-primary/40 transition-all"
+                                                                />
+                                                            </button>
+                                                            <span className="text-base-content/50 text-[10px]">With Jewellery</span>
+                                                        </div>
+                                                    ) : null}
+                                                    <div className="min-w-0 flex-1">
+                                                        <p className="text-primary text-xs font-semibold tracking-wide uppercase">Try-On Result</p>
+                                                        <p className="mt-0.5 text-sm font-medium">
+                                                            {event.jewelry_name || event.jewellery_id || "Jewellery item"}
+                                                            {event.attire_name ? ` · ${event.attire_name}` : ""}
+                                                        </p>
+                                                        {typeof event.generation_time_ms === "number" && (
+                                                            <p className="text-base-content/50 text-xs mt-1">{event.generation_time_ms} ms to generate</p>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            );
+                                        })()}
+                                        {/* Original captured photo */}
+                                        {event.event_type === "photo.captured" && event.s3_key && (
+                                            <div className="border-base-200 bg-base-50 mt-3 rounded-lg border overflow-hidden flex gap-3 p-3 items-start">
+                                                <button
+                                                    className="shrink-0 cursor-zoom-in focus:outline-none"
+                                                    onClick={() => setZoomedImages({ mode: "single", key: event.s3_key! })}>
+                                                    <img
+                                                        src={`/api/s3-image?key=${encodeURIComponent(event.s3_key)}`}
+                                                        alt="Captured photo"
+                                                        className="h-28 w-auto rounded-md object-contain hover:ring-2 hover:ring-base-300 transition-all"
+                                                    />
+                                                </button>
+                                                <div className="min-w-0">
+                                                    <p className="text-base-content/60 text-xs font-semibold tracking-wide uppercase">Original Photo</p>
+                                                    <p className="mt-0.5 text-sm">Customer&apos;s captured photo before try-on</p>
+                                                </div>
+                                            </div>
+                                        )}
+                                        {/* Retake marker */}
+                                        {event.event_type === "photo.retake" && (
+                                            <div className="border-warning/30 bg-warning/5 mt-3 flex items-center gap-2 rounded-lg border px-3 py-2">
+                                                <span className="iconify lucide--camera-off text-warning size-4 shrink-0" />
+                                                <p className="text-warning text-xs font-medium">Customer retook their photo</p>
+                                            </div>
+                                        )}
+                                        {/* Jewellery selected / shared — compact thumbnail card */}
                                         {(event.event_type === "view" ||
                                             event.event_type === "jewellery_selected" ||
                                             event.event_type === "jewelry_selected" ||
                                             event.event_type === "jewelry.selected" ||
-                                            event.event_type === "image_generated" ||
-                                            event.event_type === "image.generated" ||
                                             event.event_type === "image_shared" ||
                                             event.event_type === "image.shared") && (
                                             <div className="border-base-200 bg-base-50 mt-3 flex items-center gap-3 rounded-lg border p-2">
@@ -1037,10 +1184,7 @@ export const NextBestActionApp = () => {
                                                                 event.event_type === "jewelry_selected" ||
                                                                 event.event_type === "jewelry.selected"
                                                               ? "Jewellery Selected"
-                                                              : event.event_type === "image_generated" ||
-                                                                  event.event_type === "image.generated"
-                                                                ? "Image Generated"
-                                                                : "Image Shared"}
+                                                              : "Image Shared"}
                                                         {(event.event_type === "image_shared" ||
                                                             event.event_type === "image.shared") &&
                                                             event.channel === "whatsapp" && (
@@ -1068,12 +1212,6 @@ export const NextBestActionApp = () => {
                                                         Number.isFinite(event.price) && (
                                                             <p className="text-base-content/60 text-xs">
                                                                 Rs {event.price.toLocaleString()}
-                                                            </p>
-                                                        )}
-                                                    {typeof event.generation_time_ms === "number" &&
-                                                        Number.isFinite(event.generation_time_ms) && (
-                                                            <p className="text-base-content/60 text-xs">
-                                                                Generated in {event.generation_time_ms} ms
                                                             </p>
                                                         )}
                                                 </div>
@@ -1160,6 +1298,17 @@ export const NextBestActionApp = () => {
                                             <span className="badge badge-outline badge-sm">
                                                 {formatAbsoluteTime(event.timestamp)}
                                             </span>
+                                            {event.s3_key && (
+                                                <a
+                                                    href={`/api/s3-image?key=${encodeURIComponent(event.s3_key)}`}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="badge badge-info badge-soft badge-sm gap-1"
+                                                    title={event.s3_key}>
+                                                    <span className="iconify lucide--image size-3" />
+                                                    S3
+                                                </a>
+                                            )}
                                         </div>
                                     </div>
                                 </li>
@@ -1177,5 +1326,6 @@ export const NextBestActionApp = () => {
                 </div>
             </div>
         </div>
+        </>
     );
 };

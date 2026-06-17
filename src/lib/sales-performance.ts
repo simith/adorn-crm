@@ -431,7 +431,7 @@ function buildKpis(
     currentRecords: DailyPerformanceRecord[],
     previousRecords: DailyPerformanceRecord[],
     activeRepCount: number,
-) {
+): SalesPerformanceKpi[] {
     const currentTotals = aggregateTotals(currentRecords);
     const previousTotals = aggregateTotals(previousRecords);
 
