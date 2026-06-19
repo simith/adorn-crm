@@ -40,19 +40,19 @@ function typeBadgeColor(type: S3ImageType) {
     return "badge-ghost";
 }
 
-function groupByAttire(images: S3Image[]): { original?: S3Image; attires: { id: string; result?: S3Image; adorned?: S3Image }[] } {
+function groupByAttire(images: S3Image[]): { original?: S3Image; attires: { id: string; label: string; result?: S3Image; adorned?: S3Image }[] } {
     const original = images.find((img) => img.type === "original");
-    const attireMap = new Map<string, { result?: S3Image; adorned?: S3Image }>();
+    const attireMap = new Map<string, { label: string; result?: S3Image; adorned?: S3Image }>();
 
     for (const img of images) {
         if (!img.attireId) continue;
-        if (!attireMap.has(img.attireId)) attireMap.set(img.attireId, {});
+        if (!attireMap.has(img.attireId)) attireMap.set(img.attireId, { label: img.attireName || img.attireId.replace(/_/g, " ") });
         const entry = attireMap.get(img.attireId)!;
         if (img.type === "result") entry.result = img;
         if (img.type === "adorned") entry.adorned = img;
     }
 
-    const attires = [...attireMap.entries()].map(([id, imgs]) => ({ id, ...imgs }));
+    const attires = [...attireMap.entries()].map(([id, data]) => ({ id, ...data }));
     return { original, attires };
 }
 
@@ -271,7 +271,7 @@ export const ImageBrowserApp = () => {
                             const { original, attires } = groupByAttire(session.images);
 
                             return (
-                                <div key={session.sessionTime} className="card bg-base-100 border border-base-200 shadow-sm p-4">
+                                <div key={session.sessionId} className="card bg-base-100 border border-base-200 shadow-sm p-4">
                                     <div className="mb-3 flex items-center gap-2">
                                         <span className="iconify lucide--clock text-base-content/40 size-3.5" />
                                         <p className="text-base-content/60 text-xs font-medium">
@@ -312,7 +312,7 @@ export const ImageBrowserApp = () => {
                                         {attires.map((attire) => (
                                             <div key={attire.id} className="flex flex-col gap-1.5">
                                                 <p className="text-base-content/50 text-[10px] font-medium uppercase tracking-wide text-center">
-                                                    {attire.id.replace(/_/g, " ")}
+                                                    {attire.label}
                                                 </p>
                                                 <div className="flex gap-2">
                                                     {attire.result && (
@@ -345,6 +345,11 @@ export const ImageBrowserApp = () => {
                                                             <span className={`badge badge-xs badge-soft ${typeBadgeColor("adorned")}`}>
                                                                 {typeLabel("adorned")}
                                                             </span>
+                                                            {attire.adorned.jewelryName && (
+                                                                <span className="text-base-content/40 text-[10px] text-center max-w-[80px] truncate">
+                                                                    {attire.adorned.jewelryName}
+                                                                </span>
+                                                            )}
                                                         </div>
                                                     )}
                                                 </div>
