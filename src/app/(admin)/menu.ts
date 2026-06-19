@@ -54,6 +54,12 @@ export const adminMenuItems: ISidebarMenuItem[] = [
         url: "/sales-performance",
     },
     {
+        id: "image-browser",
+        icon: "lucide--images",
+        label: "Image Browser",
+        url: "/image-browser",
+    },
+    {
         id: "catalogue",
         icon: "lucide--library",
         label: "Catalogue",

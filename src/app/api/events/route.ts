@@ -38,6 +38,14 @@ type SessionEvent = {
     jewelry_interests?: string[];
     s3_key?: string;
     s3_key_adorned?: string;
+    qa_face_similarity?: number;
+    qa_hair_similarity?: number;
+    qa_neck_similarity?: number;
+    qa_saree_direction?: string;
+    qa_saree_correct?: boolean;
+    attempt?: number;
+    reason?: string;
+    composite_asset_id?: string;
 };
 
 type SessionRecord = {
@@ -398,6 +406,14 @@ export async function POST(request: Request) {
         const userId = typeof raw.user_id === "string" ? raw.user_id.trim() : "";
         const s3Key        = typeof raw.s3_key         === "string" ? raw.s3_key.trim()         : "";
         const s3KeyAdorned = typeof raw.s3_key_adorned === "string" ? raw.s3_key_adorned.trim() : "";
+        const qaFaceSimilarity = typeof raw.qa_face_similarity === "number" && Number.isFinite(raw.qa_face_similarity) ? raw.qa_face_similarity : null;
+        const qaHairSimilarity = typeof raw.qa_hair_similarity === "number" && Number.isFinite(raw.qa_hair_similarity) ? raw.qa_hair_similarity : null;
+        const qaNeckSimilarity = typeof raw.qa_neck_similarity === "number" && Number.isFinite(raw.qa_neck_similarity) ? raw.qa_neck_similarity : null;
+        const qaSareeDirection = typeof raw.qa_saree_direction === "string" ? raw.qa_saree_direction.trim() : "";
+        const qaSareeCorrect = typeof raw.qa_saree_correct === "boolean" ? raw.qa_saree_correct : null;
+        const attempt = typeof raw.attempt === "number" && Number.isFinite(raw.attempt) ? raw.attempt : null;
+        const reason = typeof raw.reason === "string" ? raw.reason.trim() : "";
+        const compositeAssetId = typeof raw.composite_asset_id === "string" ? raw.composite_asset_id.trim() : "";
 
         const event: SessionEvent = {
             event_id: randomUUID(),
@@ -432,6 +448,14 @@ export async function POST(request: Request) {
             ...(userId ? { user_id: userId } : {}),
             ...(s3Key        ? { s3_key:         s3Key        } : {}),
             ...(s3KeyAdorned ? { s3_key_adorned: s3KeyAdorned } : {}),
+            ...(typeof qaFaceSimilarity === "number" ? { qa_face_similarity: qaFaceSimilarity } : {}),
+            ...(typeof qaHairSimilarity === "number" ? { qa_hair_similarity: qaHairSimilarity } : {}),
+            ...(typeof qaNeckSimilarity === "number" ? { qa_neck_similarity: qaNeckSimilarity } : {}),
+            ...(qaSareeDirection ? { qa_saree_direction: qaSareeDirection } : {}),
+            ...(typeof qaSareeCorrect === "boolean" ? { qa_saree_correct: qaSareeCorrect } : {}),
+            ...(typeof attempt === "number" ? { attempt } : {}),
+            ...(reason ? { reason } : {}),
+            ...(compositeAssetId ? { composite_asset_id: compositeAssetId } : {}),
         };
 
         await insertEvent(sessionId, event);

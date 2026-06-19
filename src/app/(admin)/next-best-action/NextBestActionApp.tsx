@@ -34,6 +34,14 @@ type UserEvent = {
     budget_range?: string;
     budget_amount?: number;
     jewelry_interests?: string[];
+    qa_face_similarity?: number;
+    qa_hair_similarity?: number;
+    qa_neck_similarity?: number;
+    qa_saree_direction?: string;
+    qa_saree_correct?: boolean;
+    attempt?: number;
+    reason?: string;
+    composite_asset_id?: string;
     timestamp: string;
     session_id: string;
 };
@@ -98,6 +106,14 @@ type ApiEvent = {
     budget_range?: string;
     budget_amount?: number;
     jewelry_interests?: string[];
+    qa_face_similarity?: number;
+    qa_hair_similarity?: number;
+    qa_neck_similarity?: number;
+    qa_saree_direction?: string;
+    qa_saree_correct?: boolean;
+    attempt?: number;
+    reason?: string;
+    composite_asset_id?: string;
 };
 
 type ApiSession = {
@@ -190,6 +206,14 @@ function mapApiSessionsToUsers(sessions: ApiSession[]): SessionUser[] {
                     image_url: event.image_url,
                     s3_key: event.s3_key,
                     s3_key_adorned: event.s3_key_adorned,
+                    qa_face_similarity: event.qa_face_similarity,
+                    qa_hair_similarity: event.qa_hair_similarity,
+                    qa_neck_similarity: event.qa_neck_similarity,
+                    qa_saree_direction: event.qa_saree_direction,
+                    qa_saree_correct: event.qa_saree_correct,
+                    attempt: event.attempt,
+                    reason: event.reason,
+                    composite_asset_id: event.composite_asset_id,
                     attire_id: event.attire_id,
                     attire_name: event.attire_name,
                     generation_time_ms: event.generation_time_ms,
@@ -446,6 +470,19 @@ function eventSummary(event: UserEvent) {
     if (event.event_type === "photo.retake") {
         return "Customer chose to retake their photo.";
     }
+    if (event.event_type === "attire.selected") {
+        const attire = event.attire_name || event.attire_id || "an attire";
+        return `Customer selected ${attire} for try-on.`;
+    }
+    if (event.event_type === "adorn.applied") {
+        const attire = event.attire_name || event.attire_id || "attire";
+        return `Jewellery applied to ${attire}.`;
+    }
+    if (event.event_type === "generation_retry") {
+        const attempt = typeof event.attempt === "number" ? ` (attempt ${event.attempt})` : "";
+        const reason = event.reason ? `: ${event.reason}` : "";
+        return `Image generation failed QA${attempt}${reason}. Retrying…`;
+    }
     if (event.event_type === "view") {
         return `Customer viewed ${item}.`;
     }
@@ -484,8 +521,27 @@ function eventTypeLabel(eventType: string) {
     if (eventType === "photo.retake") {
         return "Photo Retake";
     }
+    if (eventType === "attire.selected") {
+        return "Attire Selected";
+    }
+    if (eventType === "adorn.applied") {
+        return "Adorn Applied";
+    }
+    if (eventType === "generation_retry") {
+        return "Generation Retry";
+    }
 
     return eventType.replaceAll("_", " ").replaceAll(".", " ");
+}
+
+function qaScoreColor(score: number) {
+    if (score >= 0.85) return "badge-success";
+    if (score >= 0.70) return "badge-warning";
+    return "badge-error";
+}
+
+function qaScorePct(score: number) {
+    return `${Math.round(score * 100)}%`;
 }
 
 function buildSessionRecommendation(
@@ -1133,6 +1189,25 @@ export const NextBestActionApp = () => {
                                                         {typeof event.generation_time_ms === "number" && (
                                                             <p className="text-base-content/50 text-xs mt-1">{event.generation_time_ms} ms to generate</p>
                                                         )}
+                                                        {(typeof event.qa_face_similarity === "number" || typeof event.qa_hair_similarity === "number" || typeof event.qa_neck_similarity === "number") && (
+                                                            <div className="flex flex-wrap gap-1 mt-1.5">
+                                                                {typeof event.qa_face_similarity === "number" && (
+                                                                    <span className={`badge badge-xs badge-soft ${qaScoreColor(event.qa_face_similarity)}`}>
+                                                                        Face {qaScorePct(event.qa_face_similarity)}
+                                                                    </span>
+                                                                )}
+                                                                {typeof event.qa_hair_similarity === "number" && (
+                                                                    <span className={`badge badge-xs badge-soft ${qaScoreColor(event.qa_hair_similarity)}`}>
+                                                                        Hair {qaScorePct(event.qa_hair_similarity)}
+                                                                    </span>
+                                                                )}
+                                                                {typeof event.qa_neck_similarity === "number" && (
+                                                                    <span className={`badge badge-xs badge-soft ${qaScoreColor(event.qa_neck_similarity)}`}>
+                                                                        Neck {qaScorePct(event.qa_neck_similarity)}
+                                                                    </span>
+                                                                )}
+                                                            </div>
+                                                        )}
                                                     </div>
                                                 </div>
                                             </div>
@@ -1161,6 +1236,60 @@ export const NextBestActionApp = () => {
                                             <div className="border-warning/30 bg-warning/5 mt-3 flex items-center gap-2 rounded-lg border px-3 py-2">
                                                 <span className="iconify lucide--camera-off text-warning size-4 shrink-0" />
                                                 <p className="text-warning text-xs font-medium">Customer retook their photo</p>
+                                            </div>
+                                        )}
+                                        {/* Attire selected */}
+                                        {event.event_type === "attire.selected" && (event.attire_id || event.attire_name) && (
+                                            <div className="border-base-200 bg-base-50 mt-3 flex items-center gap-2 rounded-lg border px-3 py-2">
+                                                <span className="iconify lucide--shirt text-base-content/50 size-4 shrink-0" />
+                                                <p className="text-sm font-medium">{event.attire_name || event.attire_id}</p>
+                                            </div>
+                                        )}
+                                        {/* Adorn applied */}
+                                        {event.event_type === "adorn.applied" && (
+                                            <div className="border-secondary/20 bg-secondary/5 mt-3 flex items-center gap-2 rounded-lg border px-3 py-2">
+                                                <span className="iconify lucide--gem text-secondary size-4 shrink-0" />
+                                                <p className="text-sm font-medium">
+                                                    {event.jewelry_name || event.jewellery_id || "Jewellery"}
+                                                    {event.attire_name ? <span className="text-base-content/50"> on {event.attire_name}</span> : null}
+                                                </p>
+                                            </div>
+                                        )}
+                                        {/* Generation retry — QA failure */}
+                                        {event.event_type === "generation_retry" && (
+                                            <div className="border-warning/30 bg-warning/5 mt-3 rounded-lg border p-3">
+                                                <div className="flex items-center gap-2 mb-2">
+                                                    <span className="iconify lucide--refresh-cw text-warning size-4 shrink-0" />
+                                                    <p className="text-warning text-xs font-semibold tracking-wide uppercase">
+                                                        QA Failed — Retrying
+                                                        {typeof event.attempt === "number" ? ` (Attempt ${event.attempt})` : ""}
+                                                    </p>
+                                                </div>
+                                                {event.reason && (
+                                                    <p className="text-base-content/70 text-xs mb-2">{event.reason}</p>
+                                                )}
+                                                <div className="flex flex-wrap gap-1.5">
+                                                    {typeof event.qa_face_similarity === "number" && (
+                                                        <span className={`badge badge-sm badge-soft ${qaScoreColor(event.qa_face_similarity)}`}>
+                                                            Face {qaScorePct(event.qa_face_similarity)}
+                                                        </span>
+                                                    )}
+                                                    {typeof event.qa_hair_similarity === "number" && (
+                                                        <span className={`badge badge-sm badge-soft ${qaScoreColor(event.qa_hair_similarity)}`}>
+                                                            Hair {qaScorePct(event.qa_hair_similarity)}
+                                                        </span>
+                                                    )}
+                                                    {typeof event.qa_neck_similarity === "number" && (
+                                                        <span className={`badge badge-sm badge-soft ${qaScoreColor(event.qa_neck_similarity)}`}>
+                                                            Neck {qaScorePct(event.qa_neck_similarity)}
+                                                        </span>
+                                                    )}
+                                                    {event.qa_saree_direction && (
+                                                        <span className={`badge badge-sm badge-soft ${event.qa_saree_correct === false ? "badge-error" : "badge-info"}`}>
+                                                            Saree: {event.qa_saree_direction.replace(/_/g, " ")}
+                                                        </span>
+                                                    )}
+                                                </div>
                                             </div>
                                         )}
                                         {/* Jewellery selected / shared — compact thumbnail card */}
