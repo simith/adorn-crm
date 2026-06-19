@@ -1189,7 +1189,7 @@ export const NextBestActionApp = () => {
                                                         {typeof event.generation_time_ms === "number" && (
                                                             <p className="text-base-content/50 text-xs mt-1">{event.generation_time_ms} ms to generate</p>
                                                         )}
-                                                        {(typeof event.qa_face_similarity === "number" || typeof event.qa_hair_similarity === "number" || typeof event.qa_neck_similarity === "number") && (
+                                                        {(typeof event.qa_face_similarity === "number" || typeof event.qa_hair_similarity === "number" || typeof event.qa_neck_similarity === "number" || event.qa_saree_direction) && (
                                                             <div className="flex flex-wrap gap-1 mt-1.5">
                                                                 {typeof event.qa_face_similarity === "number" && (
                                                                     <span className={`badge badge-xs badge-soft ${qaScoreColor(event.qa_face_similarity)}`}>
@@ -1204,6 +1204,11 @@ export const NextBestActionApp = () => {
                                                                 {typeof event.qa_neck_similarity === "number" && (
                                                                     <span className={`badge badge-xs badge-soft ${qaScoreColor(event.qa_neck_similarity)}`}>
                                                                         Neck {qaScorePct(event.qa_neck_similarity)}
+                                                                    </span>
+                                                                )}
+                                                                {event.qa_saree_direction && (
+                                                                    <span className={`badge badge-xs badge-soft ${event.qa_saree_correct === false ? "badge-error" : "badge-info"}`}>
+                                                                        Saree: {event.qa_saree_direction.replace(/_/g, " ")}
                                                                     </span>
                                                                 )}
                                                             </div>
