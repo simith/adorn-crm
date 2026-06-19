@@ -81,57 +81,62 @@ export async function GET(request: NextRequest) {
 
     const date = request.nextUrl.searchParams.get("date");
 
-    if (!date) {
-        // List available dates (top-level prefixes)
-        const cmd = new ListObjectsV2Command({ Bucket: bucket, Delimiter: "/" });
-        const res = await s3.send(cmd);
-        const dates = (res.CommonPrefixes || [])
-            .map((cp) => cp.Prefix?.replace(/\/$/, "") || "")
-            .filter(Boolean)
-            .sort()
-            .reverse();
-        return NextResponse.json({ ok: true, dates });
+    try {
+        if (!date) {
+            // List available dates (top-level prefixes)
+            const cmd = new ListObjectsV2Command({ Bucket: bucket, Delimiter: "/" });
+            const res = await s3.send(cmd);
+            const dates = (res.CommonPrefixes || [])
+                .map((cp) => cp.Prefix?.replace(/\/$/, "") || "")
+                .filter(Boolean)
+                .sort()
+                .reverse();
+            return NextResponse.json({ ok: true, dates });
+        }
+
+        // List all images for the given date
+        const rawKeys = await listAllKeys(s3, bucket, `${date}/`);
+
+        // Group: customer → session → images
+        const byCustomer = new Map<string, Map<string, S3Image[]>>();
+
+        for (const { key, lastModified } of rawKeys) {
+            const parts = key.split("/");
+            const customer = parts[1] || "";
+            if (!customer) continue;
+
+            const parsed = parseKey(key);
+            if (!parsed) continue;
+            parsed.lastModified = lastModified;
+
+            if (!byCustomer.has(customer)) byCustomer.set(customer, new Map());
+            const sessions = byCustomer.get(customer)!;
+            if (!sessions.has(parsed.sessionTime)) sessions.set(parsed.sessionTime, []);
+            sessions.get(parsed.sessionTime)!.push(parsed);
+        }
+
+        const customers: S3Customer[] = [...byCustomer.entries()].map(([email, sessionMap]) => ({
+            email,
+            sessions: [...sessionMap.entries()]
+                .sort(([a], [b]) => b.localeCompare(a))
+                .map(([sessionTime, images]) => ({
+                    sessionTime,
+                    images: images.sort((a, b) => {
+                        const typeOrder: Record<S3ImageType, number> = { original: 0, result: 1, adorned: 2, unknown: 3 };
+                        return typeOrder[a.type] - typeOrder[b.type];
+                    }),
+                })),
+        }));
+
+        customers.sort((a, b) => {
+            const aLatest = a.sessions[0]?.sessionTime || "";
+            const bLatest = b.sessions[0]?.sessionTime || "";
+            return bLatest.localeCompare(aLatest);
+        });
+
+        return NextResponse.json({ ok: true, date, customers });
+    } catch (err) {
+        const message = err instanceof Error ? err.message : String(err);
+        return NextResponse.json({ ok: false, error: message }, { status: 500 });
     }
-
-    // List all images for the given date
-    const rawKeys = await listAllKeys(s3, bucket, `${date}/`);
-
-    // Group: customer → session → images
-    const byCustomer = new Map<string, Map<string, S3Image[]>>();
-
-    for (const { key, lastModified } of rawKeys) {
-        const parts = key.split("/");
-        const customer = parts[1] || "";
-        if (!customer) continue;
-
-        const parsed = parseKey(key);
-        if (!parsed) continue;
-        parsed.lastModified = lastModified;
-
-        if (!byCustomer.has(customer)) byCustomer.set(customer, new Map());
-        const sessions = byCustomer.get(customer)!;
-        if (!sessions.has(parsed.sessionTime)) sessions.set(parsed.sessionTime, []);
-        sessions.get(parsed.sessionTime)!.push(parsed);
-    }
-
-    const customers: S3Customer[] = [...byCustomer.entries()].map(([email, sessionMap]) => ({
-        email,
-        sessions: [...sessionMap.entries()]
-            .sort(([a], [b]) => b.localeCompare(a))
-            .map(([sessionTime, images]) => ({
-                sessionTime,
-                images: images.sort((a, b) => {
-                    const typeOrder: Record<S3ImageType, number> = { original: 0, result: 1, adorned: 2, unknown: 3 };
-                    return typeOrder[a.type] - typeOrder[b.type];
-                }),
-            })),
-    }));
-
-    customers.sort((a, b) => {
-        const aLatest = a.sessions[0]?.sessionTime || "";
-        const bLatest = b.sessions[0]?.sessionTime || "";
-        return bLatest.localeCompare(aLatest);
-    });
-
-    return NextResponse.json({ ok: true, date, customers });
 }

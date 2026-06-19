@@ -68,13 +68,21 @@ export const ImageBrowserApp = () => {
 
     useEffect(() => {
         fetch("/api/s3-browser")
-            .then((r) => r.json() as Promise<DatesResponse>)
+            .then(async (r) => {
+                const text = await r.text();
+                try {
+                    return JSON.parse(text) as DatesResponse;
+                } catch {
+                    throw new Error(`API returned non-JSON: ${text.slice(0, 200)}`);
+                }
+            })
             .then((d) => {
+                if (!d.ok) throw new Error((d as { error?: string }).error || "Failed to load dates");
                 const available = d.dates || [];
                 setDates(available);
                 if (available[0]) setSelectedDate(available[0]);
             })
-            .catch((e) => setError(String(e)))
+            .catch((e: unknown) => setError(e instanceof Error ? e.message : String(e)))
             .finally(() => setLoadingDates(false));
     }, []);
 
@@ -83,9 +91,19 @@ export const ImageBrowserApp = () => {
         setLoadingImages(true);
         setCustomers([]);
         fetch(`/api/s3-browser?date=${encodeURIComponent(selectedDate)}`)
-            .then((r) => r.json() as Promise<ImagesResponse>)
-            .then((d) => setCustomers(d.customers || []))
-            .catch((e) => setError(String(e)))
+            .then(async (r) => {
+                const text = await r.text();
+                try {
+                    return JSON.parse(text) as ImagesResponse;
+                } catch {
+                    throw new Error(`API returned non-JSON: ${text.slice(0, 200)}`);
+                }
+            })
+            .then((d) => {
+                if (!d.ok) throw new Error((d as { error?: string }).error || "Failed to load images");
+                setCustomers(d.customers || []);
+            })
+            .catch((e: unknown) => setError(e instanceof Error ? e.message : String(e)))
             .finally(() => setLoadingImages(false));
     }, [selectedDate]);
 
