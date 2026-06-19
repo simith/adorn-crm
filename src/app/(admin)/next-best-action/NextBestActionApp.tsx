@@ -1190,26 +1190,42 @@ export const NextBestActionApp = () => {
                                                             <p className="text-base-content/50 text-xs mt-1">{event.generation_time_ms} ms to generate</p>
                                                         )}
                                                         {(typeof event.qa_face_similarity === "number" || typeof event.qa_hair_similarity === "number" || typeof event.qa_neck_similarity === "number" || event.qa_saree_direction) && (
-                                                            <div className="flex flex-wrap gap-1 mt-1.5">
+                                                            <div className="mt-2.5 grid grid-cols-2 gap-1.5">
                                                                 {typeof event.qa_face_similarity === "number" && (
-                                                                    <span className={`badge badge-xs badge-soft ${qaScoreColor(event.qa_face_similarity)}`}>
-                                                                        Face {qaScorePct(event.qa_face_similarity)}
-                                                                    </span>
+                                                                    <div className={`flex items-center gap-2 rounded-lg px-2.5 py-1.5 ${qaScoreColor(event.qa_face_similarity) === "badge-success" ? "bg-success/10" : qaScoreColor(event.qa_face_similarity) === "badge-warning" ? "bg-warning/10" : "bg-error/10"}`}>
+                                                                        <span className={`iconify lucide--scan-face size-4 shrink-0 ${qaScoreColor(event.qa_face_similarity) === "badge-success" ? "text-success" : qaScoreColor(event.qa_face_similarity) === "badge-warning" ? "text-warning" : "text-error"}`} />
+                                                                        <div className="min-w-0">
+                                                                            <p className="text-base-content/50 text-[9px] uppercase tracking-wide leading-none">Face</p>
+                                                                            <p className={`text-sm font-bold leading-tight ${qaScoreColor(event.qa_face_similarity) === "badge-success" ? "text-success" : qaScoreColor(event.qa_face_similarity) === "badge-warning" ? "text-warning" : "text-error"}`}>{qaScorePct(event.qa_face_similarity)}</p>
+                                                                        </div>
+                                                                    </div>
                                                                 )}
                                                                 {typeof event.qa_hair_similarity === "number" && (
-                                                                    <span className={`badge badge-xs badge-soft ${qaScoreColor(event.qa_hair_similarity)}`}>
-                                                                        Hair {qaScorePct(event.qa_hair_similarity)}
-                                                                    </span>
+                                                                    <div className={`flex items-center gap-2 rounded-lg px-2.5 py-1.5 ${qaScoreColor(event.qa_hair_similarity) === "badge-success" ? "bg-success/10" : qaScoreColor(event.qa_hair_similarity) === "badge-warning" ? "bg-warning/10" : "bg-error/10"}`}>
+                                                                        <span className={`iconify lucide--scissors size-4 shrink-0 ${qaScoreColor(event.qa_hair_similarity) === "badge-success" ? "text-success" : qaScoreColor(event.qa_hair_similarity) === "badge-warning" ? "text-warning" : "text-error"}`} />
+                                                                        <div className="min-w-0">
+                                                                            <p className="text-base-content/50 text-[9px] uppercase tracking-wide leading-none">Hair</p>
+                                                                            <p className={`text-sm font-bold leading-tight ${qaScoreColor(event.qa_hair_similarity) === "badge-success" ? "text-success" : qaScoreColor(event.qa_hair_similarity) === "badge-warning" ? "text-warning" : "text-error"}`}>{qaScorePct(event.qa_hair_similarity)}</p>
+                                                                        </div>
+                                                                    </div>
                                                                 )}
                                                                 {typeof event.qa_neck_similarity === "number" && (
-                                                                    <span className={`badge badge-xs badge-soft ${qaScoreColor(event.qa_neck_similarity)}`}>
-                                                                        Neck {qaScorePct(event.qa_neck_similarity)}
-                                                                    </span>
+                                                                    <div className={`flex items-center gap-2 rounded-lg px-2.5 py-1.5 ${qaScoreColor(event.qa_neck_similarity) === "badge-success" ? "bg-success/10" : qaScoreColor(event.qa_neck_similarity) === "badge-warning" ? "bg-warning/10" : "bg-error/10"}`}>
+                                                                        <span className={`iconify lucide--person-standing size-4 shrink-0 ${qaScoreColor(event.qa_neck_similarity) === "badge-success" ? "text-success" : qaScoreColor(event.qa_neck_similarity) === "badge-warning" ? "text-warning" : "text-error"}`} />
+                                                                        <div className="min-w-0">
+                                                                            <p className="text-base-content/50 text-[9px] uppercase tracking-wide leading-none">Neck</p>
+                                                                            <p className={`text-sm font-bold leading-tight ${qaScoreColor(event.qa_neck_similarity) === "badge-success" ? "text-success" : qaScoreColor(event.qa_neck_similarity) === "badge-warning" ? "text-warning" : "text-error"}`}>{qaScorePct(event.qa_neck_similarity)}</p>
+                                                                        </div>
+                                                                    </div>
                                                                 )}
                                                                 {event.qa_saree_direction && (
-                                                                    <span className={`badge badge-xs badge-soft ${event.qa_saree_correct === false ? "badge-error" : "badge-info"}`}>
-                                                                        Saree: {event.qa_saree_direction.replace(/_/g, " ")}
-                                                                    </span>
+                                                                    <div className={`flex items-center gap-2 rounded-lg px-2.5 py-1.5 ${event.qa_saree_correct === false ? "bg-error/10" : "bg-info/10"}`}>
+                                                                        <span className={`iconify lucide--wind size-4 shrink-0 ${event.qa_saree_correct === false ? "text-error" : "text-info"}`} />
+                                                                        <div className="min-w-0">
+                                                                            <p className="text-base-content/50 text-[9px] uppercase tracking-wide leading-none">Saree</p>
+                                                                            <p className={`text-sm font-bold leading-tight capitalize ${event.qa_saree_correct === false ? "text-error" : "text-info"}`}>{event.qa_saree_direction.replace(/_/g, " ")}</p>
+                                                                        </div>
+                                                                    </div>
                                                                 )}
                                                             </div>
                                                         )}
