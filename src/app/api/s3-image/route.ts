@@ -1,5 +1,6 @@
 import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import { createServerClient } from "@supabase/ssr";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -12,7 +13,30 @@ function getS3Client(): S3Client | null {
     return new S3Client({ region, credentials: { accessKeyId: key, secretAccessKey: secret } });
 }
 
+async function getAuthenticatedUser(request: NextRequest) {
+    const response = NextResponse.next({ request });
+    const supabase = createServerClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+        {
+            cookies: {
+                getAll: () => request.cookies.getAll(),
+                setAll: (cookiesToSet) => {
+                    cookiesToSet.forEach(({ name, value, options }) => response.cookies.set(name, value, options));
+                },
+            },
+        },
+    );
+    const { data: { user } } = await supabase.auth.getUser();
+    return user;
+}
+
 export async function GET(request: NextRequest) {
+    const user = await getAuthenticatedUser(request);
+    if (!user) {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const s3Key = request.nextUrl.searchParams.get("key");
     const bucket = process.env.S3_TRYON_BUCKET;
 
