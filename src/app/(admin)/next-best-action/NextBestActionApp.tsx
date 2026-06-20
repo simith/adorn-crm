@@ -1313,13 +1313,11 @@ export const NextBestActionApp = () => {
                                                 </div>
                                             </div>
                                         )}
-                                        {/* Jewellery selected / shared — compact thumbnail card */}
+                                        {/* Jewellery selected / view — compact thumbnail card */}
                                         {(event.event_type === "view" ||
                                             event.event_type === "jewellery_selected" ||
                                             event.event_type === "jewelry_selected" ||
-                                            event.event_type === "jewelry.selected" ||
-                                            event.event_type === "image_shared" ||
-                                            event.event_type === "image.shared") && (
+                                            event.event_type === "jewelry.selected") && (
                                             <div className="border-base-200 bg-base-50 mt-3 flex items-center gap-3 rounded-lg border p-2">
                                                 <img
                                                     src={event.image_url || jewelleryImageForEvent(event)}
@@ -1327,43 +1325,64 @@ export const NextBestActionApp = () => {
                                                     className="size-14 rounded-md object-cover"
                                                 />
                                                 <div className="min-w-0">
-                                                    <p className="text-base-content/60 flex items-center gap-1 text-xs font-semibold tracking-wide uppercase">
-                                                        {event.event_type === "view"
-                                                            ? "Viewed Jewellery"
-                                                            : event.event_type === "jewellery_selected" ||
-                                                                event.event_type === "jewelry_selected" ||
-                                                                event.event_type === "jewelry.selected"
-                                                              ? "Jewellery Selected"
-                                                              : "Image Shared"}
-                                                        {(event.event_type === "image_shared" ||
-                                                            event.event_type === "image.shared") &&
-                                                            event.channel === "whatsapp" && (
-                                                                <span className="iconify ri--whatsapp-fill size-4 text-[#25d366]" />
-                                                            )}
+                                                    <p className="text-base-content/60 text-xs font-semibold tracking-wide uppercase">
+                                                        {event.event_type === "view" ? "Viewed Jewellery" : "Jewellery Selected"}
                                                     </p>
                                                     <p className="truncate text-sm font-medium">
-                                                        {event.jewelry_name ||
-                                                            event.jewellery_id ||
-                                                            "Item code unavailable"}
+                                                        {event.jewelry_name || event.jewellery_id || "Item code unavailable"}
                                                     </p>
-                                                    {(event.event_type === "image_shared" ||
-                                                        event.event_type === "image.shared") &&
-                                                        event.destination && (
-                                                            <p className="text-base-content/60 truncate text-xs">
-                                                                To: {event.destination}
-                                                            </p>
-                                                        )}
                                                     {event.attire_name && (
                                                         <p className="text-base-content/60 truncate text-xs">
                                                             Attire: {event.attire_name}
                                                         </p>
                                                     )}
-                                                    {typeof event.price === "number" &&
-                                                        Number.isFinite(event.price) && (
-                                                            <p className="text-base-content/60 text-xs">
-                                                                Rs {event.price.toLocaleString()}
+                                                    {typeof event.price === "number" && Number.isFinite(event.price) && (
+                                                        <p className="text-base-content/60 text-xs">
+                                                            Rs {event.price.toLocaleString()}
+                                                        </p>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        )}
+                                        {/* Image shared — dedicated card with try-on image + WhatsApp destination */}
+                                        {(event.event_type === "image_shared" || event.event_type === "image.shared") && (
+                                            <div className="border-[#25d366]/30 bg-[#25d366]/5 mt-3 rounded-lg border overflow-hidden">
+                                                <div className="flex items-center gap-2 px-3 py-2 border-b border-[#25d366]/20">
+                                                    <span className="iconify ri--whatsapp-fill size-4 text-[#25d366]" />
+                                                    <p className="text-xs font-semibold text-[#128c3e] uppercase tracking-wide">Shared via WhatsApp</p>
+                                                    {event.share_status && (
+                                                        <span className={`ml-auto badge badge-xs badge-soft ${event.share_status === "sent" || event.share_status === "delivered" ? "badge-success" : "badge-warning"}`}>
+                                                            {event.share_status}
+                                                        </span>
+                                                    )}
+                                                </div>
+                                                <div className="flex gap-3 p-3 items-start">
+                                                    {event.image_url && (
+                                                        <img
+                                                            src={event.image_url}
+                                                            alt="Shared try-on"
+                                                            className="h-20 w-auto rounded-md object-contain border border-[#25d366]/20 shrink-0"
+                                                        />
+                                                    )}
+                                                    <div className="min-w-0 flex-1">
+                                                        <p className="text-sm font-semibold">
+                                                            {event.jewelry_name || event.jewellery_id || "Try-on image"}
+                                                        </p>
+                                                        {event.attire_name && (
+                                                            <p className="text-base-content/60 text-xs mt-0.5">{event.attire_name}</p>
+                                                        )}
+                                                        {event.destination && (
+                                                            <div className="flex items-center gap-1.5 mt-2">
+                                                                <span className="iconify lucide--phone size-3.5 text-base-content/50" />
+                                                                <p className="text-sm font-mono font-medium tracking-wide">{event.destination}</p>
+                                                            </div>
+                                                        )}
+                                                        {event.message_sid && (
+                                                            <p className="text-base-content/30 text-[10px] mt-1 font-mono truncate">
+                                                                SID: {event.message_sid}
                                                             </p>
                                                         )}
+                                                    </div>
                                                 </div>
                                             </div>
                                         )}
@@ -1398,14 +1417,11 @@ export const NextBestActionApp = () => {
                                                 </span>
                                             )}
                                             {(event.event_type === "image_shared" ||
-                                                event.event_type === "image.shared") && (
+                                                event.event_type === "image.shared") &&
+                                                event.channel &&
+                                                event.channel !== "whatsapp" && (
                                                 <span className="badge badge-outline badge-sm">
-                                                    Channel: {event.channel || "N/A"}
-                                                </span>
-                                            )}
-                                            {event.share_status && (
-                                                <span className="badge badge-outline badge-sm">
-                                                    Share Status: {event.share_status}
+                                                    Channel: {event.channel}
                                                 </span>
                                             )}
                                             {typeof event.duration_seconds === "number" &&
